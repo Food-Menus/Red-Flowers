@@ -3,40 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>من نحن - متجرنا الفاخر</title>
+    <title>عن Red Flowers</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="container">
+    <div class="full-width-container">
         <header class="header">
-            <div class="logo">
-                <img src="images/logo.png" alt="شعار المتجر">
-                <h1>متجرنا الفاخر</h1>
+            <div class="navbar-top">
+                <button class="sidebar-toggle" aria-label="Toggle sidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="logo">
+                    <h1>Red Flowers</h1>
+                </div>
             </div>
             <nav class="main-nav">
-                <ul>
+                <button class="menu-toggle" aria-label="Toggle navigation menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links">
                     <li><a href="index.html">الرئيسية</a></li>
-                    <li><a href="products.html">المنتجات</a></li>
-                    <li><a href="about.html">من نحن</a></li>
-                    <li><a href="order.html">اطلب الآن</a></li>
+                    <li><a href="products.html">باقاتنا</a></li>
+                    <li><a href="about.html" class="active">عن Red Flowers</a></li>
+                    <li><a href="order.html">اطلب باقتك</a></li>
                 </ul>
             </nav>
         </header>
 
         <main class="main-content about-page">
+            <aside class="sidebar">
+                <h2>أقسام الزهور</h2>
+                <ul>
+                    <li><a href="#">باقات الورد الطبيعي</a></li>
+                    <li><a href="#">ورود المناسبات الخاصة</a></li>
+                    <li><a href="#">نباتات الزينة</a></li>
+                    <li><a href="#">هدايا مع الورد</a></li>
+                    <li><a href="#">صناديق الورد الفاخرة</a></li>
+                </ul>
+                <div class="promo-box">
+                    <h3>عروض حصرية!</h3>
+                    <p>اكتشف باقاتنا الجديدة بأسعار لا تُصدق.</p>
+                    <button>تسوق الآن</button>
+                </div>
+            </aside>
             <section class="about-us">
-                <h2>من نحن</h2>
+                <h2>عن Red Flowers</h2>
                 <div class="about-content">
-                    <img src="images/logo-large.png" alt="شعار المتجر الكبير" class="about-logo">
-                    <p>في "متجرنا الفاخر"، نسعى لتقديم أرقى المنتجات العصرية التي تلبي ذوقك الرفيع. تأسس متجرنا على مبدأ الجودة العالية والتصميم الأنيق، لنقدم لك تجربة تسوق فريدة ومميزة.</p>
-                    <p>نؤمن بأن الأناقة لا تقتصر على المظهر الخارجي، بل تمتد لتشمل أدق التفاصيل في كل قطعة نقدمها. مهمتنا هي توفير مجموعة مختارة بعناية من الأزياء والإكسسوارات الفاخرة التي تجعلك تتألق في كل مناسبة.</p>
-                    <p>انضم إلينا في رحلتنا لاكتشاف عالم من الفخامة والرقي، حيث يلتقي الابتكار بالجودة لتقديم الأفضل لك.</p>
+                    <img src="images/logo-large.png" alt="شعار Red Flowers الكبير" class="about-logo">
+                    <p>في "Red Flowers"، نؤمن بأن كل وردة تحكي قصة. منذ تأسيسنا، ونحن نلتزم بتقديم أجود أنواع الزهور وأكثرها نضارة، لنساعدك على التعبير عن مشاعرك في كل مناسبة.</p>
+                    <p>نحن فخورون بتقديم مجموعة متنوعة من الباقات المصممة بعناية، من الكلاسيكية إلى العصرية، بالإضافة إلى تشكيلة فريدة من نباتات الزينة والهدايا المنسقة. هدفنا هو إضفاء البهجة والجمال على حياتك وحياة أحبائك.</p>
+                    <p>دع "Red Flowers" تكون وجهتك الأولى لكل ما يتعلق بالزهور، حيث الجودة تلتقي بالإبداع لتقديم تجربة لا تُنسى.</p>
                 </div>
             </section>
         </main>
 
         <footer class="footer">
-            <p>&copy; 2025 متجرنا الفاخر. جميع الحقوق محفوظة.</p>
+            <p>&copy; 2025 Red Flowers. جميع الحقوق محفوظة.</p>
             <div class="social-links">
                 <a href="#"><img src="images/facebook.png" alt="فيسبوك"></a>
                 <a href="#"><img src="images/instagram.png" alt="انستجرام"></a>
@@ -44,5 +67,6 @@
             </div>
         </footer>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>

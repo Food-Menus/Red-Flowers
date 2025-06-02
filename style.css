@@ -1,9 +1,9 @@
 /* General Styling */
 :root {
-    --primary-color: #333; /* Dark for luxury */
-    --secondary-color: #A08A6F; /* Gold/Bronze accent */
-    --text-color: #555;
-    --light-bg: #F8F8F8;
+    --primary-color: #d3546f; /* A slightly softer, but still rich red */
+    --secondary-color: #fca8ba; /* Gold/Bronze accent */
+    --text-color: #333;
+    --light-bg: #FCF4F4; /* Very subtle pinkish-white for background */
     --white: #FFF;
     --border-color: #EEE;
     --shadow-light: rgba(0, 0, 0, 0.08);
@@ -21,14 +21,13 @@ body {
     color: var(--text-color);
     background-color: var(--light-bg);
     direction: rtl; /* Right-to-left for Arabic */
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
+.full-width-container {
+    width: 100%; /* Take full width */
+    margin: 0; /* Remove margin */
     background-color: var(--white);
-    box-shadow: 0 0 20px var(--shadow-light);
-    border-radius: 8px;
     overflow: hidden;
 }
 
@@ -63,47 +62,91 @@ button:hover {
 
 /* Header */
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
     background-color: var(--white);
     border-bottom: 1px solid var(--border-color);
     box-shadow: 0 2px 5px var(--shadow-light);
+    padding-bottom: 10px; /* Space for the bottom nav */
+    position: relative; /* Needed for z-index and sidebar toggle */
+    z-index: 10; /* Ensure header is above main content */
+}
+
+.navbar-top {
+    display: flex;
+    justify-content: space-between; /* To push sidebar toggle left */
+    align-items: center;
+    padding: 15px 5%; /* Adjusted padding */
+    position: relative; /* For logo positioning */
+}
+
+.sidebar-toggle {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.3s ease;
+    /* Removed z-index here as sidebar is now overlay */
+}
+
+.sidebar-toggle:hover {
+    color: var(--secondary-color);
 }
 
 .logo {
-    display: flex;
+    display: flex; /* Keep it flex even without image for centering */
     align-items: center;
-}
-
-.logo img {
-    height: 50px;
-    margin-left: 10px;
+    position: absolute; /* Position logo absolutely to center it */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1; /* Ensure logo is on top */
 }
 
 .logo h1 {
     font-size: 1.8rem;
     color: var(--primary-color);
-    margin: 0;
+    margin: 0; /* Remove margin from h1 */
 }
 
-.main-nav ul {
-    display: flex;
-}
-
-.main-nav ul li {
-    margin-right: 30px;
-}
-
-.main-nav ul li a {
-    font-weight: bold;
-    font-size: 1.1rem;
-    padding: 5px 0;
+.main-nav {
+    text-align: center; /* Center the nav links */
+    padding: 0 5%; /* Maintain padding */
     position: relative;
 }
 
-.main-nav ul li a::after {
+.main-nav .menu-toggle {
+    display: none; /* Hidden by default on desktop */
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    top: 5px;
+    left: 5%; /* Position from left */
+    z-index: 100;
+}
+
+.main-nav ul.nav-links {
+    display: flex;
+    justify-content: center; /* Center the links */
+    padding: 0;
+}
+
+.main-nav ul.nav-links li {
+    margin: 0 20px; /* Space between links */
+}
+
+.main-nav ul.nav-links li a {
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 8px 0;
+    position: relative;
+    display: block; /* Make the whole area clickable */
+}
+
+.main-nav ul.nav-links li a::after {
     content: '';
     position: absolute;
     width: 0;
@@ -114,25 +157,36 @@ button:hover {
     transition: width 0.3s ease;
 }
 
-.main-nav ul li a:hover::after,
-.main-nav ul li a.active::after {
+.main-nav ul.nav-links li a:hover::after,
+.main-nav ul.nav-links li a.active::after {
     width: 100%;
 }
 
-/* Main Content Layout */
+/* Main Content Layout - No longer pushing content */
 .main-content {
-    display: flex;
-    padding: 30px 20px;
-    gap: 30px;
+    /* Removed flex properties and transform from here */
+    padding: 0; /* Padding will be handled by sections */
+    min-height: calc(100vh - 180px); /* Adjust height to fill viewport */
 }
 
-/* Sidebar */
+/* Sidebar - Overlay behavior */
 .sidebar {
-    flex: 0 0 250px; /* Fixed width sidebar */
+    position: fixed; /* Fixed position relative to viewport */
+    top: 0;
+    right: -250px; /* Hidden by default */
+    width: 250px;
+    height: 100%;
     background-color: var(--white);
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px var(--shadow-light);
+    box-shadow: -5px 0 15px var(--shadow-light); /* Shadow on the left */
+    z-index: 1000; /* Ensure it's above all other content */
+    transition: right 0.5s ease-in-out; /* Animation for sliding in/out */
+    overflow-y: auto; /* Enable scrolling for long content */
+    padding-top: 100px; /* Space for fixed header content */
+}
+
+.sidebar.open {
+    right: 0; /* Slide in */
 }
 
 .sidebar h2 {
@@ -185,18 +239,17 @@ button:hover {
 }
 
 .promo-box button:hover {
-    background-color: #222;
+    background-color: #6B0115; /* Darker red */
 }
-
 
 /* Hero Section (Slider) */
 .hero-section {
-    flex-grow: 1;
+    width: 100%; /* Full width */
     overflow: hidden;
     position: relative;
-    border-radius: 8px;
     box-shadow: 0 0 10px var(--shadow-light);
-    height: 400px; /* Fixed height for slider */
+    min-height: 250px; /* Minimum height for small screens */
+    /* Height will be set by JS using vh */
 }
 
 .slider {
@@ -212,17 +265,50 @@ button:hover {
     object-fit: cover;
     opacity: 0;
     transition: opacity 1s ease-in-out;
-    border-radius: 8px;
 }
 
 .slider img.active {
     opacity: 1;
 }
 
+.slider-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--white);
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+    padding: 20px 30px;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    width: 80%; /* Adjust text box width */
+    max-width: 600px;
+}
+
+.slider img.active + .slider-text {
+    opacity: 1; /* Show text with active slide */
+}
+
+.slider-text h2 {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+    color: var(--white);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.slider-text p {
+    font-size: 1.5rem;
+    color: var(--white);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+
 /* Product Suggestions & Grid */
 .product-suggestions {
     margin-top: 40px;
-    flex-grow: 1; /* Make it take remaining space */
+    padding: 0 5%; /* Apply padding here for content */
 }
 
 .product-suggestions h2, .all-products h2 {
@@ -249,10 +335,11 @@ button:hover {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 30px;
-    padding: 0 20px; /* Adjust padding for grid */
+    /* No padding here, handled by parent .product-suggestions */
 }
 
 .product-item {
+    display: block; /* Make the whole area a block link */
     background-color: var(--white);
     border-radius: 10px;
     box-shadow: 0 5px 15px var(--shadow-light);
@@ -260,6 +347,9 @@ button:hover {
     text-align: center;
     padding-bottom: 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: inherit; /* Inherit text color from parent */
+    position: relative; /* For image hover effect */
+    cursor: pointer;
 }
 
 .product-item:hover {
@@ -269,11 +359,35 @@ button:hover {
 
 .product-item img {
     width: 100%;
-    height: 200px;
+    height: 400px;
     object-fit: cover;
     margin-bottom: 15px;
     border-bottom: 1px solid var(--border-color);
+    transition: opacity 0.3s ease; /* Animation for image swap */
+    /* Ensure the original image is visible first */
+    z-index: 1;
 }
+
+.product-item img.hover-img {
+    position: absolute; /* Position the hover image */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 400px; /* Match main image height */
+    object-fit: cover;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s ease;
+    z-index: 2; /* Bring hover image to front */
+}
+
+.product-item:hover img:not(.hover-img) {
+    opacity: 0; /* Hide original image on hover */
+}
+
+.product-item:hover img.hover-img {
+    opacity: 1; /* Show hover image on hover */
+}
+
 
 .product-item h3 {
     font-size: 1.3rem;
@@ -286,7 +400,7 @@ button:hover {
     font-size: 0.9rem;
     color: var(--text-color);
     margin-bottom: 15px;
-    height: 40px; /* Fixed height for description */
+    height: 40px;
     overflow: hidden;
     padding: 0 15px;
 }
@@ -296,7 +410,7 @@ button:hover {
     font-weight: bold;
     color: var(--secondary-color);
     display: block;
-    margin-bottom: 15px;
+    margin-bottom: 0; /* No bottom margin, as button is removed */
 }
 
 /* Footer */
@@ -306,8 +420,6 @@ button:hover {
     text-align: center;
     padding: 25px 0;
     margin-top: 40px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
 }
 
 .footer p {
@@ -327,8 +439,8 @@ button:hover {
 
 /* About Page Specific */
 .about-page .main-content {
-    display: block; /* Remove flex for a full-width content */
-    padding: 40px;
+    display: block; /* Removed flex from here */
+    padding: 40px 5%; /* Use percentage for padding */
     text-align: center;
 }
 
@@ -352,7 +464,7 @@ button:hover {
 }
 
 .about-content {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
     background-color: var(--white);
     padding: 30px;
@@ -374,8 +486,8 @@ button:hover {
 
 /* Order Page Specific */
 .order-page .main-content {
-    display: block;
-    padding: 40px;
+    display: block; /* Removed flex from here */
+    padding: 40px 5%;
 }
 
 .order-form-section h2 {
@@ -399,7 +511,7 @@ button:hover {
 }
 
 .order-form {
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto;
     background-color: var(--white);
     padding: 30px;
@@ -421,6 +533,7 @@ button:hover {
 .form-group input[type="text"],
 .form-group input[type="email"],
 .form-group input[type="tel"],
+.form-group input[type="date"],
 .form-group textarea {
     width: 100%;
     padding: 12px;
@@ -443,13 +556,13 @@ button:hover {
 }
 
 .submit-button:hover {
-    background-color: #8B7A5F;
+    background-color: #B8962A;
 }
 
 /* Products Page Specific */
 .products-page .main-content {
-    display: block;
-    padding: 40px 20px;
+    display: block; /* Removed flex from here */
+    padding: 40px 5%;
 }
 
 .filter-options {
@@ -472,49 +585,105 @@ button:hover {
 
 .filter-options input[type="text"] {
     flex-grow: 1;
-    max-width: 300px;
+    max-width: 400px;
 }
 
 /* Responsive adjustments */
 @media (max-width: 992px) {
     .main-content {
-        flex-direction: column;
-        padding: 20px;
+        padding: 20px 3%; /* Adjust padding */
     }
 
     .sidebar {
-        flex: auto; /* Allow sidebar to take full width */
-        margin-bottom: 30px;
+        /* Already fixed position, no change needed here */
     }
 
     .header {
-        flex-direction: column;
-        text-align: center;
-        padding: 20px;
+        padding-bottom: 0; /* Remove bottom padding as menu is vertical */
     }
 
-    .main-nav ul {
-        margin-top: 15px;
-        flex-wrap: wrap;
-        justify-content: center;
+    .navbar-top {
+        padding: 15px 3%;
+        flex-wrap: wrap; /* Allow items to wrap */
     }
 
-    .main-nav ul li {
-        margin: 5px 15px;
+    .logo {
+        position: static; /* Reset positioning for smaller screens */
+        transform: none;
+        order: 2; /* Put logo in the middle */
+        flex-basis: 100%; /* Make logo take full width */
+        text-align: center; /* Center the h1 text */
+        margin-top: 10px; /* Space from top elements */
+    }
+
+    .logo h1 {
+        font-size: 1.6rem; /* Adjust font size */
+    }
+
+    .sidebar-toggle {
+        order: 1; /* Put toggle on the left */
+        margin-right: auto; /* Push it to the right for RTL */
+    }
+
+    .main-nav {
+        padding: 0; /* No padding here */
+        text-align: right; /* Align menu toggle to right */
+    }
+
+    .main-nav .menu-toggle {
+        display: block; /* Show hamburger menu button */
+        position: static; /* Reset static positioning */
+        margin-right: auto; /* Push to right */
+        padding: 10px 3%;
+    }
+
+    .main-nav ul.nav-links {
+        flex-direction: column; /* Stack links vertically */
+        background-color: var(--white);
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 100%; /* Position below header */
+        padding: 10px 0;
+        box-shadow: 0 5px 15px var(--shadow-light);
+        display: none; /* Hidden by default */
+        z-index: 99;
+    }
+
+    .main-nav ul.nav-links.open {
+        display: flex; /* Show when open */
+    }
+
+    .main-nav ul.nav-links li {
+        margin: 0;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .main-nav ul.nav-links li:last-child {
+        border-bottom: none;
+    }
+
+    .main-nav ul.nav-links li a {
+        padding: 12px 20px;
+        text-align: right;
     }
 
     .product-grid {
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .slider-text h2 {
+        font-size: 2rem;
+    }
+
+    .slider-text p {
+        font-size: 1.1rem;
     }
 }
 
 @media (max-width: 768px) {
     .logo h1 {
         font-size: 1.5rem;
-    }
-
-    .main-nav ul li {
-        margin-right: 15px;
     }
 
     .product-suggestions h2, .all-products h2 {
@@ -533,37 +702,35 @@ button:hover {
     .about-content p {
         font-size: 1rem;
     }
+
+    .sidebar {
+        width: 220px; /* Slightly smaller sidebar */
+        right: -220px;
+    }
+    /* Removed .main-content.sidebar-open transform */
 }
 
 @media (max-width: 480px) {
-    .header {
-        padding: 15px;
-    }
 
-    .logo img {
-        height: 40px;
+
+.logo {
+    margin-right: 30%;
+}
+    .navbar-top {
+        padding: 10px 2%;
     }
 
     .logo h1 {
         font-size: 1.2rem;
     }
 
-    .main-nav ul {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .main-nav ul li {
-        margin: 5px 0;
-    }
-
     .main-content {
-        padding: 15px;
+        padding: 15px 2%;
     }
 
     .product-grid {
-        grid-template-columns: 1fr; /* Single column on very small screens */
-        padding: 0 10px;
+        grid-template-columns: 1fr;
+        padding: 0;
     }
 
     .product-item {
@@ -577,4 +744,18 @@ button:hover {
     .filter-options input[type="text"] {
         max-width: 100%;
     }
+
+    .slider-text h2 {
+        font-size: 1.5rem;
+    }
+
+    .slider-text p {
+        font-size: 1rem;
+    }
+
+    .sidebar {
+        width: 180px; /* Even smaller sidebar */
+        right: -180px;
+    }
+    /* Removed .main-content.sidebar-open transform */
 }

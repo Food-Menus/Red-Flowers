@@ -3,29 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اطلب الآن - متجرنا الفاخر</title>
+    <title>اطلب باقتك - Red Flowers</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="container">
+    <div class="full-width-container">
         <header class="header">
-            <div class="logo">
-                <img src="images/logo.png" alt="شعار المتجر">
-                <h1>متجرنا الفاخر</h1>
+            <div class="navbar-top">
+                <button class="sidebar-toggle" aria-label="Toggle sidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="logo">
+                    <h1>Red Flowers</h1>
+                </div>
             </div>
             <nav class="main-nav">
-                <ul>
+                <button class="menu-toggle" aria-label="Toggle navigation menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links">
                     <li><a href="index.html">الرئيسية</a></li>
-                    <li><a href="products.html">المنتجات</a></li>
-                    <li><a href="about.html">من نحن</a></li>
-                    <li><a href="order.html">اطلب الآن</a></li>
+                    <li><a href="products.html">باقاتنا</a></li>
+                    <li><a href="about.html">عن Red Flowers</a></li>
+                    <li><a href="order.html" class="active">اطلب باقتك</a></li>
                 </ul>
             </nav>
         </header>
 
         <main class="main-content order-page">
+            <aside class="sidebar">
+                <h2>أقسام الزهور</h2>
+                <ul>
+                    <li><a href="#">باقات الورد الطبيعي</a></li>
+                    <li><a href="#">ورود المناسبات الخاصة</a></li>
+                    <li><a href="#">نباتات الزينة</a></li>
+                    <li><a href="#">هدايا مع الورد</a></li>
+                    <li><a href="#">صناديق الورد الفاخرة</a></li>
+                </ul>
+                <div class="promo-box">
+                    <h3>عروض حصرية!</h3>
+                    <p>اكتشف باقاتنا الجديدة بأسعار لا تُصدق.</p>
+                    <button>تسوق الآن</button>
+                </div>
+            </aside>
             <section class="order-form-section">
-                <h2>اطلب منتجاتك الآن</h2>
+                <h2>اطلب باقتك الآن</h2>
                 <form class="order-form">
                     <div class="form-group">
                         <label for="name">الاسم الكامل:</label>
@@ -40,12 +63,20 @@
                         <input type="tel" id="phone" name="phone" required>
                     </div>
                     <div class="form-group">
-                        <label for="address">عنوان الشحن:</label>
+                        <label for="address">عنوان التوصيل:</label>
                         <textarea id="address" name="address" rows="4" required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="product">المنتجات المطلوبة (مع الكمية):</label>
-                        <textarea id="product" name="product" rows="6" placeholder="مثال: فستان سهرة (1)، حقيبة يد فاخرة (1)" required></textarea>
+                        <textarea id="product" name="product" rows="6" placeholder="مثال: باقة الرومانسية (1)، نبتة الأوركيد (1)" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="delivery-date">تاريخ التوصيل المفضل:</label>
+                        <input type="date" id="delivery-date" name="delivery-date">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">رسالة خاصة (اختياري):</label>
+                        <textarea id="message" name="message" rows="3" placeholder="اكتب رسالة صغيرة لتُرفق مع الورد"></textarea>
                     </div>
                     <button type="submit" class="submit-button">إرسال الطلب</button>
                 </form>
@@ -53,7 +84,7 @@
         </main>
 
         <footer class="footer">
-            <p>&copy; 2025 متجرنا الفاخر. جميع الحقوق محفوظة.</p>
+            <p>&copy; 2025 Red Flowers. جميع الحقوق محفوظة.</p>
             <div class="social-links">
                 <a href="#"><img src="images/facebook.png" alt="فيسبوك"></a>
                 <a href="#"><img src="images/instagram.png" alt="انستجرام"></a>
@@ -61,5 +92,6 @@
             </div>
         </footer>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>

@@ -3,94 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجرنا الفاخر</title>
+    <title>Red Flowers - للورود والهدايا الفاخرة</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <style>
+        .social-links {
+    display: flex;
+    gap: 15px;
+}
+
+.social-links a {
+    color: #555;
+    font-size: 20px;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: #1877f2; /* لون فيسبوك - يمكن تغييره */
+}
+
+.social-links a:hover:nth-child(2) {
+    color: #e4405f; /* لون انستجرام */
+}
+
+.social-links a:hover:nth-child(3) {
+    color: #1da1f2; /* لون تويتر */
+}
+     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="full-width-container">
         <header class="header">
-            <div class="logo">
-                <img src="images/logo.png" alt="شعار المتجر">
-                <h1>متجرنا الفاخر</h1>
+            <div class="navbar-top">
+                <button class="sidebar-toggle" aria-label="Toggle sidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="logo">
+                    <h1>Red Flowers</h1>
+                </div>
             </div>
             <nav class="main-nav">
-                <ul>
-                    <li><a href="index.html">الرئيسية</a></li>
-                    <li><a href="products.html">المنتجات</a></li>
-                    <li><a href="about.html">من نحن</a></li>
-                    <li><a href="order.html">اطلب الآن</a></li>
+                <button class="menu-toggle" aria-label="Toggle navigation menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">الرئيسية</a></li>
+                    <li><a href="products.html">باقاتنا</a></li>
+                    <li><a href="about.html">عن Red Flowers</a></li>
+                    <li><a href="order.html">اطلب باقتك</a></li>
                 </ul>
             </nav>
         </header>
 
         <main class="main-content">
             <aside class="sidebar">
-                <h2>أقسام المتجر</h2>
+                <h2>أقسام الزهور</h2>
                 <ul>
-                    <li><a href="#">ملابس نسائية</a></li>
-                    <li><a href="#">ملابس رجالية</a></li>
-                    <li><a href="#">إكسسوارات</a></li>
-                    <li><a href="#">أحذية</a></li>
-                    <li><a href="#">حقائب</a></li>
+                    <li><a href="#">باقات الورد الطبيعي</a></li>
+                    <li><a href="#">ورود المناسبات الخاصة</a></li>
+                    <li><a href="#">نباتات الزينة</a></li>
+                    <li><a href="#">هدايا مع الورد</a></li>
+                    <li><a href="#">صناديق الورد الفاخرة</a></li>
                 </ul>
                 <div class="promo-box">
-                    <h3>عروض خاصة!</h3>
-                    <p>اكتشف أحدث التخفيضات لدينا.</p>
+                    <h3>عروض حصرية!</h3>
+                    <p>اكتشف باقاتنا الجديدة بأسعار لا تُصدق.</p>
                     <button>تسوق الآن</button>
                 </div>
             </aside>
 
             <section class="hero-section">
                 <div class="slider">
-                    <img src="images/slide1.jpg" alt="صورة منتج 1" class="slide active">
-                    <img src="images/slide2.jpg" alt="صورة منتج 2" class="slide">
-                    <img src="images/slide3.jpg" alt="صورة منتج 3" class="slide">
-                    <img src="images/slide4.jpg" alt="صورة منتج 4" class="slide">
+                    <img src="images/1.jpg" data-alt-src="images/flower-slide1.jpg" alt="باقة زهور 1" class="slide active">
+                    <img src="images/2.jpg" data-alt-src="images/flower-slide2.jpg" alt="باقة زهور 2" class="slide">
+                    <img src="images/3.jpg" data-alt-src="images/flower-slide3.jpg" alt="باقة زهور 3" class="slide">
+                    <img src="images/2.jpg" data-alt-src="images/flower-slide4.jpg" alt="باقة زهور 4" class="slide">
+                    <div class="slider-text">
+                        <h2>أهلاً بك في عالم Red Flowers</h2>
+                        <p>جمال الورد يبدأ هنا.</p>
+                    </div>
                 </div>
             </section>
 
             <section class="product-suggestions">
-                <h2>اقتراحاتنا لك</h2>
+                <h2>باقات مقترحة لك</h2>
                 <div class="product-grid">
-                    <div class="product-item">
-                        <img src="images/prod1.jpg" alt="اسم المنتج 1">
-                        <h3>اسم المنتج 1</h3>
-                        <p>وصف قصير للمنتج.</p>
-                        <span>$199.99</span>
-                        <button>شاهد المزيد</button>
-                    </div>
-                    <div class="product-item">
-                        <img src="images/prod2.jpg" alt="اسم المنتج 2">
-                        <h3>اسم المنتج 2</h3>
-                        <p>وصف قصير للمنتج.</p>
-                        <span>$249.99</span>
-                        <button>شاهد المزيد</button>
-                    </div>
-                    <div class="product-item">
-                        <img src="images/prod3.jpg" alt="اسم المنتج 3">
-                        <h3>اسم المنتج 3</h3>
-                        <p>وصف قصير للمنتج.</p>
-                        <span>$149.99</span>
-                        <button>شاهد المزيد</button>
-                    </div>
-                    <div class="product-item">
-                        <img src="images/prod4.jpg" alt="اسم المنتج 4">
-                        <h3>اسم المنتج 4</h3>
-                        <p>وصف قصير للمنتج.</p>
-                        <span>$299.99</span>
-                        <button>شاهد المزيد</button>
-                    </div>
+                    <a href="product-details.html?id=1" class="product-item">
+                        <img src="images/11.jpg" data-hover-src="images/44.jpg" alt="باقة الرومانسية">
+                        <h3>باقة الرومانسية</h3>
+                        <p>توليفة من أجمل الورود الحمراء لتضفي لمسة ساحرة.</p>
+                        <span>$59.99</span>
+                    </a>
+                    <a href="product-details.html?id=2" class="product-item">
+                        <img src="images/22.jpg" data-hover-src="images/11.jpg" alt="صندوق السعادة">
+                        <h3>صندوق السعادة</h3>
+                        <p>ورود ملونة مع شوكولاتة فاخرة، هدية تبهج القلب.</p>
+                        <span>$79.99</span>
+                    </a>
+                    <a href="product-details.html?id=3" class="product-item">
+                        <img src="images/33.jpg" data-hover-src="images/22.jpg" alt="نبتة الأوركيد">
+                        <h3>نبتة الأوركيد الملكية</h3>
+                        <p>نبتة زينة فاخرة تضفي لمسة أناقة على منزلك.</p>
+                        <span>$45.99</span>
+                    </a>
+                    <a href="product-details.html?id=4" class="product-item">
+                        <img src="images/44.jpg" data-hover-src="images/33.jpg" alt="باقة التخرج">
+                        <h3>باقة التخرج المبهجة</h3>
+                        <p>تصميم خاص لاحتفالات التخرج، احتفل بلحظات النجاح.</p>
+                        <span>$65.99</span>
+                    </a>
                 </div>
             </section>
         </main>
 
         <footer class="footer">
-            <p>&copy; 2025 متجرنا الفاخر. جميع الحقوق محفوظة.</p>
-            <div class="social-links">
-                <a href="#"><img src="images/facebook.png" alt="فيسبوك"></a>
-                <a href="#"><img src="images/instagram.png" alt="انستجرام"></a>
-                <a href="#"><img src="images/twitter.png" alt="تويتر"></a>
-            </div>
+            <p>&copy; 2025 Red Flowers. جميع الحقوق محفوظة.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
         </footer>
     </div>
     <script src="script.js"></script>
