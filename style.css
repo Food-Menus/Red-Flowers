@@ -1,7 +1,7 @@
 /* General Styling */
 :root {
     --primary-color: #d3546f; /* A slightly softer, but still rich red */
-    --secondary-color: #fca8ba; /* Gold/Bronze accent */
+    --secondary-color: #f76c8a; /* Gold/Bronze accent */
     --text-color: #333;
     --light-bg: #FCF4F4; /* Very subtle pinkish-white for background */
     --white: #FFF;
@@ -304,27 +304,33 @@ button:hover {
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
+/*////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*///////////////////////////////////   product   ////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
 /* Product Suggestions & Grid */
 .product-suggestions {
     margin-top: 40px;
-    padding: 0 5%; /* Apply padding here for content */
+    padding: 0 5%;
+    max-width: 1400px; /* تحديد عرض أقصى للقسم */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .product-suggestions h2, .all-products h2 {
-    font-size: 2rem;
+    font-size: 1.8rem; /* تصغير حجم الخط قليلاً */
     color: var(--primary-color);
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 25px; /* تقليل المسافة السفلية */
     position: relative;
-    padding-bottom: 10px;
+    padding-bottom: 8px;
 }
 
 .product-suggestions h2::after, .all-products h2::after {
     content: '';
     position: absolute;
-    width: 80px;
-    height: 3px;
+    width: 60px; /* تصغير عرض الخط */
+    height: 2px; /* تصغير ارتفاع الخط */
     background-color: var(--secondary-color);
     bottom: 0;
     left: 50%;
@@ -333,85 +339,121 @@ button:hover {
 
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    /* No padding here, handled by parent .product-suggestions */
+    grid-template-columns: repeat(4, 1fr); /* 4 أعمدة ثابتة */
+    gap: 20px; /* تقليل المسافة بين البطاقات */
+    justify-items: center; /* توسيط البطاقات */
 }
 
 .product-item {
-    display: block; /* Make the whole area a block link */
+    display: block;
     background-color: var(--white);
-    border-radius: 10px;
-    box-shadow: 0 5px 15px var(--shadow-light);
+    border-radius: 8px; /* تقليل نصف القطر */
+    box-shadow: 0 3px 10px var(--shadow-light); /* تخفيف الظل */
     overflow: hidden;
     text-align: center;
-    padding-bottom: 20px;
+    padding-bottom: 15px; /* تقليل الحشو السفلي */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    color: inherit; /* Inherit text color from parent */
-    position: relative; /* For image hover effect */
+    color: inherit;
+    position: relative;
     cursor: pointer;
+    width: 100%; /* التأكد من أن العرض كامل للخلية */
+    max-width: 420px; /* تحديد عرض أقصى للبطاقة */
 }
 
 .product-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(-3px); /* تخفيف تأثير الرفع */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .product-item img {
     width: 100%;
-    height: 400px;
+    height: 400px; /* تقليل ارتفاع الصورة */
     object-fit: cover;
-    margin-bottom: 15px;
+    margin-bottom: 10px; /* تقليل المسافة السفلية */
     border-bottom: 1px solid var(--border-color);
-    transition: opacity 0.3s ease; /* Animation for image swap */
-    /* Ensure the original image is visible first */
+    transition: opacity 0.3s ease;
     z-index: 1;
 }
 
 .product-item img.hover-img {
-    position: absolute; /* Position the hover image */
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 400px; /* Match main image height */
+    height: 300px; /* مطابقة ارتفاع الصورة الرئيسية */
     object-fit: cover;
-    opacity: 0; /* Hidden by default */
+    opacity: 0;
     transition: opacity 0.3s ease;
-    z-index: 2; /* Bring hover image to front */
+    z-index: 2;
 }
 
 .product-item:hover img:not(.hover-img) {
-    opacity: 0; /* Hide original image on hover */
+    opacity: 0;
 }
 
 .product-item:hover img.hover-img {
-    opacity: 1; /* Show hover image on hover */
+    opacity: 1;
 }
 
-
 .product-item h3 {
-    font-size: 1.3rem;
+    font-size: 1.1rem; /* تصغير حجم العنوان */
     color: var(--primary-color);
-    margin-bottom: 10px;
-    padding: 0 15px;
+    margin-bottom: 8px; /* تقليل المسافة السفلية */
+    padding: 0 2px; /* تقليل الحشو الجانبي */
+    height: 40px; /* ارتفاع ثابت للعنوان */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* تحديد عدد الأسطر */
+    -webkit-box-orient: vertical;
 }
 
 .product-item p {
-    font-size: 0.9rem;
+    font-size: 0.8rem; /* تصغير حجم النص */
     color: var(--text-color);
-    margin-bottom: 15px;
-    height: 40px;
+    margin-bottom: 10px; /* تقليل المسافة السفلية */
+    height: 36px; /* ارتفاع أقل للوصف */
     overflow: hidden;
-    padding: 0 15px;
+    padding: 0 10px; /* تقليل الحشو الجانبي */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* تحديد عدد الأسطر */
+    -webkit-box-orient: vertical;
 }
 
 .product-item span {
-    font-size: 1.4rem;
+    font-size: 1.2rem; /* تصغير حجم السعر */
     font-weight: bold;
     color: var(--secondary-color);
     display: block;
-    margin-bottom: 0; /* No bottom margin, as button is removed */
 }
+
+/* تعديلات للشاشات المتوسطة والصغيرة */
+@media (max-width: 1200px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 أعمدة للشاشات المتوسطة */
+    }
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr); /* عمودين للشاشات الصغيرة */
+    }
+    
+    .product-suggestions {
+        padding: 0 3%; /* تقليل الحشو الجانبي */
+    }
+}
+
+@media (max-width: 480px) {
+    .product-grid {
+        grid-template-columns: 1fr; /* عمود واحد للهواتف */
+    }
+}
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*///////////////////////////////////   footer   /////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
 
 /* Footer */
 .footer {
@@ -427,6 +469,11 @@ button:hover {
     font-size: 0.9rem;
 }
 
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*///////////////////////////////////   social   /////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
 .social-links img {
     height: 25px;
     margin: 0 10px;
@@ -436,6 +483,13 @@ button:hover {
 .social-links img:hover {
     transform: translateY(-3px);
 }
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*///////////////////////////////////   about   /////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
 
 /* About Page Specific */
 .about-page .main-content {

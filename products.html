@@ -1,14 +1,559 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>باقاتنا - Red Flowers</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* General Styling */
+        :root {
+            --primary-color: #d3546f;
+            --secondary-color: #f76c8a;
+            --text-color: #333;
+            --light-bg: #FCF4F4;
+            --white: #FFF;
+            --border-color: #EEE;
+            --shadow-light: rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            direction: rtl;
+            overflow-x: hidden;
+        }
+
+        .full-width-container {
+            width: 100%;
+            margin: 0;
+            background-color: var(--white);
+            overflow: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--secondary-color);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Header */
+        .header {
+            background-color: var(--white);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 5px var(--shadow-light);
+            padding-bottom: 10px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .navbar-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            position: relative;
+        }
+
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar-toggle:hover {
+            color: var(--secondary-color);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .main-nav {
+            text-align: center;
+            padding: 0 5%;
+            position: relative;
+        }
+
+        .main-nav .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 10px;
+            position: absolute;
+            top: 5px;
+            left: 5%;
+            z-index: 100;
+        }
+
+        .main-nav ul.nav-links {
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .main-nav ul.nav-links li {
+            margin: 0 20px;
+        }
+
+        .main-nav ul.nav-links li a {
+            font-weight: bold;
+            font-size: 1.1rem;
+            padding: 8px 0;
+            position: relative;
+            display: block;
+        }
+
+        .main-nav ul.nav-links li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .main-nav ul.nav-links li a:hover::after,
+        .main-nav ul.nav-links li a.active::after {
+            width: 100%;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 0;
+            min-height: calc(100vh - 180px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: var(--white);
+            padding: 20px;
+            box-shadow: -5px 0 15px var(--shadow-light);
+            z-index: 1000;
+            transition: right 0.5s ease-in-out;
+            overflow-y: auto;
+            padding-top: 100px;
+        }
+
+        .sidebar.open {
+            right: 0;
+        }
+
+        .sidebar h2 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 15px;
+        }
+
+        .sidebar ul li a {
+            font-size: 1rem;
+            display: block;
+            padding: 8px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: var(--light-bg);
+            color: var(--secondary-color);
+        }
+
+        .promo-box {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .promo-box h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .promo-box p {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .promo-box button {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        /* Products Section */
+        .all-products {
+            padding: 40px 5%;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .all-products h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .all-products h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 2px;
+            background-color: var(--secondary-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .filter-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-options select,
+        .filter-options input {
+            padding: 10px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1rem;
+            color: var(--text-color);
+            background-color: var(--white);
+        }
+
+        .filter-options input[type="text"] {
+            flex-grow: 1;
+            max-width: 400px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            justify-items: center;
+        }
+
+        .product-item {
+            display: block;
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 3px 10px var(--shadow-light);
+            overflow: hidden;
+            text-align: center;
+            padding-bottom: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: inherit;
+            position: relative;
+            cursor: pointer;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .product-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image-container {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            overflow: hidden;
+        }
+
+        .product-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.5s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .product-item img.main-image {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .product-item img.hover-image {
+            opacity: 0;
+            z-index: 2;
+        }
+
+        .product-item:hover img.main-image {
+            opacity: 0;
+        }
+
+        .product-item:hover img.hover-image {
+            opacity: 1;
+        }
+
+        .product-item h3 {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin: 15px 0 8px;
+            padding: 0 15px;
+            height: 50px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .product-item p {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            margin-bottom: 15px;
+            height: 40px;
+            overflow: hidden;
+            padding: 0 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .product-item span {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            display: block;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 25px 0;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .social-links img {
+            height: 25px;
+            margin: 0 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-links img:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .main-content {
+                padding: 20px 3%;
+            }
+
+            .logo {
+                position: static;
+                transform: none;
+                order: 2;
+                flex-basis: 100%;
+                text-align: center;
+                margin-top: 10px;
+            }
+
+            .logo h1 {
+                font-size: 1.6rem;
+            }
+
+            .sidebar-toggle {
+                order: 1;
+                margin-right: auto;
+            }
+
+            .main-nav {
+                padding: 0;
+                text-align: right;
+            }
+
+            .main-nav .menu-toggle {
+                display: block;
+                position: static;
+                margin-right: auto;
+                padding: 10px 3%;
+            }
+
+            .main-nav ul.nav-links {
+                flex-direction: column;
+                background-color: var(--white);
+                position: absolute;
+                width: 100%;
+                left: 0;
+                top: 100%;
+                padding: 10px 0;
+                box-shadow: 0 5px 15px var(--shadow-light);
+                display: none;
+                z-index: 99;
+            }
+
+            .main-nav ul.nav-links.open {
+                display: flex;
+            }
+
+            .main-nav ul.nav-links li {
+                margin: 0;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .main-nav ul.nav-links li:last-child {
+                border-bottom: none;
+            }
+
+            .main-nav ul.nav-links li a {
+                padding: 12px 20px;
+                text-align: right;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .all-products {
+                padding: 0 3%;
+            }
+
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+
+            .sidebar {
+                width: 220px;
+                right: -220px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                margin-right: 30%;
+            }
+
+            .navbar-top {
+                padding: 10px 2%;
+            }
+
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+
+            .main-content {
+                padding: 15px 2%;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+                padding: 0;
+                gap: 15px;
+            }
+
+            .product-item {
+                margin-bottom: 20px;
+                max-width: 100%;
+            }
+
+            .filter-options {
+                flex-direction: column;
+            }
+
+            .filter-options input[type="text"] {
+                max-width: 100%;
+            }
+
+            .sidebar {
+                width: 180px;
+                right: -180px;
+            }
+        }
+    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
     <div class="full-width-container">
+
         <header class="header">
             <div class="navbar-top">
                 <button class="sidebar-toggle" aria-label="Toggle sidebar">
@@ -47,57 +592,23 @@
                     <button>تسوق الآن</button>
                 </div>
             </aside>
+
             <section class="all-products">
                 <h2>اكتشف باقات Red Flowers</h2>
                 <div class="filter-options">
                     <select id="category-filter">
                         <option value="all">جميع الباقات</option>
-                        <option value="natural-flowers">باقات الورد الطبيعي</option>
-                        <option value="occasions">ورود المناسبات الخاصة</option>
-                        <option value="plants">نباتات الزينة</option>
-                        <option value="gifts">هدايا مع الورد</option>
-                        <option value="luxury-boxes">صناديق الورد الفاخرة</option>
+                        <option value="باقات الورد الطبيعي">باقات الورد الطبيعي</option>
+                        <option value="ورود المناسبات الخاصة">ورود المناسبات الخاصة</option>
+                        <option value="نباتات الزينة">نباتات الزينة</option>
+                        <option value="هدايا مع الورد">هدايا مع الورد</option>
+                        <option value="صناديق الورد الفاخرة">صناديق الورد الفاخرة</option>
                     </select>
                     <input type="text" id="search-bar" placeholder="ابحث عن باقة أو منتج...">
                 </div>
-                <div class="product-grid">
-                    <a href="product-details.html?id=5" class="product-item" data-category="natural-flowers">
-                        <img src="images/flower-prod5.jpg" data-hover-src="images/flower-prod5-hover.jpg" alt="باقة الورد الجوري">
-                        <h3>باقة الورد الجوري</h3>
-                        <p>أجمل باقات الورد الجوري الأحمر.</p>
-                        <span>$69.99</span>
-                    </a>
-                    <a href="product-details.html?id=6" class="product-item" data-category="occasions">
-                        <img src="images/flower-prod6.jpg" data-hover-src="images/flower-prod6-hover.jpg" alt="باقة عيد الأم">
-                        <h3>باقة عيد الأم</h3>
-                        <p>تصميم مميز ليوم الأم السعيد.</p>
-                        <span>$75.00</span>
-                    </a>
-                    <a href="product-details.html?id=7" class="product-item" data-category="plants">
-                        <img src="images/flower-prod7.jpg" data-hover-src="images/flower-prod7-hover.jpg" alt="نبتة البوتس">
-                        <h3>نبتة البوتس المتسلقة</h3>
-                        <p>نبتة زينة سهلة العناية لمنزلك.</p>
-                        <span>$29.99</span>
-                    </a>
-                    <a href="product-details.html?id=8" class="product-item" data-category="gifts">
-                        <img src="images/flower-prod8.jpg" data-hover-src="images/flower-prod8-hover.jpg" alt="باقة الورد مع الدب">
-                        <h3>باقة الورد مع الدب</h3>
-                        <p>هدية مثالية لمن تحب.</p>
-                        <span>$89.99</span>
-                    </a>
-                    <a href="product-details.html?id=9" class="product-item" data-category="luxury-boxes">
-                        <img src="images/flower-prod9.jpg" data-hover-src="images/flower-prod9-hover.jpg" alt="صندوق الورد المخملي">
-                        <h3>صندوق الورد المخملي</h3>
-                        <p>صندوق فاخر بتصميم أنيق.</p>
-                        <span>$120.00</span>
-                    </a>
-                    <a href="product-details.html?id=10" class="product-item" data-category="natural-flowers">
-                        <img src="images/flower-prod10.jpg" data-hover-src="images/flower-prod10-hover.jpg" alt="باقة الزنبق الأبيض">
-                        <h3>باقة الزنبق الأبيض</h3>
-                        <p>باقة نقية وأنيقة لجميع المناسبات.</p>
-                        <span>$55.00</span>
-                    </a>
-                </div>
+
+                <div class="product-grid" id="productGrid"></div>
+
             </section>
         </main>
 
@@ -109,7 +620,93 @@
                 <a href="#"><img src="images/twitter.png" alt="تويتر"></a>
             </div>
         </footer>
+
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        const sheetID = '1CK5wjrpnDTkriEfs8XRo5Sgnq07HHKsyO1pGU_tQguU'; // ID من رابط Google Sheets
+        const baseURL = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json`;
+
+        // دالة لجلب البيانات من Google Sheets
+        async function fetchProducts() {
+            const response = await fetch(baseURL);
+            const data = await response.text();
+            const jsonData = JSON.parse(data.substr(47).slice(0, -2)); // معالجة البيانات
+
+            return jsonData.table.rows.map(row => {
+                return {
+                    id: row.c[0].v,
+                    name: row.c[1].v,
+                    details: row.c[2].v,
+                    price: row.c[3].v,
+                    type: row.c[4].v, // إضافة نوع المنتج
+                    image1: row.c[5].v,
+                    image2: row.c[6].v
+                };
+            });
+        }
+
+        // دالة لعرض البيانات في بطاقات
+        async function displayProducts() {
+            const products = await fetchProducts();
+            const productGrid = document.getElementById("productGrid");
+            productGrid.innerHTML = ""; // مسح البطاقات الحالية
+
+            const categoryFilter = document.getElementById("category-filter");
+            const searchBar = document.getElementById("search-bar");
+
+            // تصفية المنتجات عند تغيير الفلتر أو البحث
+            function filterProducts() {
+                const searchTerm = searchBar.value.toLowerCase();
+                const selectedCategory = categoryFilter.value;
+
+                const filteredProducts = products.filter(product => {
+                    const matchesCategory = selectedCategory === "all" || product.type === selectedCategory;
+                    const matchesSearch = product.name.toLowerCase().includes(searchTerm) || product.details.toLowerCase().includes(searchTerm);
+                    return matchesCategory && matchesSearch;
+                });
+
+                // عرض المنتجات المصفاة
+                productGrid.innerHTML = ""; // مسح البطاقات الحالية
+                filteredProducts.forEach(product => {
+                    const card = document.createElement("a");
+                    card.href = `product-details.html?id=${product.id}`;
+                    card.className = "product-item";
+                    card.setAttribute("data-category", product.type);
+
+                    card.innerHTML = `
+                        <div class="product-image-container">
+                            <img class="main-image" src="${product.image1}" alt="${product.name}">
+                            <img class="hover-image" src="${product.image2}" alt="${product.name}">
+                        </div>
+                        <h3>${product.name}</h3>
+                        <p>${product.details}</p>
+                        <span>$${product.price}</span>
+                    `;
+                    productGrid.appendChild(card);
+                });
+            }
+
+            // عرض جميع المنتجات عند تحميل الصفحة
+            filterProducts();
+
+            // إضافة أحداث على الفلتر والبحث
+            categoryFilter.addEventListener("change", filterProducts);
+            searchBar.addEventListener("input", filterProducts);
+        }
+
+        // عرض المنتجات عند تحميل الصفحة
+        displayProducts();
+
+        // إضافة وظيفة فتح/إغلاق القائمة الجانبية
+        document.querySelector('.sidebar-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('open');
+        });
+
+        // إضافة وظيفة فتح/إغلاق القائمة الرئيسية
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('open');
+        });
+    </script>
 </body>
 </html>
