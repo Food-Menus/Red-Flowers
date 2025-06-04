@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>نظام إدارة المنتجات</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { padding: 20px; direction: rtl; }
+    .image-preview { max-width: 150px; max-height: 150px; margin: 10px; }
+    .form-group { margin-bottom: 15px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center mb-4">نظام إدارة المنتجات</h1>
+    
+    <div class="card mb-4">
+      <div class="card-header">
+        <h5>إضافة / تعديل منتج</h5>
+      </div>
+      <div class="card-body">
+        <form id="productForm">
+          <input type="hidden" id="rowIndex" value="">
+          <input type="hidden" id="product_ID" value="">
+          
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="product_Name">اسم المنتج</label>
+                <input type="text" class="form-control" id="product_Name" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="product_Details">تفاصيل المنتج</label>
+                <textarea class="form-control" id="product_Details" rows="3"></textarea>
+              </div>
+              
+              <div class="form-group">
+                <label for="product_prise">سعر المنتج</label>
+                <input type="number" class="form-control" id="product_prise" step="0.01" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="product_type">نوع المنتج</label>
+                <input type="text" class="form-control" id="product_type">
+              </div>
+            </div>
+            
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>صورة المنتج 1</label>
+                <input type="file" class="form-control" id="image1Input" accept="image/*">
+                <img id="image1Preview" class="image-preview" style="display: none;">
+                <input type="hidden" id="product_Imge_1">
+                <button type="button" class="btn btn-secondary mt-2" onclick="uploadImage('image1Input', 'product_Imge_1', 'image1Preview')">رفع الصورة</button>
+              </div>
+              
+              <div class="form-group">
+                <label>صورة المنتج 2</label>
+                <input type="file" class="form-control" id="image2Input" accept="image/*">
+                <img id="image2Preview" class="image-preview" style="display: none;">
+                <input type="hidden" id="product_Imge_2">
+                <button type="button" class="btn btn-secondary mt-2" onclick="uploadImage('image2Input', 'product_Imge_2', 'image2Preview')">رفع الصورة</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="text-center mt-3">
+            <button type="button" class="btn btn-primary" onclick="saveProduct()">حفظ</button>
+            <button type="button" class="btn btn-warning" onclick="clearForm()">تفريغ الحقول</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="card-header">
+        <h5>قائمة المنتجات</h5>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <input type="text" class="form-control" id="searchInput" placeholder="ابحث عن منتج...">
+        </div>
+        
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>الصورة</th>
+                <th>الاسم</th>
+                <th>السعر</th>
+                <th>النوع</th>
+                <th>الإجراءات</th>
+              </tr>
+            </thead>
+            <tbody id="productsTable">
+              <!-- سيتم ملؤها بالبيانات -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // تحميل البيانات عند فتح الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+      searchProducts();
+      
+      // البحث أثناء الكتابة
+      document.getElementById('searchInput').addEventListener('input', function() {
+        searchProducts();
+      });
+    });
+    
+    // رفع الصور إلى Drive
+    function uploadImage(inputId, hiddenInputId, previewId) {
+      const fileInput = document.getElementById(inputId);
+      const file = fileInput.files[0];
+      
+      if (!file) {
+        alert('الرجاء اختيار صورة أولاً');
+        return;
+      }
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const preview = document.getElementById(previewId);
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+        
+        // تحويل الصورة إلى base64 وإرسالها
+        const base64Data = e.target.result.split(',')[1];
+        
+        google.script.run.withSuccessHandler(function(response) {
+          if (response.status === 'success') {
+            document.getElementById(hiddenInputId).value = response.imageUrl;
+            alert('تم رفع الصورة بنجاح');
+          } else {
+            alert('حدث خطأ أثناء رفع الصورة: ' + response.message);
+          }
+        }).withFailureHandler(function(error) {
+          alert('حدث خطأ: ' + error.message);
+        }).handleImageUpload({
+          fileData: base64Data,
+          mimeType: file.type,
+          fileName: file.name
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+    
+    // البحث عن المنتجات
+    function searchProducts() {
+      const searchTerm = document.getElementById('searchInput').value;
+      
+      google.script.run.withSuccessHandler(function(response) {
+        if (response.status === 'success') {
+          renderProductsTable(response.data);
+        } else {
+          alert('حدث خطأ أثناء جلب البيانات: ' + response.message);
+        }
+      }).withFailureHandler(function(error) {
+        alert('حدث خطأ: ' + error.message);
+      }).searchProductData({
+        searchTerm: searchTerm
+      });
+    }
+    
+    // عرض البيانات في الجدول
+    function renderProductsTable(products) {
+      const tableBody = document.getElementById('productsTable');
+      tableBody.innerHTML = '';
+      
+      if (products.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="6" class="text-center">لا توجد منتجات</td></tr>';
+        return;
+      }
+      
+      products.forEach(product => {
+        const row = document.createElement('tr');
+        
+        row.innerHTML = `
+          <td>${product.product_ID}</td>
+          <td>
+            ${product.product_Imge_1 ? 
+              `<img src="${product.product_Imge_1}" class="image-preview">` : 
+              'لا توجد صورة'}
+          </td>
+          <td>${product.product_Name}</td>
+          <td>${product.product_prise}</td>
+          <td>${product.product_type}</td>
+          <td>
+            <button class="btn btn-sm btn-info" onclick="editProduct(${product.rowIndex}, '${product.product_ID}')">تعديل</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteProduct(${product.rowIndex}, '${product.product_ID}')">حذف</button>
+          </td>
+        `;
+        
+        tableBody.appendChild(row);
+      });
+    }
+    
+    // حفظ المنتج (إضافة/تعديل)
+    function saveProduct() {
+      const rowIndex = document.getElementById('rowIndex').value;
+      const formData = {
+        product_Name: document.getElementById('product_Name').value,
+        product_Details: document.getElementById('product_Details').value,
+        product_prise: document.getElementById('product_prise').value,
+        product_type: document.getElementById('product_type').value,
+        product_Imge_1: document.getElementById('product_Imge_1').value,
+        product_Imge_2: document.getElementById('product_Imge_2').value
+      };
+      
+      if (!formData.product_Name || !formData.product_prise) {
+        alert('الرجاء إدخال اسم المنتج وسعره');
+        return;
+      }
+      
+      if (rowIndex) {
+        // تعديل منتج موجود
+        google.script.run.withSuccessHandler(function(response) {
+          if (response.status === 'success') {
+            alert('تم تعديل المنتج بنجاح');
+            clearForm();
+            searchProducts();
+          } else {
+            alert('حدث خطأ أثناء التعديل: ' + response.message);
+          }
+        }).withFailureHandler(function(error) {
+          alert('حدث خطأ: ' + error.message);
+        }).updateProductData({
+          rowIndex: rowIndex,
+          data: JSON.stringify(formData)
+        });
+      } else {
+        // إضافة منتج جديد
+        google.script.run.withSuccessHandler(function(response) {
+          if (response.status === 'success') {
+            alert('تم إضافة المنتج بنجاح - ID: ' + response.insertedId);
+            clearForm();
+            searchProducts();
+          } else {
+            alert('حدث خطأ أثناء الإضافة: ' + response.message);
+          }
+        }).withFailureHandler(function(error) {
+          alert('حدث خطأ: ' + error.message);
+        }).addProductData({
+          data: JSON.stringify(formData)
+        });
+      }
+    }
+    
+    // تعديل منتج
+    function editProduct(rowIndex, productId) {
+      google.script.run.withSuccessHandler(function(response) {
+        if (response.status === 'success') {
+          const product = response.data[0];
+          
+          document.getElementById('rowIndex').value = rowIndex;
+          document.getElementById('product_ID').value = productId;
+          document.getElementById('product_Name').value = product.product_Name;
+          document.getElementById('product_Details').value = product.product_Details;
+          document.getElementById('product_prise').value = product.product_prise;
+          document.getElementById('product_type').value = product.product_type;
+          
+          // معالجة الصور
+          const image1Preview = document.getElementById('image1Preview');
+          const image2Preview = document.getElementById('image2Preview');
+          
+          if (product.product_Imge_1) {
+            document.getElementById('product_Imge_1').value = product.product_Imge_1;
+            image1Preview.src = product.product_Imge_1;
+            image1Preview.style.display = 'block';
+          } else {
+            document.getElementById('product_Imge_1').value = '';
+            image1Preview.style.display = 'none';
+          }
+          
+          if (product.product_Imge_2) {
+            document.getElementById('product_Imge_2').value = product.product_Imge_2;
+            image2Preview.src = product.product_Imge_2;
+            image2Preview.style.display = 'block';
+          } else {
+            document.getElementById('product_Imge_2').value = '';
+            image2Preview.style.display = 'none';
+          }
+          
+          // التمرير إلى أعلى النموذج
+          window.scrollTo(0, 0);
+        } else {
+          alert('حدث خطأ أثناء جلب بيانات المنتج: ' + response.message);
+        }
+      }).withFailureHandler(function(error) {
+        alert('حدث خطأ: ' + error.message);
+      }).searchProductData({
+        searchTerm: productId
+      });
+    }
+    
+    // حذف منتج
+    function deleteProduct(rowIndex, productId) {
+      if (!confirm('هل أنت متأكد من حذف هذا المنتج؟')) return;
+      
+      google.script.run.withSuccessHandler(function(response) {
+        if (response.status === 'success') {
+          alert('تم حذف المنتج بنجاح');
+          searchProducts();
+        } else {
+          alert('حدث خطأ أثناء الحذف: ' + response.message);
+        }
+      }).withFailureHandler(function(error) {
+        alert('حدث خطأ: ' + error.message);
+      }).deleteProductData({
+        rowIndex: rowIndex
+      });
+    }
+    
+    // تفريغ النموذج
+    function clearForm() {
+      document.getElementById('productForm').reset();
+      document.getElementById('rowIndex').value = '';
+      document.getElementById('product_ID').value = '';
+      document.getElementById('image1Preview').style.display = 'none';
+      document.getElementById('image2Preview').style.display = 'none';
+      document.getElementById('image1Input').value = '';
+      document.getElementById('image2Input').value = '';
+    }
+  </script>
+</body>
+</html>
