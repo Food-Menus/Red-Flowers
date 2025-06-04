@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض بيانات المنتجات</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>بيانات المنتجات</h1>
+    <table id="productTable">
+        <thead>
+            <tr>
+                <th>product_ID</th>
+                <th>product_Name</th>
+                <th>product_Details</th>
+                <th>product_prise</th>
+                <th>product_Imge_1</th>
+                <th>product_Imge_2</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        const sheetID = '1CK5wjrpnDTkriEfs8XRo5Sgnq07HHKsyO1pGU_tQguU'; // ID من رابط Google Sheets
+        const baseURL = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json`;
+
+        // دالة لجلب البيانات من Google Sheets
+        async function fetchProducts() {
+            const response = await fetch(baseURL);
+            const data = await response.text();
+            const jsonData = JSON.parse(data.substr(47).slice(0, -2)); // معالجة البيانات
+
+            return jsonData.table.rows.map(row => {
+                return {
+                    id: row.c[0].v,
+                    name: row.c[1].v,
+                    details: row.c[2].v,
+                    price: row.c[3].v,
+                    image1: row.c[4].v,
+                    image2: row.c[5].v
+                };
+            });
+        }
+
+        // دالة لعرض البيانات في الجدول
+        async function displayProducts() {
+            const products = await fetchProducts();
+            const tableBody = document.querySelector("#productTable tbody");
+            tableBody.innerHTML = ""; // مسح الجدول الحالي
+
+            products.forEach(product => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${product.id}</td>
+                    <td>${product.name}</td>
+                    <td>${product.details}</td>
+                    <td>${product.price}</td>
+                    <td><img src="${product.image1}" alt="${product.name}" width="100"></td>
+                    <td><img src="${product.image2}" alt="${product.name}" width="100"></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // عرض المنتجات عند تحميل الصفحة
+        displayProducts();
+    </script>
+</body>
+
+
+
+
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <!-- <div class="product-grid">
+                    <a href="product-details.html?id=5" class="product-item" data-category="natural-flowers">
+                        <img src="images/11.jpg" data-hover-src="images/flower-prod5-hover.jpg" alt="باقة الورد الجوري">
+                        <h3>باقة الورد الجوري</h3>
+                        <p>أجمل باقات الورد الجوري الأحمر.</p>
+                        <span>$69.99</span>
+                    </a>
+                    <a href="product-details.html?id=6" class="product-item" data-category="occasions">
+                        <img src="images/33.jpg" data-hover-src="images/flower-prod6-hover.jpg" alt="باقة عيد الأم">
+                        <h3>باقة عيد الأم</h3>
+                        <p>تصميم مميز ليوم الأم السعيد.</p>
+                        <span>$75.00</span>
+                    </a>
+                    <a href="product-details.html?id=7" class="product-item" data-category="plants">
+                        <img src="images/22.jpg" data-hover-src="images/flower-prod7-hover.jpg" alt="نبتة البوتس">
+                        <h3>نبتة البوتس المتسلقة</h3>
+                        <p>نبتة زينة سهلة العناية لمنزلك.</p>
+                        <span>$29.99</span>
+                    </a>
+                    <a href="product-details.html?id=8" class="product-item" data-category="gifts">
+                        <img src="images/44.jpg" data-hover-src="images/flower-prod8-hover.jpg" alt="باقة الورد مع الدب">
+                        <h3>باقة الورد مع الدب</h3>
+                        <p>هدية مثالية لمن تحب.</p>
+                        <span>$89.99</span>
+                    </a>
+                    <a href="product-details.html?id=9" class="product-item" data-category="luxury-boxes">
+                        <img src="images/11.jpg" data-hover-src="images/flower-prod9-hover.jpg" alt="صندوق الورد المخملي">
+                        <h3>صندوق الورد المخملي</h3>
+                        <p>صندوق فاخر بتصميم أنيق.</p>
+                        <span>$120.00</span>
+                    </a>
+                    <a href="product-details.html?id=10" class="product-item" data-category="natural-flowers">
+                        <img src="images/33.jpg" data-hover-src="images/flower-prod10-hover.jpg" alt="باقة الزنبق الأبيض">
+                        <h3>باقة الزنبق الأبيض</h3>
+                        <p>باقة نقية وأنيقة لجميع المناسبات.</p>
+                        <span>$55.00</span>
+                    </a>
+                </div> -->
+   
