@@ -32,6 +32,58 @@
             overflow-x: hidden;
         }
 
+        /* Preloader Styles */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .preloader-content {
+            text-align: center;
+        }
+
+        .preloader-logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        .preloader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--light-bg);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+
         .full-width-container {
             width: 100%;
             margin: 0;
@@ -607,50 +659,28 @@
 </head>
 
 <body>
-    
-    <div class="full-width-container">
+<!--############################  loading  ###################################-->
+    <div class="preloader">
+        <div class="preloader-content">
+            <img src="images/logo1.png" alt="Red Flowers Logo" class="preloader-logo">
+            <div class="preloader-spinner"></div>
+            <p>جاري التحميل...</p>
+        </div>
+    </div>
+<!--##########################################################################-->
 
-        <header class="header">
-            <div class="navbar-top">
-                <button class="sidebar-toggle" aria-label="Toggle sidebar">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="logo">
-                    <h1>Red Flowers</h1>
-                </div>
-            </div>
-            <nav class="main-nav">
-                <button class="menu-toggle" aria-label="Toggle navigation menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <ul class="nav-links">
-                    <li><a href="index.html" class="active">الرئيسية</a></li>
-                    <li><a href="products.html">باقاتنا</a></li>
-                    <li><a href="about.html">عن Red Flowers</a></li>
-                    <li><a href="order.html">اطلب باقتك</a></li>
-                </ul>
-            </nav>
-        </header>
+<!------------------------------------------------------------------------------>
+<div class="full-width-container"><!-------------------------------------------->
 
-        <main class="main-content">
+<!--#############################  Header  ###################################-->
+<div id="Header"></div> 
+<!--##########################################################################-->
 
-            <aside class="sidebar">
-                <h2>أقسام الزهور</h2>
-                <ul>
-                    <li><a href="#">باقات الورد الطبيعي</a></li>
-                    <li><a href="#">ورود المناسبات الخاصة</a></li>
-                    <li><a href="#">نباتات الزينة</a></li>
-                    <li><a href="#">هدايا مع الورد</a></li>
-                    <li><a href="#">صناديق الورد الفاخرة</a></li>
-                </ul>
-                <div class="promo-box">
-                    <h3>عروض حصرية!</h3>
-                    <p>اكتشف باقاتنا الجديدة بأسعار لا تُصدق.</p>
-                    <button>تسوق الآن</button>
-                </div>
-            </aside>
-            <div id="Sidebar"></div> 
+<!--#############################  Sidebar  ##################################-->
+<div id="Sidebar"></div> 
+<!--##########################################################################-->
 
+    <main class="main-content">
             <section class="hero-section">
                 <div class="slider">
                     <img src="images/1.jpg" data-alt-src="images/flower-slide1.jpg" alt="باقة زهور 1" class="slide active">
@@ -670,131 +700,20 @@
                     <!-- سيتم ملء هذا القسم بالبيانات من Google Sheets -->
                 </div>
             </section>
+    </main>
 
-        </main>
+<!--#############################  Footer  ###################################-->
+<div id="Footer"></div> 
+<!--##########################################################################-->
 
-        <footer class="footer">
-            <p>&copy; 2025 Red Flowers. جميع الحقوق محفوظة.</p>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-            </div>
-        </footer>
+</div><!------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------>
 
-    </div>
-
-     <script>
-        // دالة لفتح/إغلاق القائمة الجانبية
-        document.querySelector('.sidebar-toggle').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.toggle('open');
-        });
-
-        // دالة لفتح/إغلاق القائمة الرئيسية
-        document.querySelector('.menu-toggle').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('open');
-        });
-
-        // دالة لعرض السلايدر
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        
-        function showSlide(n) {
-            slides.forEach(slide => slide.classList.remove('active'));
-            currentSlide = (n + slides.length) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }
-
-        function nextSlide() {
-            showSlide(currentSlide + 1);
-        }
-
-        // تغيير الصورة كل 3 ثواني
-        setInterval(nextSlide, 3000);
-
-        // جلب البيانات من Google Sheets
-        const sheetID = '1CK5wjrpnDTkriEfs8XRo5Sgnq07HHKsyO1pGU_tQguU';
-        const sheetUrl = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json`;
-
-        fetch(sheetUrl)
-            .then(res => res.text())
-            .then(text => {
-                const jsonData = JSON.parse(text.substr(47).slice(0, -2));
-                const rows = jsonData.table.rows;
-                
-                // تحويل البيانات إلى مصفوفة منتجات
-                const products = rows.map((row, index) => {
-                    // تخطي الصف الأول (العناوين)
-                    if (index === 0) return null;
-                    
-                    const cells = row.c;
-                    return {
-                        id: cells[0]?.v || '',
-                        name: cells[1]?.v || '',
-                        details: cells[2]?.v || '',
-                        price: cells[3]?.v || '0',
-                        type: cells[4]?.v || '',
-                        image1: cells[5]?.v || '',
-                        image2: cells[6]?.v || ''
-                    };
-                }).filter(product => product !== null); // تصفية القيم الفارغة
-
-                // فرز المنتجات حسب السعر (من الأرخص للأغلى)
-                products.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
-
-                // اختيار أغلى باقاتين وأرخص باقاتين
-                const cheapestProducts = products.slice(0, 2);
-                const expensiveProducts = products.slice(-2);
-                const selectedProducts = [...cheapestProducts, ...expensiveProducts];
-
-                // عرض المنتجات المختارة
-                const productContainer = document.getElementById('product-container');
-                selectedProducts.forEach(product => {
-                    const productItem = document.createElement('a');
-                    productItem.className = 'product-item';
-                    productItem.href = `product-details.html?id=${product.id}`;
-                    
-                    productItem.innerHTML = `
-                        <img src="${product.image1}" data-hover-src="${product.image2}" alt="${product.name}">
-                        <h3>${product.name}</h3>
-                        <p>${product.details}</p>
-                        <span>$${product.price}</span>
-                    `;
-                    
-                    productContainer.appendChild(productItem);
-                });
-
-                // إضافة تأثير تغيير الصورة عند الوقوف بالماوس
-                document.querySelectorAll('.product-item img').forEach(img => {
-                    const hoverSrc = img.getAttribute('data-hover-src');
-                    if (hoverSrc) {
-                        const hoverImg = new Image();
-                        hoverImg.src = hoverSrc;
-                        hoverImg.style.position = 'absolute';
-                        hoverImg.style.top = '0';
-                        hoverImg.style.left = '0';
-                        hoverImg.style.opacity = '0';
-                        hoverImg.style.transition = 'opacity 0.5s ease';
-                        img.parentNode.insertBefore(hoverImg, img.nextSibling);
-
-                        img.parentElement.addEventListener('mouseenter', () => {
-                            img.style.opacity = '0';
-                            hoverImg.style.opacity = '1';
-                        });
-
-                        img.parentElement.addEventListener('mouseleave', () => {
-                            img.style.opacity = '1';
-                            hoverImg.style.opacity = '0';
-                        });
-                    }
-                });
-            })
-            .catch(error => {
-                console.error('حدث خطأ أثناء جلب البيانات:', error);
-                document.getElementById('product-container').innerHTML = '<p>عذرًا، حدث خطأ أثناء تحميل المنتجات.</p>';
-            });
-    </script>
-    <script src="/Componsnts.js" defer></script>
+<!--##########################################################################-->
+<!--#############################  script  ###################################-->
+    <script src="/Componsnts.js" ></script>
+<!--##########################################################################-->
+<!--##########################################################################-->
 
 </body>
 </html>

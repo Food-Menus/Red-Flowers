@@ -32,6 +32,58 @@
             overflow-x: hidden;
         }
 
+
+        /* Preloader Styles */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .preloader-content {
+            text-align: center;
+        }
+
+        .preloader-logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        .preloader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--light-bg);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
         .full-width-container {
             width: 100%;
             margin: 0;
@@ -552,46 +604,29 @@
 </head>
 
 <body>
-    <div class="full-width-container">
 
-        <header class="header">
-            <div class="navbar-top">
-                <button class="sidebar-toggle" aria-label="Toggle sidebar">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="logo">
-                    <h1>Red Flowers</h1>
-                </div>
-            </div>
-            <nav class="main-nav">
-                <button class="menu-toggle" aria-label="Toggle navigation menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <ul class="nav-links">
-                    <li><a href="index.html">الرئيسية</a></li>
-                    <li><a href="products.html" class="active">باقاتنا</a></li>
-                    <li><a href="about.html">عن Red Flowers</a></li>
-                    <li><a href="order.html">اطلب باقتك</a></li>
-                </ul>
-            </nav>
-        </header>
+<!--############################  loading  ###################################-->
+    <div class="preloader">
+        <div class="preloader-content">
+            <img src="images/logo1.png" alt="Red Flowers Logo" class="preloader-logo">
+            <div class="preloader-spinner"></div>
+            <p>جاري التحميل...</p>
+        </div>
+    </div>
+<!--##########################################################################-->
 
-        <main class="main-content products-page">
-            <aside class="sidebar">
-                <h2>أقسام الزهور</h2>
-                <ul>
-                    <li><a href="#">باقات الورد الطبيعي</a></li>
-                    <li><a href="#">ورود المناسبات الخاصة</a></li>
-                    <li><a href="#">نباتات الزينة</a></li>
-                    <li><a href="#">هدايا مع الورد</a></li>
-                    <li><a href="#">صناديق الورد الفاخرة</a></li>
-                </ul>
-                <div class="promo-box">
-                    <h3>عروض حصرية!</h3>
-                    <p>اكتشف باقاتنا الجديدة بأسعار لا تُصدق.</p>
-                    <button>تسوق الآن</button>
-                </div>
-            </aside>
+<!------------------------------------------------------------------------------>
+<div class="full-width-container"><!-------------------------------------------->
+
+<!--#############################  Header  ###################################-->
+<div id="Header"></div> 
+<!--##########################################################################-->
+
+<!--#############################  Sidebar  ##################################-->
+<div id="Sidebar"></div> 
+<!--##########################################################################-->
+
+    <main class="main-content products-page">
 
             <section class="all-products">
                 <h2>اكتشف باقات Red Flowers</h2>
@@ -609,104 +644,23 @@
 
                 <div class="product-grid" id="productGrid"></div>
 
-            </section>
-        </main>
+            </section> 
 
-        <footer class="footer">
-            <p>&copy; 2025 Red Flowers. جميع الحقوق محفوظة.</p>
-            <div class="social-links">
-                <a href="#"><img src="images/facebook.png" alt="فيسبوك"></a>
-                <a href="#"><img src="images/instagram.png" alt="انستجرام"></a>
-                <a href="#"><img src="images/twitter.png" alt="تويتر"></a>
-            </div>
-        </footer>
+    </main>
 
-    </div>
+<!--#############################  Footer  ###################################-->
+<div id="Footer"></div> 
+<!--##########################################################################-->
 
-    <script>
-        const sheetID = '1CK5wjrpnDTkriEfs8XRo5Sgnq07HHKsyO1pGU_tQguU'; // ID من رابط Google Sheets
-        const baseURL = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json`;
+</div><!------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------>
 
-        // دالة لجلب البيانات من Google Sheets
-        async function fetchProducts() {
-            const response = await fetch(baseURL);
-            const data = await response.text();
-            const jsonData = JSON.parse(data.substr(47).slice(0, -2)); // معالجة البيانات
 
-            return jsonData.table.rows.map(row => {
-                return {
-                    id: row.c[0].v,
-                    name: row.c[1].v,
-                    details: row.c[2].v,
-                    price: row.c[3].v,
-                    type: row.c[4].v, // إضافة نوع المنتج
-                    image1: row.c[5].v,
-                    image2: row.c[6].v
-                };
-            });
-        }
+<!--##########################################################################-->
+<!--#############################  script  ###################################-->
+    <script src="/Componsnts.js" ></script>
+<!--##########################################################################-->
+<!--##########################################################################-->
 
-        // دالة لعرض البيانات في بطاقات
-        async function displayProducts() {
-            const products = await fetchProducts();
-            const productGrid = document.getElementById("productGrid");
-            productGrid.innerHTML = ""; // مسح البطاقات الحالية
-
-            const categoryFilter = document.getElementById("category-filter");
-            const searchBar = document.getElementById("search-bar");
-
-            // تصفية المنتجات عند تغيير الفلتر أو البحث
-            function filterProducts() {
-                const searchTerm = searchBar.value.toLowerCase();
-                const selectedCategory = categoryFilter.value;
-
-                const filteredProducts = products.filter(product => {
-                    const matchesCategory = selectedCategory === "all" || product.type === selectedCategory;
-                    const matchesSearch = product.name.toLowerCase().includes(searchTerm) || product.details.toLowerCase().includes(searchTerm);
-                    return matchesCategory && matchesSearch;
-                });
-
-                // عرض المنتجات المصفاة
-                productGrid.innerHTML = ""; // مسح البطاقات الحالية
-                filteredProducts.forEach(product => {
-                    const card = document.createElement("a");
-                    card.href = `product-details.html?id=${product.id}`;
-                    card.className = "product-item";
-                    card.setAttribute("data-category", product.type);
-
-                    card.innerHTML = `
-                        <div class="product-image-container">
-                            <img class="main-image" src="${product.image1}" alt="${product.name}">
-                            <img class="hover-image" src="${product.image2}" alt="${product.name}">
-                        </div>
-                        <h3>${product.name}</h3>
-                        <p>${product.details}</p>
-                        <span>$${product.price}</span>
-                    `;
-                    productGrid.appendChild(card);
-                });
-            }
-
-            // عرض جميع المنتجات عند تحميل الصفحة
-            filterProducts();
-
-            // إضافة أحداث على الفلتر والبحث
-            categoryFilter.addEventListener("change", filterProducts);
-            searchBar.addEventListener("input", filterProducts);
-        }
-
-        // عرض المنتجات عند تحميل الصفحة
-        displayProducts();
-
-        // إضافة وظيفة فتح/إغلاق القائمة الجانبية
-        document.querySelector('.sidebar-toggle').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.toggle('open');
-        });
-
-        // إضافة وظيفة فتح/إغلاق القائمة الرئيسية
-        document.querySelector('.menu-toggle').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('open');
-        });
-    </script>
 </body>
 </html>

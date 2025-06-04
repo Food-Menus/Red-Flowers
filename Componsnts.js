@@ -1,182 +1,298 @@
-document.addEventListener('DOMContentLoaded', function() {
 
+function loadComponents() {
 
+/*######################################  Header  ##############################################*/
 
-
-
-
-
-
-
-        
-        function SidebarComponent() {
-            return `
-          <aside class="sidebar">
-                <h2>أقسام الزهور</h2>
-                <ul>
-                    <li><a href="#">باقات الورد الطبيعي</a></li>
-                    <li><a href="#">ورود المناسبات الخاصة</a></li>
-                    <li><a href="#">نباتات الزينة</a></li>
-                    <li><a href="#">هدايا مع الورد</a></li>
-                    <li><a href="#">صناديق الورد الفاخرة</a></li>
-                </ul>
-                <div class="promo-box">
-                    <h3>عروض حصرية!</h3>
-                    <p>اكتشف باقاتنا الجديدة بأسعار لا تُصدق.</p>
-                    <button>تسوق الآن</button>
-                </div>
-            </aside>
-            `;
-        }
-    
-        const SidebarElement = document.getElementById('Sidebar');
-        if (SidebarElement) {
-            SidebarElement.innerHTML = SidebarComponent();
-        }
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //******************************************************************************************//
-    //***************************************navbar*********************************************//
-    
-        function NavbarComponent(navLocation, imgN) {
-            return `
-                <div class="main-navbar">
-                    <div class="profile">  <div class="menu-toggle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M5 5H13V19H5V5ZM19 19H15V5H19V19ZM4 3C3.44772 3 3 3.44772 3 4V20C3 20.5523 3.44772 21 4 21H20C20.5523 21 21 20.5523 21 20V4C21 3.44772 20.5523 3 20 3H4ZM7 12L11 8.5V15.5L7 12Z"></path></svg></div></div>
-                    <div class="img">
-                        <div class="img-container">
-      
-                            <div class="image-center">
-                                <img src="${imgN}" alt="شعار">
-                            </div>
-                            
+        const HeaderElement = document.getElementById('Header');
+        if (HeaderElement) {
+            HeaderElement.innerHTML = `
+                <header class="header">
+                    <div class="navbar-top">
+                        <button class="sidebar-toggle" aria-label="Toggle sidebar">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <div class="logo">
+                            <h1>Red Flowers</h1>
                         </div>
                     </div>
-                    <div class="profile"> <a href="${navLocation}" class="user"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36" fill="currentColor"><path d="M12 11V8L16 12L12 16V13H8V11H12ZM12 2C17.52 2 22 6.48 22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2ZM12 20C16.42 20 20 16.42 20 12C20 7.58 16.42 4 12 4C7.58 4 4 7.58 4 12C4 16.42 7.58 20 12 20Z"></path></svg></a></div>
-                </div>
+                    <nav class="main-nav">
+                        <button class="menu-toggle" aria-label="Toggle navigation menu">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <ul class="nav-links">
+                            <li><a href="index.html" class="active">الرئيسية</a></li>
+                            <li><a href="products.html">باقاتنا</a></li>
+                            <li><a href="about.html">عن Red Flowers</a></li>
+                            <li><a href="order.html">اطلب باقتك</a></li>
+                        </ul>
+                    </nav>
+                </header>
             `;
         }
-    
-        const navbarElement = document.getElementById('navbar');
-        if (navbarElement) {
-            const navLocation = navbarElement.getAttribute('data-location');
-            const imgN = navbarElement.getAttribute('data-imgN');
-            navbarElement.innerHTML = NavbarComponent(navLocation, imgN);
-        }
-    
-    //******************************************************************************************//
-    //***************************************sidebar********************************************//
-    
-        function SidebarComponent(about, feedback ,Profile) {
-            return `
-                <div class="sidebar">       
-                    <h1 class="logo" href >Broast & Burger</h1>
-                    <div class="sidebar-menus">
-                        <a href="https://www.facebook.com/profile.php?id=61566934134655"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36" fill="currentColor"><path d="M14 13.5H16.5L17.5 9.5H14V7.5C14 6.47062 14 5.5 16 5.5H17.5V2.1401C17.1743 2.09685 15.943 2 14.6429 2C11.9284 2 10 3.65686 10 6.69971V9.5H7V13.5H10V22H14V13.5Z"></path></svg> صغحة الفيسبوك </a>
-                        <a href="${about}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36" fill="currentColor"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 15H13V17H11V15ZM11 7H13V13H11V7Z"></path></svg></ion-icon>من نحن</a>
-                        <a href="${feedback}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36" fill="currentColor"><path d="M6.45455 19L2 22.5V4C2 3.44772 2.44772 3 3 3H21C21.5523 3 22 3.44772 22 4V18C22 18.5523 21.5523 19 21 19H6.45455ZM4 18.3851L5.76282 17H20V5H4V18.3851ZM11 13H13V15H11V13ZM11 7H13V12H11V7Z"></path></svg>شاركنا برأيك</a>
-                        <a href="${Profile}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36" fill="currentColor"><path d="M12 14V16C8.68629 16 6 18.6863 6 22H4C4 17.5817 7.58172 14 12 14ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11ZM21 17H22V22H14V17H15V16C15 14.3431 16.3431 13 18 13C19.6569 13 21 14.3431 21 16V17ZM19 17V16C19 15.4477 18.5523 15 18 15C17.4477 15 17 15.4477 17 16V17H19Z"></path></svg>أدارة الموقع</a> 
-                    </div>
-                    <div class="menu-off">
-                        <a href="#" class="menu-off" ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36" fill="currentColor"><path d="M10.5859 12L2.79297 4.20706L4.20718 2.79285L12.0001 10.5857L19.793 2.79285L21.2072 4.20706L13.4143 12L21.2072 19.7928L19.793 21.2071L12.0001 13.4142L4.20718 21.2071L2.79297 19.7928L10.5859 12Z"></path></svg>close</a>
-                    </div>
 
-                </div>
+/*######################################  Sidebar  ##############################################*/
 
+        const SidebarElement = document.getElementById('Sidebar');
+        if (SidebarElement) {
+            SidebarElement.innerHTML = `
+                <aside class="sidebar">
+                    <h2>أقسام الزهور</h2>
+                    <ul>
+                        <li><a href="#">باقات الورد الطبيعي</a></li>
+                        <li><a href="#">ورود المناسبات الخاصة</a></li>
+                        <li><a href="#">نباتات الزينة</a></li>
+                        <li><a href="#">هدايا مع الورد</a></li>
+                        <li><a href="#">صناديق الورد الفاخرة</a></li>
+                    </ul>
+                    <div class="promo-box">
+                        <h3>عروض حصرية!</h3>
+                        <p>اكتشف باقاتنا الجديدة بأسعار لا تُصدق.</p>
+                        <button>تسوق الآن</button>
+                    </div>
+                </aside>
             `;
         }
-    
-        const sidebarElement = document.getElementById('sidebar');
-        if (sidebarElement) {
-            const about = sidebarElement.getAttribute('about');
-            const feedback = sidebarElement.getAttribute('feedback');
-            const Profile = sidebarElement.getAttribute('Profile');
-            sidebarElement.innerHTML = SidebarComponent(about, feedback ,Profile);
-    
+/*######################################  Footer  ##############################################*/
 
-            // Add event listeners after DOM update
-            const menuToggle = document.querySelector('.menu-toggle');
-            const menuClose = document.querySelector('.menu-off');
+        const FooterElement = document.getElementById('Footer');
+        if (FooterElement) {
+            FooterElement.innerHTML = `
+                <footer class="footer">
+                    <p>&copy; 2025 Red Flowers. جميع الحقوق محفوظة.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </footer>
+            `;
+        }
+/*####################################################################################################*/
+
+}
+
+/*####################################################################################################*/
+/*###############################  load Products suggestions  ########################################*/
+    function loadProducts() {
+        const sheetID = '1CK5wjrpnDTkriEfs8XRo5Sgnq07HHKsyO1pGU_tQguU';
+        const sheetUrl = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json`;
+
+        fetch(sheetUrl)
+            .then(res => res.text())
+            .then(text => {
+                const jsonData = JSON.parse(text.substr(47).slice(0, -2));
+                const rows = jsonData.table.rows;
+                
+                // تحويل البيانات إلى مصفوفة منتجات
+                const products = rows.map((row, index) => {
+                    if (index === 0) return null;
+                    const cells = row.c;
+                    return {
+                        id: cells[0]?.v || '',
+                        name: cells[1]?.v || '',
+                        details: cells[2]?.v || '',
+                        price: cells[3]?.v || '0',
+                        type: cells[4]?.v || '',
+                        image1: cells[5]?.v || '',
+                        image2: cells[6]?.v || ''
+                    };
+                }).filter(product => product !== null);
+
+                products.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+                const cheapestProducts = products.slice(0, 2);
+                const expensiveProducts = products.slice(-2);
+                const selectedProducts = [...cheapestProducts, ...expensiveProducts];
+
+                const productContainer = document.getElementById('product-container');
+                if (productContainer) {
+                    selectedProducts.forEach(product => {
+                        const productItem = document.createElement('a');
+                        productItem.className = 'product-item';
+                        productItem.href = `product-details.html?id=${product.id}`;
+                        
+                        productItem.innerHTML = `
+                            <img src="${product.image1}" data-hover-src="${product.image2}" alt="${product.name}">
+                            <h3>${product.name}</h3>
+                            <p>${product.details}</p>
+                            <span>$${product.price}</span>
+                        `;
+                        
+                        productContainer.appendChild(productItem);
+                    });
+
+                    // إضافة تأثير تغيير الصورة
+                    document.querySelectorAll('.product-item img').forEach(img => {
+                        const hoverSrc = img.getAttribute('data-hover-src');
+                        if (hoverSrc) {
+                            const hoverImg = new Image();
+                            hoverImg.src = hoverSrc;
+                            hoverImg.style.position = 'absolute';
+                            hoverImg.style.top = '0';
+                            hoverImg.style.left = '0';
+                            hoverImg.style.opacity = '0';
+                            hoverImg.style.transition = 'opacity 0.5s ease';
+                            img.parentNode.insertBefore(hoverImg, img.nextSibling);
+
+                            img.parentElement.addEventListener('mouseenter', () => {
+                                img.style.opacity = '0';
+                                hoverImg.style.opacity = '1';
+                            });
+
+                            img.parentElement.addEventListener('mouseleave', () => {
+                                img.style.opacity = '1';
+                                hoverImg.style.opacity = '0';
+                            });
+                        }
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('حدث خطأ أثناء جلب البيانات:', error);
+                const productContainer = document.getElementById('product-container');
+                if (productContainer) {
+                    productContainer.innerHTML = '<p>عذرًا، حدث خطأ أثناء تحميل المنتجات.</p>';
+                }
+            });
+    }
+/*####################################################################################################*/
+/*###################################  load Data Products  ###########################################*/
+    function loadDataProducts() {
+  
+        const sheetID = '1CK5wjrpnDTkriEfs8XRo5Sgnq07HHKsyO1pGU_tQguU'; // ID من رابط Google Sheets
+        const baseURL = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json`;
+
+        // دالة لجلب البيانات من Google Sheets
+        async function fetchProducts() {
+            const response = await fetch(baseURL);
+            const data = await response.text();
+            const jsonData = JSON.parse(data.substr(47).slice(0, -2)); // معالجة البيانات
+
+            return jsonData.table.rows.map(row => {
+                return {
+                    id: row.c[0].v,
+                    name: row.c[1].v,
+                    details: row.c[2].v,
+                    price: row.c[3].v,
+                    type: row.c[4].v, // إضافة نوع المنتج
+                    image1: row.c[5].v,
+                    image2: row.c[6].v
+                };
+            });
+        }
+
+        // دالة لعرض البيانات في بطاقات
+        async function displayProducts() {
+            const products = await fetchProducts();
+            const productGrid = document.getElementById("productGrid");
+            productGrid.innerHTML = ""; // مسح البطاقات الحالية
+
+            const categoryFilter = document.getElementById("category-filter");
+            const searchBar = document.getElementById("search-bar");
+
+            // تصفية المنتجات عند تغيير الفلتر أو البحث
+            function filterProducts() {
+                const searchTerm = searchBar.value.toLowerCase();
+                const selectedCategory = categoryFilter.value;
+
+                const filteredProducts = products.filter(product => {
+                    const matchesCategory = selectedCategory === "all" || product.type === selectedCategory;
+                    const matchesSearch = product.name.toLowerCase().includes(searchTerm) || product.details.toLowerCase().includes(searchTerm);
+                    return matchesCategory && matchesSearch;
+                });
+
+                // عرض المنتجات المصفاة
+                productGrid.innerHTML = ""; // مسح البطاقات الحالية
+                filteredProducts.forEach(product => {
+                    const card = document.createElement("a");
+                    card.href = `product-details.html?id=${product.id}`;
+                    card.className = "product-item";
+                    card.setAttribute("data-category", product.type);
+
+                    card.innerHTML = `
+                        <div class="product-image-container">
+                            <img class="main-image" src="${product.image1}" alt="${product.name}">
+                            <img class="hover-image" src="${product.image2}" alt="${product.name}">
+                        </div>
+                        <h3>${product.name}</h3>
+                        <p>${product.details}</p>
+                        <span>$${product.price}</span>
+                    `;
+                    productGrid.appendChild(card);
+                });
+            }
+
+            // عرض جميع المنتجات عند تحميل الصفحة
+            filterProducts();
+
+            // إضافة أحداث على الفلتر والبحث
+            categoryFilter.addEventListener("change", filterProducts);
+            searchBar.addEventListener("input", filterProducts);
+        }
+         // عرض المنتجات عند تحميل الصفحة
+        displayProducts();
+    }
+
+/*####################################################################################################*/
+/*####################################################################################################*/
+
+    // حدث تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+        // تحميل المكونات
+        loadComponents();
+        
+        // تحميل الباقات المقترحه
+        loadProducts();
+        
+        // تحميل الباقات
+        loadDataProducts();
+        
+        // إعداد السلايدر
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        setInterval(nextSlide, 3000);
+        
+        document.addEventListener('click', function(event) {
             const sidebar = document.querySelector('.sidebar');
+            const sidebarToggle = document.querySelector('.sidebar-toggle');
             
-            if (menuToggle && sidebar) {
-                menuToggle.addEventListener('click', () => {
-                    sidebar.classList.toggle('active');
-                });
+            // إذا كان النقر خارج السايدبار وخارج زر التفعيل وكانت السايدبار مفتوحة
+            if (!sidebar.contains(event.target) && 
+                event.target !== sidebarToggle && 
+                !sidebarToggle.contains(event.target) && 
+                sidebar.classList.contains('open')) {
+                
+                sidebar.classList.remove('open');
             }
-            
-            if (menuClose && sidebar) {
-                menuClose.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    sidebar.classList.remove('active');
-                });
-            }
+        });
+        // إعداد السايدبار
+        document.querySelector('.sidebar-toggle')?.addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('open');
+        });
+
+        // إعداد القائمة الرئيسية
+        document.querySelector('.menu-toggle')?.addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('open');
+        });
+
+        // إخفاء الـ Preloader
+        const preloader = document.querySelector('.preloader');
+        if (preloader) {
+            setTimeout(function() {
+                preloader.classList.add('fade-out');
+                setTimeout(function() {
+                    preloader.style.display = 'none';
+                }, 500);
+            }, 500);
         }
-    
-    //******************************************************************************************//
-    //***************************************footer*********************************************//
-    
-        function FooterComponent() {
-            return `
-            <div class="footer__bar">
-            <p>Copyright © 2025 Techno Science All rights reserved </p> 
-            </div>
-            `;
-        }
-    
-        const footerElement = document.getElementById('footer');
-        if (footerElement) {
-            footerElement.innerHTML = FooterComponent();
-        }
-    
     });
