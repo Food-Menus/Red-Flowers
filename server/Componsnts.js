@@ -54,9 +54,6 @@ function loadComponents() {
                     <h2>أقسام الزهور</h2>
                     <ul>
                         <li><a href="${SidebarPath1}">باقات الورد الطبيعي</a></li>
-                        <li><a href="${SidebarPath2}">ورود المناسبات الخاصة</a></li>
-                        <li><a href="${SidebarPath3}">نباتات الزينة</a></li>
-                        <li><a href="${SidebarPath4}">صناديق الورد الفاخرة</a></li>
                     </ul>
                     <div class="promo-box">
                         <h3>عروض حصرية!</h3>
