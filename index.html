@@ -149,7 +149,7 @@
             background: none;
             border: none;
             color: var(--primary-color);
-            font-size: 28px;
+            font-size: 33px;
             cursor: pointer;
             padding: 5px;
             transition: color 0.3s ease;
@@ -525,6 +525,18 @@
         /* Responsive adjustments */
 
         @media (max-width: 768px) {
+            .main-nav .menu-toggle {
+                font-size: 22px;
+            }
+            .main-nav ul.nav-links li a {
+                font-size: 22px;
+            }
+            .logo h1 {
+                font-size: 18px;
+            }
+            .sidebar-toggle {
+                font-size: 18px;
+            }
             .product-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 20px;
@@ -535,16 +547,14 @@
             }
 
             .slider-text h2 {
-                font-size: 1.8rem;
+                font-size: 1rem;
             }
 
             .sidebar {
                 width: 260px;
                 right: -260px;
             }
-        }
-
-        @media (max-width: 480px) {
+  
             .logo {
                 margin-right: 30%;
             }
@@ -554,7 +564,7 @@
             }
 
             .logo h1 {
-                font-size: 1.2rem;
+                font-size: 1rem;
             }
 
             .main-content {
@@ -583,11 +593,18 @@
             }
 
             .slider-text h2 {
-                font-size: 1.5rem;
+                font-size: 1rem;
             }
 
             .slider-text p {
                 font-size: 0.9rem;
+            }
+            .sidebar h2 {
+                font-size: 28px;
+                color: var(--primary-color);
+                margin-bottom: 20px;
+                border-bottom: 2px solid var(--secondary-color);
+                padding-bottom: 10px;
             }
 
         }
