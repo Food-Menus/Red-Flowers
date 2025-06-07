@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Red Flowers - للورود والهدايا الفاخرة</title>
-    <link rel="icon" href="./images/logo1.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+    <title>لوحة تحكم الأدمن - Red Flowers</title>
+    <link rel="icon" href="./static/images/logo1.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* General Styling */
         :root {
@@ -13,7 +14,7 @@
             --secondary-color: #f76c8a;
             --text-color: #333;
             --light-bg: #FCF4F4;
-            --white: #fff;
+            --white: #ffffff;
             --border-color: #EEE;
             --shadow-light: rgba(0, 0, 0, 0.08);
         }
@@ -25,12 +26,19 @@
         }
 
         body {
-            font-family: 'Scheherazade', serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--light-bg);
-            direction: rtl;
-            overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffffff, #ffd1db); /* برتقالي فاتح إلى برتقالي مشرق */
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            margin: 0;
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* Preloader Styles */
@@ -40,7 +48,6 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: var(--white);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -87,7 +94,6 @@
         .full-width-container {
             width: 100%;
             margin: 0;
-            background-color: var(--white);
             overflow: hidden;
         }
 
@@ -128,7 +134,7 @@
             padding-bottom: 10px;
             position: relative;
             z-index: 10;
-            height: 220px; /* زيادة ارتفاع الهيدر */
+            height: 220px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -147,11 +153,11 @@
             background: none;
             border: none;
             color: var(--primary-color);
-            font-size: 28px;
+            font-size: 33px;
             cursor: pointer;
             padding: 5px;
             transition: color 0.3s ease;
-            align-self: flex-start; /* محاذاة زر القائمة الجانبية لأعلى */
+            align-self: flex-start;
             margin-top: 15px;
         }
 
@@ -167,27 +173,27 @@
             top: 50%;
             transform: translate(-50%, -50%);
             z-index: 1;
-            height: 100%; /* لجعل اللوجو يأخذ الارتفاع كاملًا */
+            height: 100%;
         } 
 
         .logo-img {
-            width: auto; /* تغيير من عرض ثابت إلى تلقائي */
-            height: 160px; /* زيادة ارتفاع الصورة */
-            object-fit: contain; /* للحفاظ على نسب الصورة */
+            width: auto;
+            height: 160px;
+            object-fit: contain;
         }
 
         .logo h1 {
             font-size: 28px;
             color: var(--primary-color);
             margin: 0;
-            padding-left: 15px; /* مسافة بين الصورة والنص */
+            padding-left: 15px;
         }
 
         .main-nav {
             text-align: center;
             padding: 0 5%;
             position: relative;
-            margin-top: auto; /* لدفع القائمة لأسفل */
+            margin-top: auto;
         }
 
         .main-nav .menu-toggle {
@@ -265,7 +271,7 @@
         }
 
         .sidebar h2 {
-            font-size: 1.5rem;
+            font-size: 28px;
             color: var(--primary-color);
             margin-bottom: 20px;
             border-bottom: 2px solid var(--secondary-color);
@@ -277,7 +283,7 @@
         }
 
         .sidebar ul li a {
-            font-size: 1rem;
+            font-size: 28px;
             display: block;
             padding: 8px 10px;
             border-radius: 5px;
@@ -289,187 +295,124 @@
             color: var(--secondary-color);
         }
 
-        .promo-box {
-            background-color: var(--secondary-color);
-            color: var(--white);
-            padding: 20px;
-            border-radius: 8px;
+        /* Admin Profile Section */
+        .admin-profile {
+            padding: 40px 5%;
             text-align: center;
-            margin-top: 30px;
         }
 
-        .promo-box h3 {
-            font-size: 1.3rem;
+        .admin-profile h2 {
+            font-size: 28px;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .admin-profile h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 2px;
+            background-color: var(--secondary-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .profile-info {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 3px 10px var(--shadow-light);
+            padding: 30px;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            text-align: right;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--secondary-color);
+            margin-left: 30px;
+        }
+
+        .profile-name {
+            font-size: 28px;
+            color: var(--primary-color);
             margin-bottom: 10px;
         }
 
-        .promo-box p {
-            font-size: 0.9rem;
+        .profile-role {
+            font-size: 24px;
+            color: var(--secondary-color);
             margin-bottom: 15px;
         }
 
-        .promo-box button {
-            background-color: var(--primary-color);
-            color: var(--white);
+        .profile-details {
+            font-size: 24px;
+            line-height: 1.8;
+            text-align: right;
         }
 
-        /* Products Section */
-        .all-products {
-            padding: 40px 5%;
-            max-width: 100%;
+        .profile-details p {
+            margin-bottom: 15px;
+        }
+
+        .profile-details strong {
+            color: var(--primary-color);
+        }
+
+        /* Admin Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            justify-items: center;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        .all-products h2 {
-            font-size: 1.8rem;
-            color: var(--primary-color);
-            text-align: center;
-            margin-bottom: 25px;
-            position: relative;
-            padding-bottom: 8px;
-        }
-
-        .all-products h2::after {
-            content: '';
-            position: absolute;
-            width: 60px;
-            height: 2px;
-            background-color: var(--secondary-color);
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .filter-options {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .filter-options select,
-        .filter-options input {
-            padding: 10px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            font-size: 1rem;
-            color: var(--text-color);
-            background-color: var(--white);
-        }
-
-        .filter-options input[type="text"] {
-            flex-grow: 1;
-            max-width: 400px;
-        }
-
-        .product-suggestions {
-            padding: 40px 5%;
-            text-align: center;
-        }
-
-        .product-suggestions h2 {
-            font-size:28px;
-            color: var(--primary-color);
-            margin-bottom: 30px;
-            position: relative;
-            padding-bottom: 8px;
-        }
-
-        .product-suggestions h2::after {
-            content: '';
-            position: absolute;
-            width: 60px;
-            height: 2px;
-            background-color: var(--secondary-color);
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            justify-items: center;
-        }
-
-        .product-item {
-            display: block;
+        .dashboard-item {
             background-color: var(--white);
             border-radius: 8px;
             box-shadow: 0 3px 10px var(--shadow-light);
             overflow: hidden;
             text-align: center;
-            padding-bottom: 15px;
+            padding: 25px 15px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            color: inherit;
-            position: relative;
-            cursor: pointer;
             width: 100%;
-            max-width: 280px;
+            cursor: pointer;
         }
 
-        .product-item:hover {
+        .dashboard-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
 
-        .product-item img {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-            margin-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
-            transition: opacity 0.5s ease;
-            position: relative;
+        .dashboard-icon {
+            font-size: 50px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
         }
 
-        .product-item:hover img:first-child {
-            opacity: 0;
-        }
-
-        .product-item:hover img:last-child {
-            opacity: 1;
-        }
-
-        .product-item img:last-child {
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            z-index: 2;
-        }
-
-        .product-item h3 {
+        .dashboard-title {
             font-size: 28px;
             color: var(--primary-color);
-            margin-bottom: 8px;
-            padding: 0 15px;
-            height: 40px;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-        }
-
-        .product-item p {
-            font-size: 28px;
-            color: var(--text-color);
             margin-bottom: 10px;
-            height: 36px;
-            overflow: hidden;
-            padding: 0 15px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
         }
 
-        .product-item span {
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--secondary-color);
-            display: block;
+        .dashboard-desc {
+            font-size: 24px;
+            color: var(--text-color);
         }
 
         /* Footer */
@@ -483,34 +426,60 @@
 
         .footer p {
             margin-bottom: 15px;
-            font-size: 0.9rem;
+            font-size: 28px;
         }
 
-        .social-links img {
-            height: 25px;
-            margin: 0 10px;
-            transition: transform 0.3s ease;
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
         }
 
-        .social-links img:hover {
+        .social-links a {
+            color: var(--white);
+            font-size: 28px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-links a:hover {
             transform: translateY(-3px);
         }
 
         /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .product-grid {
+        @media (max-width: 1024px) {
+            .dashboard-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-nav .menu-toggle {
+                font-size: 22px;
+            }
+            .main-nav ul.nav-links li a {
+                font-size: 22px;
+            }
+            .logo h1 {
+                font-size: 18px;
+            }
+            .sidebar-toggle {
+                font-size: 18px;
             }
             
-            .all-products {
-                padding: 0 3%;
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
             }
-
-            .logo h1 {
-                font-size: 1.5rem;
+            
+            .profile-pic {
+                margin-left: 0;
+                margin-bottom: 20px;
             }
-
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
             .sidebar {
                 width: 260px;
                 right: -260px;
@@ -518,56 +487,43 @@
         }
 
         @media (max-width: 480px) {
-            .logo {
-                margin-right: 30%;
+            .profile-info {
+                padding: 20px 15px;
             }
-
-            .navbar-top {
-                padding: 10px 2%;
+            
+            .profile-pic {
+                width: 100px;
+                height: 100px;
             }
-
-            .logo h1 {
-                font-size: 1.2rem;
+            
+            .profile-name {
+                font-size: 24px;
             }
-
-            .main-content {
-                padding: 15px 2%;
+            
+            .profile-role, .profile-details {
+                font-size: 20px;
             }
-
-            .product-grid {
-                grid-template-columns: 1fr;
-                padding: 0;
-                gap: 15px;
+            
+            .dashboard-icon {
+                font-size: 40px;
             }
-
-            .product-item {
-                margin-bottom: 20px;
-                max-width: 100%;
+            
+            .dashboard-title {
+                font-size: 24px;
             }
-
-            .filter-options {
-                flex-direction: column;
-            }
-
-            .filter-options input[type="text"] {
-                max-width: 100%;
-            }
-
-            .sidebar {
-                width: 260px;
-                right: -260px;
+            
+            .dashboard-desc {
+                font-size: 20px;
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
-
 <!--############################  loading  ###################################-->
     <div class="preloader">
         <div class="preloader-content">
-            <img src="./../../static/images/logo.png" alt="Red Flowers Logo" class="preloader-logo">
+            <img src="./static/images/logo.png" alt="Red Flowers Logo" class="preloader-logo">
             <div class="preloader-spinner"></div>
             <p>جاري التحميل...</p>
         </div>
@@ -579,40 +535,74 @@
 
 <!--#############################  Header  ###################################-->
 <div id="Header" 
-HeaderPath0="./../../static/images/logo.png" 
-HeaderPath1="./../../index.html" 
-HeaderPath2="./products.html" 
-HeaderPath3="./about.html"
-HeaderPath4="./order.html" ></div> 
+HeaderPath0="./static/images/logo.png" 
+HeaderPath1="./clint/UserPages/index.html" 
+HeaderPath2="./clint/UserPages/products.html" 
+HeaderPath3="./clint/UserPages/about.html"
+HeaderPath4="./clint/UserPages/order.html" ></div> 
 <!--##########################################################################-->
 <!--#############################  Sidebar  ##################################-->
 <div id="Sidebar"
-SidebarPath1="#" 
-SidebarPath2="#" 
+SidebarPath1="./clint/AdminPages/Addproduct.html" 
+SidebarPath2="./clint/AdminPages/EditProduct.html" 
 SidebarPath3="#"
 SidebarPath4="#"></div> 
 <!--##########################################################################-->
 
-    <main class="main-content products-page">
-
-            <section class="all-products">
-                <h2>اكتشف باقات Red Flowers</h2>
-                <div class="filter-options">
-                    <select id="category-filter">
-                        <option value="all">جميع الباقات</option>
-                        <option value="باقات الورد الطبيعي">باقات الورد الطبيعي</option>
-                        <option value="ورود المناسبات الخاصة">ورود المناسبات الخاصة</option>
-                        <option value="نباتات الزينة">نباتات الزينة</option>
-                        <option value="هدايا مع الورد">هدايا مع الورد</option>
-                        <option value="صناديق الورد الفاخرة">صناديق الورد الفاخرة</option>
-                    </select>
-                    <input type="text" id="search-bar" placeholder="ابحث عن باقة أو منتج...">
-                </div>
-
-                <div class="product-grid" id="productGrid"></div>
-
-            </section> 
-
+    <main class="main-content">
+        <section class="admin-profile">
+            <h2>لوحة تحكم الأدمن</h2>
+            
+            <div class="dashboard-grid">
+                <a href="./Addproduct.html" class="dashboard-item">
+                    <div class="dashboard-icon">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <h3 class="dashboard-title">إضافة منتج جديد</h3>
+                    <p class="dashboard-desc">إضافة منتجات جديدة إلى المتجر</p>
+                </a>
+                
+                <a href="./EditProduct.html" class="dashboard-item">
+                    <div class="dashboard-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h3 class="dashboard-title">تعديل المنتجات</h3>
+                    <p class="dashboard-desc">تعديل أو حذف المنتجات الحالية</p>
+                </a>
+                
+                <a href="#" class="dashboard-item">
+                    <div class="dashboard-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3 class="dashboard-title">إدارة الطلبات</h3>
+                    <p class="dashboard-desc">عرض وتحديث حالة الطلبات</p>
+                </a>
+                
+                <a href="#" class="dashboard-item">
+                    <div class="dashboard-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="dashboard-title">إدارة المستخدمين</h3>
+                    <p class="dashboard-desc">إدارة حسابات المستخدمين</p>
+                </a>
+                
+                <a href="#" class="dashboard-item">
+                    <div class="dashboard-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3 class="dashboard-title">التقارير</h3>
+                    <p class="dashboard-desc">عرض تقارير المبيعات والأرباح</p>
+                </a>
+                
+                <a href="#" class="dashboard-item">
+                    <div class="dashboard-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3 class="dashboard-title">الإعدادات</h3>
+                    <p class="dashboard-desc">تعديل إعدادات المتجر</p>
+                </a>
+            </div>
+        </section>
     </main>
 
 <!--#############################  Footer  ###################################-->
@@ -622,10 +612,30 @@ SidebarPath4="#"></div>
 </div><!------------------------------------------------------------------------>
 <!------------------------------------------------------------------------------>
 
-
 <!--##########################################################################-->
 <!--#############################  script  ###################################-->
-    <script src="./../../server/Componsnts.js" ></script>
+    <script src="./server/Componsnts.js"></script>
+    <script>
+        // إخفاء loader بعد تحميل الصفحة
+        window.addEventListener('load', function() {
+            const preloader = document.querySelector('.preloader');
+            preloader.classList.add('fade-out');
+            
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 500);
+        });
+        
+        // تسجيل الخروج
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            if(confirm('هل أنت متأكد من تسجيل الخروج؟')) {
+                // هنا يمكنك إضافة أي تنظيف للجلسة أو localStorage إذا لزم الأمر
+                window.location.href = './clint/UserPages/index.html';
+            }
+        });
+        
+        // يمكنك إضافة المزيد من الوظائف هنا حسب الحاجة
+    </script>
 <!--##########################################################################-->
 <!--##########################################################################-->
 

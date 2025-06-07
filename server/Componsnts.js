@@ -34,6 +34,7 @@ function loadComponents() {
                     </nav>
                 </header>
             `;
+            
 
                                     //  <h1>Red Flowers</h1>
 
@@ -53,13 +54,12 @@ function loadComponents() {
                 <aside class="sidebar">
                     <h2>أقسام الزهور</h2>
                     <ul>
-                        <li><a href="${SidebarPath1}">باقات الورد الطبيعي</a></li>
+                        <li><a href="${SidebarPath1}">  اضافه منتجات  </a></li>
+                        <li><a href="${SidebarPath2}">  تعديل منتجات  </a></li>
+                        <li><div class="promo-box">
+                        <a href="${SidebarPath3}">  تسجيل دخول الادمن  </a></div></li> 
                     </ul>
-                    <div class="promo-box">
-                        <h3>عروض حصرية!</h3>
-                        <p>اكتشف باقاتنا الجديدة بأسعار لا تُصدق.</p>
-                        <button>تسوق الآن</button>
-                    </div>
+
                 </aside>
             `;
         

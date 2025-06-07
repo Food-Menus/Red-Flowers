@@ -1,335 +1,110 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar">
 <head>
-  <base target="_top">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>نظام إدارة المنتجات</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body { padding: 20px; direction: rtl; }
-    .image-preview { max-width: 150px; max-height: 150px; margin: 10px; }
-    .form-group { margin-bottom: 15px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة منتج جديد</title>
+    <style>
+        body { font-family: 'Scheherazade', serif; direction: rtl; text-align: right; margin: 20px; background-color: #f4f4f4; }
+        .container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); max-width: 600px; margin: 0 auto; }
+        h1 { color: #333; text-align: center; margin-bottom: 30px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
+        input[type="text"], input[type="number"], textarea, input[type="file"] { width: calc(100% - 22px); padding: 10px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        textarea { resize: vertical; min-height: 80px; }
+        button { background-color: #4CAF50; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; width: 100%; }
+        button:hover { background-color: #45a049; }
+        .message { margin-top: 20px; padding: 10px; border-radius: 4px; text-align: center; display: none; }
+        .message.success { background-color: #d4edda; color: #155724; border-color: #c3e6cb; }
+        .message.error { background-color: #f8d7da; color: #721c24; border-color: #f5c6cb; }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1 class="text-center mb-4">نظام إدارة المنتجات</h1>
-    
-    <div class="card mb-4">
-      <div class="card-header">
-        <h5>إضافة / تعديل منتج</h5>
-      </div>
-      <div class="card-body">
-        <form id="productForm">
-          <input type="hidden" id="rowIndex" value="">
-          <input type="hidden" id="product_ID" value="">
-          
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="product_Name">اسم المنتج</label>
-                <input type="text" class="form-control" id="product_Name" required>
-              </div>
-              
-              <div class="form-group">
-                <label for="product_Details">تفاصيل المنتج</label>
-                <textarea class="form-control" id="product_Details" rows="3"></textarea>
-              </div>
-              
-              <div class="form-group">
-                <label for="product_prise">سعر المنتج</label>
-                <input type="number" class="form-control" id="product_prise" step="0.01" required>
-              </div>
-              
-              <div class="form-group">
-                <label for="product_type">نوع المنتج</label>
-                <input type="text" class="form-control" id="product_type">
-              </div>
-            </div>
-            
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>صورة المنتج 1</label>
-                <input type="file" class="form-control" id="image1Input" accept="image/*">
-                <img id="image1Preview" class="image-preview" style="display: none;">
-                <input type="hidden" id="product_Imge_1">
-                <button type="button" class="btn btn-secondary mt-2" onclick="uploadImage('image1Input', 'product_Imge_1', 'image1Preview')">رفع الصورة</button>
-              </div>
-              
-              <div class="form-group">
-                <label>صورة المنتج 2</label>
-                <input type="file" class="form-control" id="image2Input" accept="image/*">
-                <img id="image2Preview" class="image-preview" style="display: none;">
-                <input type="hidden" id="product_Imge_2">
-                <button type="button" class="btn btn-secondary mt-2" onclick="uploadImage('image2Input', 'product_Imge_2', 'image2Preview')">رفع الصورة</button>
-              </div>
-            </div>
-          </div>
-          
-          <div class="text-center mt-3">
-            <button type="button" class="btn btn-primary" onclick="saveProduct()">حفظ</button>
-            <button type="button" class="btn btn-warning" onclick="clearForm()">تفريغ الحقول</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    
-    <div class="card">
-      <div class="card-header">
-        <h5>قائمة المنتجات</h5>
-      </div>
-      <div class="card-body">
-        <div class="form-group">
-          <input type="text" class="form-control" id="searchInput" placeholder="ابحث عن منتج...">
-        </div>
-        
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>الصورة</th>
-                <th>الاسم</th>
-                <th>السعر</th>
-                <th>النوع</th>
-                <th>الإجراءات</th>
-              </tr>
-            </thead>
-            <tbody id="productsTable">
-              <!-- سيتم ملؤها بالبيانات -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
+    <div class="container">
+        <h1>إضافة منتج جديد</h1>
+        <form id="addProductForm">
+            <label for="productID">معرف المنتج (Product ID):</label>
+            <input type="text" id="productID" name="product_ID" required>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // تحميل البيانات عند فتح الصفحة
-    document.addEventListener('DOMContentLoaded', function() {
-      searchProducts();
-      
-      // البحث أثناء الكتابة
-      document.getElementById('searchInput').addEventListener('input', function() {
-        searchProducts();
-      });
-    });
-    
-    // رفع الصور إلى Drive
-    function uploadImage(inputId, hiddenInputId, previewId) {
-      const fileInput = document.getElementById(inputId);
-      const file = fileInput.files[0];
-      
-      if (!file) {
-        alert('الرجاء اختيار صورة أولاً');
-        return;
-      }
-      
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const preview = document.getElementById(previewId);
-        preview.src = e.target.result;
-        preview.style.display = 'block';
-        
-        // تحويل الصورة إلى base64 وإرسالها
-        const base64Data = e.target.result.split(',')[1];
-        
-        google.script.run.withSuccessHandler(function(response) {
-          if (response.status === 'success') {
-            document.getElementById(hiddenInputId).value = response.imageUrl;
-            alert('تم رفع الصورة بنجاح');
-          } else {
-            alert('حدث خطأ أثناء رفع الصورة: ' + response.message);
-          }
-        }).withFailureHandler(function(error) {
-          alert('حدث خطأ: ' + error.message);
-        }).handleImageUpload({
-          fileData: base64Data,
-          mimeType: file.type,
-          fileName: file.name
+            <label for="productName">اسم المنتج (Product Name):</label>
+            <input type="text" id="productName" name="product_Name" required>
+
+            <label for="productDetails">تفاصيل المنتج (Product Details):</label>
+            <textarea id="productDetails" name="product_Details" required></textarea>
+
+            <label for="productPrice">سعر المنتج (Product Price):</label>
+            <input type="number" id="productPrice" name="product_prise" step="0.01" required>
+
+            <label for="productType">نوع المنتج (Product Type):</label>
+            <input type="text" id="productType" name="product_type" required>
+
+            <label for="productImage1">صورة المنتج 1 (Product Image 1):</label>
+            <input type="file" id="productImage1" accept="image/*">
+
+            <label for="productImage2">صورة المنتج 2 (Product Image 2):</label>
+            <input type="file" id="productImage2" accept="image/*">
+
+            <button type="submit">إضافة المنتج</button>
+            <div id="message" class="message"></div>
+        </form>
+    </div>
+
+    <script>
+        // هذا هو رابط الـ Web App Deployment الخاص بك
+        // تأكد من تحديثه بعد نشر الكود الجديد في Apps Script
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwkPq8r64kK6Z2YQg0FczxqZSoyun-hNz_VZ4-5eldRUHDFin2__qIFJTmG884CnXM/exec'; 
+
+        document.getElementById('addProductForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = new FormData(form);
+            const messageDiv = document.getElementById('message');
+
+            messageDiv.textContent = 'جاري إضافة المنتج...';
+            messageDiv.className = 'message';
+            messageDiv.style.display = 'block';
+
+            // إضافة حقل 'action' لتحديد نوع العملية (add)
+            formData.append('action', 'add');
+
+            const toBase64 = file => new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result.split(',')[1]);
+                reader.onerror = error => reject(error);
+            });
+
+            try {
+                const image1File = document.getElementById('productImage1').files[0];
+                const image2File = document.getElementById('productImage2').files[0];
+
+                if (image1File) {
+                    formData.append('product_Imge_1', await toBase64(image1File));
+                }
+                if (image2File) {
+                    formData.append('product_Imge_2', await toBase64(image2File));
+                }
+
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    messageDiv.textContent = result.message;
+                    messageDiv.classList.add('success');
+                    form.reset();
+                } else {
+                    messageDiv.textContent = 'خطأ: ' + result.message;
+                    messageDiv.classList.add('error');
+                }
+            } catch (error) {
+                messageDiv.textContent = 'حدث خطأ غير متوقع: ' + error.message;
+                messageDiv.classList.add('error');
+            }
         });
-      };
-      reader.readAsDataURL(file);
-    }
-    
-    // البحث عن المنتجات
-    function searchProducts() {
-      const searchTerm = document.getElementById('searchInput').value;
-      
-      google.script.run.withSuccessHandler(function(response) {
-        if (response.status === 'success') {
-          renderProductsTable(response.data);
-        } else {
-          alert('حدث خطأ أثناء جلب البيانات: ' + response.message);
-        }
-      }).withFailureHandler(function(error) {
-        alert('حدث خطأ: ' + error.message);
-      }).searchProductData({
-        searchTerm: searchTerm
-      });
-    }
-    
-    // عرض البيانات في الجدول
-    function renderProductsTable(products) {
-      const tableBody = document.getElementById('productsTable');
-      tableBody.innerHTML = '';
-      
-      if (products.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="6" class="text-center">لا توجد منتجات</td></tr>';
-        return;
-      }
-      
-      products.forEach(product => {
-        const row = document.createElement('tr');
-        
-        row.innerHTML = `
-          <td>${product.product_ID}</td>
-          <td>
-            ${product.product_Imge_1 ? 
-              `<img src="${product.product_Imge_1}" class="image-preview">` : 
-              'لا توجد صورة'}
-          </td>
-          <td>${product.product_Name}</td>
-          <td>${product.product_prise}</td>
-          <td>${product.product_type}</td>
-          <td>
-            <button class="btn btn-sm btn-info" onclick="editProduct(${product.rowIndex}, '${product.product_ID}')">تعديل</button>
-            <button class="btn btn-sm btn-danger" onclick="deleteProduct(${product.rowIndex}, '${product.product_ID}')">حذف</button>
-          </td>
-        `;
-        
-        tableBody.appendChild(row);
-      });
-    }
-    
-    // حفظ المنتج (إضافة/تعديل)
-    function saveProduct() {
-      const rowIndex = document.getElementById('rowIndex').value;
-      const formData = {
-        product_Name: document.getElementById('product_Name').value,
-        product_Details: document.getElementById('product_Details').value,
-        product_prise: document.getElementById('product_prise').value,
-        product_type: document.getElementById('product_type').value,
-        product_Imge_1: document.getElementById('product_Imge_1').value,
-        product_Imge_2: document.getElementById('product_Imge_2').value
-      };
-      
-      if (!formData.product_Name || !formData.product_prise) {
-        alert('الرجاء إدخال اسم المنتج وسعره');
-        return;
-      }
-      
-      if (rowIndex) {
-        // تعديل منتج موجود
-        google.script.run.withSuccessHandler(function(response) {
-          if (response.status === 'success') {
-            alert('تم تعديل المنتج بنجاح');
-            clearForm();
-            searchProducts();
-          } else {
-            alert('حدث خطأ أثناء التعديل: ' + response.message);
-          }
-        }).withFailureHandler(function(error) {
-          alert('حدث خطأ: ' + error.message);
-        }).updateProductData({
-          rowIndex: rowIndex,
-          data: JSON.stringify(formData)
-        });
-      } else {
-        // إضافة منتج جديد
-        google.script.run.withSuccessHandler(function(response) {
-          if (response.status === 'success') {
-            alert('تم إضافة المنتج بنجاح - ID: ' + response.insertedId);
-            clearForm();
-            searchProducts();
-          } else {
-            alert('حدث خطأ أثناء الإضافة: ' + response.message);
-          }
-        }).withFailureHandler(function(error) {
-          alert('حدث خطأ: ' + error.message);
-        }).addProductData({
-          data: JSON.stringify(formData)
-        });
-      }
-    }
-    
-    // تعديل منتج
-    function editProduct(rowIndex, productId) {
-      google.script.run.withSuccessHandler(function(response) {
-        if (response.status === 'success') {
-          const product = response.data[0];
-          
-          document.getElementById('rowIndex').value = rowIndex;
-          document.getElementById('product_ID').value = productId;
-          document.getElementById('product_Name').value = product.product_Name;
-          document.getElementById('product_Details').value = product.product_Details;
-          document.getElementById('product_prise').value = product.product_prise;
-          document.getElementById('product_type').value = product.product_type;
-          
-          // معالجة الصور
-          const image1Preview = document.getElementById('image1Preview');
-          const image2Preview = document.getElementById('image2Preview');
-          
-          if (product.product_Imge_1) {
-            document.getElementById('product_Imge_1').value = product.product_Imge_1;
-            image1Preview.src = product.product_Imge_1;
-            image1Preview.style.display = 'block';
-          } else {
-            document.getElementById('product_Imge_1').value = '';
-            image1Preview.style.display = 'none';
-          }
-          
-          if (product.product_Imge_2) {
-            document.getElementById('product_Imge_2').value = product.product_Imge_2;
-            image2Preview.src = product.product_Imge_2;
-            image2Preview.style.display = 'block';
-          } else {
-            document.getElementById('product_Imge_2').value = '';
-            image2Preview.style.display = 'none';
-          }
-          
-          // التمرير إلى أعلى النموذج
-          window.scrollTo(0, 0);
-        } else {
-          alert('حدث خطأ أثناء جلب بيانات المنتج: ' + response.message);
-        }
-      }).withFailureHandler(function(error) {
-        alert('حدث خطأ: ' + error.message);
-      }).searchProductData({
-        searchTerm: productId
-      });
-    }
-    
-    // حذف منتج
-    function deleteProduct(rowIndex, productId) {
-      if (!confirm('هل أنت متأكد من حذف هذا المنتج؟')) return;
-      
-      google.script.run.withSuccessHandler(function(response) {
-        if (response.status === 'success') {
-          alert('تم حذف المنتج بنجاح');
-          searchProducts();
-        } else {
-          alert('حدث خطأ أثناء الحذف: ' + response.message);
-        }
-      }).withFailureHandler(function(error) {
-        alert('حدث خطأ: ' + error.message);
-      }).deleteProductData({
-        rowIndex: rowIndex
-      });
-    }
-    
-    // تفريغ النموذج
-    function clearForm() {
-      document.getElementById('productForm').reset();
-      document.getElementById('rowIndex').value = '';
-      document.getElementById('product_ID').value = '';
-      document.getElementById('image1Preview').style.display = 'none';
-      document.getElementById('image2Preview').style.display = 'none';
-      document.getElementById('image1Input').value = '';
-      document.getElementById('image2Input').value = '';
-    }
-  </script>
+    </script>
 </body>
 </html>
