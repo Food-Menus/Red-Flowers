@@ -41,13 +41,14 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Preloader Styles */
+    /* Preloader Styles */
         .preloader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            background-color: var(--white);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -90,7 +91,6 @@
             50% { transform: scale(1.05); opacity: 1; }
             100% { transform: scale(0.95); opacity: 0.8; }
         }
-
         .full-width-container {
             width: 100%;
             margin: 0;
@@ -534,19 +534,13 @@
 <div class="full-width-container"><!-------------------------------------------->
 
 <!--#############################  Header  ###################################-->
-<div id="Header" 
-HeaderPath0="./static/images/logo.png" 
-HeaderPath1="./clint/UserPages/index.html" 
-HeaderPath2="./clint/UserPages/products.html" 
-HeaderPath3="./clint/UserPages/about.html"
-HeaderPath4="./clint/UserPages/order.html" ></div> 
-<!--##########################################################################-->
-<!--#############################  Sidebar  ##################################-->
-<div id="Sidebar"
-SidebarPath1="./clint/AdminPages/Addproduct.html" 
-SidebarPath2="./clint/AdminPages/EditProduct.html" 
-SidebarPath3="#"
-SidebarPath4="#"></div> 
+    <header class="header">
+        <div class="navbar-top">
+            <div class="logo">
+                <img src="./../../static/images/logo.png" alt="Red Flowers Logo" class="logo-img">
+            </div>
+        </div>
+    </header>
 <!--##########################################################################-->
 
     <main class="main-content">
@@ -614,7 +608,6 @@ SidebarPath4="#"></div>
 
 <!--##########################################################################-->
 <!--#############################  script  ###################################-->
-    <script src="./server/Componsnts.js"></script>
     <script>
         // إخفاء loader بعد تحميل الصفحة
         window.addEventListener('load', function() {
@@ -636,6 +629,17 @@ SidebarPath4="#"></div>
         
         // يمكنك إضافة المزيد من الوظائف هنا حسب الحاجة
     </script>
+    <script>
+                document.addEventListener('DOMContentLoaded', () => {
+        const username = localStorage.getItem('username');
+        if (!username) {
+            window.location.href = './Auth.html';
+        } else {
+            document.getElementById('username').textContent = username;
+        }
+        });
+    </script>
+    <script src="./../../server/Componsnts.js"></script>
 <!--##########################################################################-->
 <!--##########################################################################-->
 

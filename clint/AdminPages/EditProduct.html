@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تعديل/حذف المنتجات</title>
     <style>
-                body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        body {
+            font-family: 'Scheherazade', serif;
             background: linear-gradient(135deg, #ffffff, #ffd1db); /* برتقالي فاتح إلى برتقالي مشرق */
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
@@ -20,14 +20,64 @@
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
+            /* Preloader Styles */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .preloader-content {
+            text-align: center;
+        }
+
+        .preloader-logo {
+            width: 220px;
+            height: 220px;
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        .preloader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--light-bg);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
 
         .container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); max-width: 600px; margin: 0 auto; }
-        h1 { color: #333; text-align: center; margin-bottom: 30px; }
-        label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
-        select, input[type="text"], input[type="number"], textarea { width: calc(100% - 22px); padding: 10px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        h1 { color: #333; text-align: center; margin-bottom: 30px; font-size: 46px;}
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #555;font-size: 26px; }
+        select, input[type="text"], input[type="number"], textarea {font-size: 26px; width: calc(100% - 22px); padding: 10px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
         textarea { resize: vertical; min-height: 80px; }
         .button-group { display: flex; justify-content: space-between; gap: 10px; }
-        button { padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; flex-grow: 1; }
+        button { padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 26px; flex-grow: 1; }
         button.save { background-color: #007bff; color: white; }
         button.save:hover { background-color: #0056b3; }
         button.delete { background-color: #dc3545; color: white; }
@@ -39,6 +89,21 @@
     </style>
 </head>
 <body>
+<!--############################  loading  ###################################-->
+    <div class="preloader">
+        <div class="preloader-content">
+            <img src="./static/images/logo.png" alt="Red Flowers Logo" class="preloader-logo">
+            <div class="preloader-spinner"></div>
+            <p>جاري التحميل...</p>
+        </div>
+    </div>
+<!--##########################################################################-->
+
+<!------------------------------------------------------------------------------>
+<div class="full-width-container"><!-------------------------------------------->
+
+<br><br><br><br><br><br><br>
+
     <div class="container">
         <h1>تعديل أو حذف المنتجات</h1>
 
@@ -79,6 +144,24 @@
         </div>
     </div>
 
+
+
+<!--#############################  Footer  ###################################-->
+    <footer class="footer">
+        <p>جميع الحقوق محفوظة &copy; Red Flowers 2023</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+    </footer>
+<!--##########################################################################-->
+
+</div><!------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------>
+
+<!--##########################################################################-->
+<!--#############################  script  ###################################-->
     <script>
         // هذا هو رابط الـ Web App Deployment الخاص بك
         // تأكد من تحديثه بعد نشر الكود الجديد في Apps Script
@@ -230,6 +313,19 @@
 
         fetchProducts();
     </script>
+    <script>
+                document.addEventListener('DOMContentLoaded', () => {
+        const username = localStorage.getItem('username');
+        if (!username) {
+            window.location.href = './Auth.html';
+        } else {
+            document.getElementById('username').textContent = username;
+        }
+        });
+    </script>
     <script src="https://apis.google.com/js/api.js"></script> 
+    <script src="./../../server/Componsnts.js"></script>
+<!--##########################################################################-->
+<!--##########################################################################-->
 </body>
 </html>

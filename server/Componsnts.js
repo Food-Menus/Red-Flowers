@@ -3,65 +3,60 @@ function loadComponents() {
 
 /*######################################  Header  ##############################################*/
 
-            const HeaderElement = document.getElementById('Header');
-            if (!HeaderElement) return;
-            
-            // جلب المسارات من خصائص العنصر
-            const HeaderPath0 = HeaderElement.getAttribute('HeaderPath0') || '#';
-            const HeaderPath1 = HeaderElement.getAttribute('HeaderPath1') || '#';
-            const HeaderPath2 = HeaderElement.getAttribute('HeaderPath2') || '#';
-            const HeaderPath3 = HeaderElement.getAttribute('HeaderPath3') || '#';
-            
-            HeaderElement.innerHTML = `
-                <header class="header">
-                    <div class="navbar-top">
-                        <button class="sidebar-toggle" aria-label="Toggle sidebar">
-                            <i class="fas fa-bars"></i>
-                        </button>
-                        <div class="logo">
-                            <img src="${HeaderPath0}" alt="شعار المتجر" class="logo-img">
-                        </div>
+        const HeaderElement = document.getElementById('Header');
+        if (!HeaderElement) return;
+        
+        const HeaderPath0 = HeaderElement.getAttribute('HeaderPath0') || '#';
+        const HeaderPath1 = HeaderElement.getAttribute('HeaderPath1') || '#';
+        const HeaderPath2 = HeaderElement.getAttribute('HeaderPath2') || '#';
+        const HeaderPath3 = HeaderElement.getAttribute('HeaderPath3') || '#';
+        
+        HeaderElement.innerHTML = `
+            <header class="header">
+                <div class="navbar-top">
+                    <button class="sidebar-toggle" aria-label="Toggle sidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="logo">
+                        <img src="${HeaderPath0}" alt="شعار المتجر" class="logo-img">
                     </div>
-                    <nav class="main-nav">
-                        <button class="menu-toggle" aria-label="Toggle navigation menu">
-                            <i class="fas fa-bars"></i>
-                        </button>
-                        <ul class="nav-links">
-                            <li><a href="${HeaderPath1}" class="active">الرئيسية</a></li>
-                            <li><a href="${HeaderPath2}">باقاتنا</a></li>
-                            <li><a href="${HeaderPath3}">من نحن</a></li>
-                        </ul>
-                    </nav>
-                </header>
-            `;
-            
-
-                                    //  <h1>Red Flowers</h1>
-
+                </div>
+                <nav class="main-nav">
+                    <button class="menu-toggle" aria-label="Toggle navigation menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <ul class="nav-links">
+                        <li><a href="${HeaderPath1}" class="active">الرئيسية</a></li>
+                        <li><a href="${HeaderPath2}">باقاتنا</a></li>
+                        <li><a href="${HeaderPath3}">من نحن</a></li>
+                    </ul>
+                </nav>
+            </header>
+        `;
+        
 
 /*######################################  Sidebar  ##############################################*/
 
-            const SidebarElement = document.getElementById('Sidebar');
-            if (!SidebarElement) return;
-            
-            // جلب المسارات من خصائص العنصر
-            const SidebarPath1 = SidebarElement.getAttribute('SidebarPath1') || '#';
-            const SidebarPath2 = SidebarElement.getAttribute('SidebarPath2') || '#';
-            const SidebarPath3 = SidebarElement.getAttribute('SidebarPath3') || '#';
-            const SidebarPath4 = SidebarElement.getAttribute('SidebarPath4') || '#';
-            
-            SidebarElement.innerHTML = `
-                <aside class="sidebar">
-                    <h2>أقسام الزهور</h2>
-                    <ul>
-                        <li><a href="${SidebarPath1}">  اضافه منتجات  </a></li>
-                        <li><a href="${SidebarPath2}">  تعديل منتجات  </a></li>
-                        <li><div class="promo-box">
-                        <a href="${SidebarPath3}">  تسجيل دخول الادمن  </a></div></li> 
-                    </ul>
+        const SidebarElement = document.getElementById('Sidebar');
+        if (!SidebarElement) return;
+        
+        const SidebarPath1 = SidebarElement.getAttribute('SidebarPath1') || '#';
+        const SidebarPath2 = SidebarElement.getAttribute('SidebarPath2') || '#';
+        const SidebarPath3 = SidebarElement.getAttribute('SidebarPath3') || '#';
+        const SidebarPath4 = SidebarElement.getAttribute('SidebarPath4') || '#';
+        
+        SidebarElement.innerHTML = `
+            <aside class="sidebar">
+                <h2>أقسام الزهور</h2>
+                <ul>
+                    <li><a href="${SidebarPath1}">  اضافه منتجات  </a></li>
+                    <li><a href="${SidebarPath2}">  تعديل منتجات  </a></li>
+                    <li><div class="promo-box">
+                    <a href="${SidebarPath3}">  تسجيل دخول الادمن  </a></div></li> 
+                </ul>
 
-                </aside>
-            `;
+            </aside>
+        `;
         
 /*######################################  Footer  ##############################################*/
 
@@ -82,20 +77,81 @@ function loadComponents() {
 /*####################################################################################################*/
 
 }
-
-/*####################################################################################################*/
+/******************************************************************************************************/
+/******************************************************************************************************/
+/******************************************************************************************************/
+/******************************************************************************************************/
 /*###############################  load Products suggestions  ########################################*/
+
     function loadProducts() {
         const sheetID = '1CK5wjrpnDTkriEfs8XRo5Sgnq07HHKsyO1pGU_tQguU';
         const sheetUrl = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json`;
 
-        fetch(sheetUrl)
+        // دالة تحديث عداد السلة
+        function updateCartCounter() {
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            const cartCountElement = document.querySelector('.cart-count');
+            
+            if (cartCountElement) {
+                cartCountElement.textContent = cartItems.length;
+                
+                // تأثير النبض عند التحديث
+                cartCountElement.classList.add('pulse');
+                setTimeout(() => {
+                    cartCountElement.classList.remove('pulse');
+                }, 500);
+            }
+        }
+
+        // دالة تشغيل صوت الإشعار
+        function playNotificationSound() {
+            const sound = document.getElementById('notification-sound');
+            if (sound) {
+                sound.currentTime = 0;
+                sound.play().catch(e => console.log("لم يتم تشغيل الصوت:", e));
+            }
+        }
+
+        // دالة عرض إشعار التمديد
+        function showCartNotification() {
+            const cart = document.querySelector('.floating-cart');
+            if (cart) {
+                cart.classList.add('expanded');
+                setTimeout(() => {
+                    cart.classList.remove('expanded');
+                }, 5000);
+            }
+        }
+
+        // دالة إضافة إلى السلة
+        window.addToCart = function(productName, productPrice) {
+            playNotificationSound();
+            
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            cartItems.push({ 
+                name: productName, 
+                price: productPrice 
+            });
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            
+            updateCartCounter();
+            showCartNotification();
+            
+            swal({
+                title: "تمت الإضافة بنجاح",
+                text: `${productName} تمت إضافته إلى السلة`,
+                icon: "success",
+                button: "موافق",
+                timer: 2000
+            });
+        };
+
+    fetch(sheetUrl)
             .then(res => res.text())
             .then(text => {
                 const jsonData = JSON.parse(text.substr(47).slice(0, -2));
                 const rows = jsonData.table.rows;
                 
-                // تحويل البيانات إلى مصفوفة منتجات
                 const products = rows.map((row, index) => {
                     if (index === 0) return null;
                     const cells = row.c;
@@ -117,24 +173,35 @@ function loadComponents() {
 
                 const productContainer = document.getElementById('product-container');
                 if (productContainer) {
+                    // مسح المحتوى الحالي قبل إضافة المنتجات الجديدة
+                    productContainer.innerHTML = '';
+                    
                     selectedProducts.forEach(product => {
-                        const productItem = document.createElement('a');
+                        const productItem = document.createElement('div');
                         productItem.className = 'product-item';
-                        productItem.href = `product-details.html?id=${product.id}`;
                         
                         productItem.innerHTML = `
-                            <img src="${product.image1}" data-hover-src="${product.image2}" alt="${product.name}">
-                            <h3>${product.name}</h3>
-                            <p>${product.details}</p>
-                            <span>جنية  ${product.price}</span>
+                            <a href="product-details.html?id=${product.id}">
+                                <div class="product-image-container">
+                                    <img src="${product.image1}" data-hover-src="${product.image2}" alt="${product.name}">
+                                </div>
+                                <h3>${product.name}</h3>
+                                <p>${product.details}</p>
+                                <span>${product.price} جنية</span>
+                            </a>
+                            <button class="add-to-cart-btn" onclick="addToCart('${product.name.replace(/'/g, "\\'")}', '${product.price}')">
+                                أضف إلى السلة
+                            </button>
                         `;
                         
                         productContainer.appendChild(productItem);
                     });
 
                     // إضافة تأثير تغيير الصورة
-                    document.querySelectorAll('.product-item img').forEach(img => {
+                    document.querySelectorAll('.product-image-container').forEach(container => {
+                        const img = container.querySelector('img');
                         const hoverSrc = img.getAttribute('data-hover-src');
+                        
                         if (hoverSrc) {
                             const hoverImg = new Image();
                             hoverImg.src = hoverSrc;
@@ -143,20 +210,22 @@ function loadComponents() {
                             hoverImg.style.left = '0';
                             hoverImg.style.opacity = '0';
                             hoverImg.style.transition = 'opacity 0.5s ease';
-                            img.parentNode.insertBefore(hoverImg, img.nextSibling);
+                            container.appendChild(hoverImg);
 
-                            img.parentElement.addEventListener('mouseenter', () => {
+                            container.addEventListener('mouseenter', () => {
                                 img.style.opacity = '0';
                                 hoverImg.style.opacity = '1';
                             });
 
-                            img.parentElement.addEventListener('mouseleave', () => {
+                            container.addEventListener('mouseleave', () => {
                                 img.style.opacity = '1';
                                 hoverImg.style.opacity = '0';
                             });
                         }
                     });
                 }
+
+                updateCartCounter();
             })
             .catch(error => {
                 console.error('حدث خطأ أثناء جلب البيانات:', error);
@@ -166,18 +235,33 @@ function loadComponents() {
                 }
             });
     }
+    document.addEventListener('DOMContentLoaded', function() {
+        // تحميل ionicons
+        const ioniconsScript = document.createElement('script');
+        ioniconsScript.src = 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js';
+        document.head.appendChild(ioniconsScript);
+        
+        // تحميل SweetAlert إذا لم يكن محملاً
+        if (typeof swal === 'undefined') {
+            const swalScript = document.createElement('script');
+            swalScript.src = 'https://unpkg.com/sweetalert/dist/sweetalert.min.js';
+            document.head.appendChild(swalScript);
+        }
+        
+        loadProducts();
+    });
+        
 /*####################################################################################################*/
 /*###################################  load Data Products  ###########################################*/
+
     function loadDataProducts() {
-  
-        const sheetID = '1CK5wjrpnDTkriEfs8XRo5Sgnq07HHKsyO1pGU_tQguU'; // ID من رابط Google Sheets
+        const sheetID = '1CK5wjrpnDTkriEfs8XRo5Sgnq07HHKsyO1pGU_tQguU';
         const baseURL = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json`;
 
-        // دالة لجلب البيانات من Google Sheets
         async function fetchProducts() {
             const response = await fetch(baseURL);
             const data = await response.text();
-            const jsonData = JSON.parse(data.substr(47).slice(0, -2)); // معالجة البيانات
+            const jsonData = JSON.parse(data.substr(47).slice(0, -2));
 
             return jsonData.table.rows.map(row => {
                 return {
@@ -185,64 +269,136 @@ function loadComponents() {
                     name: row.c[1].v,
                     details: row.c[2].v,
                     price: row.c[3].v,
-                    type: row.c[4].v, // إضافة نوع المنتج
+                    type: row.c[4].v,
                     image1: row.c[5].v,
                     image2: row.c[6].v
                 };
             });
         }
 
-        // دالة لعرض البيانات في بطاقات
+        // دالة تحديث عداد السلة
+    window.addToCart = function(productName, productPrice) {
+        // تشغيل صوت الإشعار
+        playNotificationSound();
+        
+        // إضافة المنتج للسلة
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        cartItems.push({ 
+            name: productName, 
+            price: productPrice 
+        });
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        
+        // تحديث العداد
+        updateCartCounter();
+        
+        // عرض تأثير التمديد
+        showCartNotification();
+        
+        // عرض تنبيه SweetAlert
+        swal({
+            title: "تمت الإضافة بنجاح",
+            text: `${productName} تمت إضافته إلى السلة`,
+            icon: "success",
+            button: "موافق",
+            timer: 2000
+        });
+    };
+
+    function playNotificationSound() {
+        const sound = document.getElementById('notification-sound');
+        if (sound) {
+            sound.currentTime = 0; // إعادة التشغيل من البداية
+            sound.play().catch(e => console.log("لم يتم تشغيل الصوت:", e));
+        }
+    }
+
+    function showCartNotification() {
+        const cart = document.querySelector('.floating-cart');
+        if (cart) {
+            // إضافة كلاس expanded
+            cart.classList.add('expanded');
+            
+            // إزالة الكلاس بعد 5 ثواني
+            setTimeout(() => {
+                cart.classList.remove('expanded');
+            }, 5000);
+        }
+    }
+
+    function updateCartCounter() {
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const cartCountElement = document.querySelector('.cart-count');
+        
+        if (cartCountElement) {
+            cartCountElement.textContent = cartItems.length;
+            
+            // تأثير النبض عند التحديث
+            cartCountElement.classList.add('pulse');
+            setTimeout(() => {
+                cartCountElement.classList.remove('pulse');
+            }, 500);
+        }
+    }
+
         async function displayProducts() {
             const products = await fetchProducts();
             const productGrid = document.getElementById("productGrid");
-            productGrid.innerHTML = ""; // مسح البطاقات الحالية
+            productGrid.innerHTML = "";
 
             const categoryFilter = document.getElementById("category-filter");
             const searchBar = document.getElementById("search-bar");
 
-            // تصفية المنتجات عند تغيير الفلتر أو البحث
             function filterProducts() {
                 const searchTerm = searchBar.value.toLowerCase();
                 const selectedCategory = categoryFilter.value;
 
                 const filteredProducts = products.filter(product => {
                     const matchesCategory = selectedCategory === "all" || product.type === selectedCategory;
-                    const matchesSearch = product.name.toLowerCase().includes(searchTerm) || product.details.toLowerCase().includes(searchTerm);
+                    const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
+                                        product.details.toLowerCase().includes(searchTerm);
                     return matchesCategory && matchesSearch;
                 });
 
-                // عرض المنتجات المصفاة
-                productGrid.innerHTML = ""; // مسح البطاقات الحالية
+                productGrid.innerHTML = "";
                 filteredProducts.forEach(product => {
-                    const card = document.createElement("a");
-                    card.href = `product-details.html?id=${product.id}`;
+                    const card = document.createElement("div");
                     card.className = "product-item";
                     card.setAttribute("data-category", product.type);
 
                     card.innerHTML = `
-                        <div class="product-image-container">
-                            <img class="main-image" src="${product.image1}" alt="${product.name}">
-                            <img class="hover-image" src="${product.image2}" alt="${product.name}">
-                        </div>
-                        <h3>${product.name}</h3>
-                        <p>${product.details}</p>
-                        <span>$${product.price}</span>
+                        <a href="product-details.html?id=${product.id}">
+                            <div class="product-image-container">
+                                <img class="main-image" src="${product.image1}" alt="${product.name}">
+                                <img class="hover-image" src="${product.image2}" alt="${product.name}">
+                            </div>
+                            <h3>${product.name}</h3>
+                            <p>${product.details}</p>
+                            <span>${product.price} جنية</span>
+                        </a>
+                        <button class="add-to-cart-btn" onclick="addToCart('${product.name.replace(/'/g, "\\'")}', '${product.price}')">
+                            أضف إلى السلة
+                        </button>
                     `;
                     productGrid.appendChild(card);
                 });
             }
 
-            // عرض جميع المنتجات عند تحميل الصفحة
-            filterProducts();
+            // تحديث العداد عند تحميل الصفحة
+            updateCartCounter();
 
-            // إضافة أحداث على الفلتر والبحث
+            filterProducts();
             categoryFilter.addEventListener("change", filterProducts);
             searchBar.addEventListener("input", filterProducts);
         }
-         // عرض المنتجات عند تحميل الصفحة
+
         displayProducts();
     }
+    document.addEventListener('DOMContentLoaded', function() {
+        const ioniconsScript = document.createElement('script');
+        ioniconsScript.src = 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js';
+        document.head.appendChild(ioniconsScript);
+    });
 
 /*####################################################################################################*/
 /*####################################################################################################*/
