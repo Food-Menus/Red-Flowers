@@ -380,17 +380,42 @@
 
         .footer p {
             margin-bottom: 15px;
-            font-size: 0.9rem;
+            font-size: 28px;
         }
 
-        .social-links img {
-            height: 25px;
-            margin: 0 10px;
-            transition: transform 0.3s ease;
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
         }
 
-        .social-links img:hover {
+        .social-links a {
+            color: var(--white);
+            font-size: 28px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-links a:hover {
             transform: translateY(-3px);
+        }
+
+        .social-links a:hover:nth-child(1) {
+            color: #1877f2; /* لون فيسبوك */
+        }
+
+        .social-links a:hover:nth-child(2) {
+            color: #e4405f; /* لون انستجرام */
+        }
+
+        .social-links a:hover:nth-child(3) {
+            color: #1da1f2; /* لون تويتر */
+        }
+        .main-nav ul.nav-links li a {
+            font-weight: bold;
+            font-size: 28px;
+            padding: 8px 0;
+            position: relative;
+            display: block;
         }
 
         /* Responsive adjustments */

@@ -678,19 +678,43 @@
 
         .footer p {
             margin-bottom: 15px;
-            font-size: 0.9rem;
+            font-size: 28px;
         }
 
-        .social-links img {
-            height: 25px;
-            margin: 0 10px;
-            transition: transform 0.3s ease;
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
         }
 
-        .social-links img:hover {
+        .social-links a {
+            color: var(--white);
+            font-size: 28px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-links a:hover {
             transform: translateY(-3px);
         }
 
+        .social-links a:hover:nth-child(1) {
+            color: #1877f2; /* لون فيسبوك */
+        }
+
+        .social-links a:hover:nth-child(2) {
+            color: #e4405f; /* لون انستجرام */
+        }
+
+        .social-links a:hover:nth-child(3) {
+            color: #1da1f2; /* لون تويتر */
+        }
+        .main-nav ul.nav-links li a {
+            font-weight: bold;
+            font-size: 28px;
+            padding: 8px 0;
+            position: relative;
+            display: block;
+        }
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .product-grid {
@@ -782,8 +806,8 @@ HeaderPath4="./order.html" ></div>
 <!--##########################################################################-->
 <!--#############################  Sidebar  ##################################-->
 <div id="Sidebar"
-SidebarPath1="#" 
-SidebarPath2="#" 
+SidebarPath1="./order.html" 
+SidebarPath2="./location.html" 
 SidebarPath3="./../AdminPages/Auth.html"
 SidebarPath4="#"></div> 
 <!--##########################################################################-->
@@ -818,7 +842,7 @@ SidebarPath4="#"></div>
 <!------------------------------------------------------------------------------>
 <!-- Floating Cart Badge -->
 <!-- Floating Cart with Notification -->
-<a href="./../Pages/order.html" class="floating-cart">
+<a href="./order.html" class="floating-cart">
     <ion-icon name="cart-outline"></ion-icon>
     <span class="cart-count">0</span>
     <span class="notification-text">تمت الإضافة</span>

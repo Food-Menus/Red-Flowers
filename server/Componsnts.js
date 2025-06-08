@@ -49,8 +49,8 @@ function loadComponents() {
             <aside class="sidebar">
                 <h2>أقسام الزهور</h2>
                 <ul>
-                    <li><a href="${SidebarPath1}">  اضافه منتجات  </a></li>
-                    <li><a href="${SidebarPath2}">  تعديل منتجات  </a></li>
+                    <li><a href="${SidebarPath1}">   متابعة الطلب  </a></li>
+                    <li><a href="${SidebarPath2}">   موقع المتجر  </a></li>
                     <li><div class="promo-box">
                     <a href="${SidebarPath3}">  تسجيل دخول الادمن  </a></div></li> 
                 </ul>
@@ -66,8 +66,8 @@ function loadComponents() {
                 <footer class="footer">
                     <p>Copyright © 2025 Techno Science All rights reserved </p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61552612523046&mibextid=ZbWKwL"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/red_flowers.01208901095"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
                     </div>
                 </footer>
