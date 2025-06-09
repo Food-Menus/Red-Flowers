@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
@@ -76,19 +75,78 @@
             border-bottom: none;
         }
 
-        .delete-button {
-            background-color: var(--secondary-color);
+        .item-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-grow: 1;
+        }
+
+        .item-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .item-details {
+            flex-grow: 1;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: 15px;
+        }
+
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 5px 10px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quantity-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .quantity-value {
+            min-width: 30px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .delete-button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 8px 15px;
             border-radius: 5px;
             cursor: pointer;
             font-size: 26px;
             transition: all 0.3s;
+            margin-right: 10px;
         }
 
         .delete-button:hover {
-            background-color: #e64a19;
+            background-color: #d32f2f;
+        }
+
+        .item-price {
+            color: var(--primary-color);
+            font-weight: bold;
+            min-width: 100px;
+            text-align: left;
         }
 
         .total-price {
@@ -238,6 +296,26 @@
                 padding: 12px;
                 font-size: 18px;
             }
+            
+            .item-image {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .quantity-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+            }
+            
+            .quantity-value {
+                font-size: 18px;
+            }
+            
+            .delete-button {
+                padding: 5px 10px;
+                font-size: 18px;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -304,30 +382,88 @@
 
         if (storedData) {
             const dishes = JSON.parse(storedData);
-            const dishCounts = {};
+            const dishGroups = {};
             
-            // Count dishes and calculate total price
+            // Group dishes by name and calculate total price
             dishes.forEach(dish => {
-                dishCounts[dish.name] = (dishCounts[dish.name] || 0) + 1;
+                if (!dishGroups[dish.name]) {
+                    dishGroups[dish.name] = {
+                        count: 1,
+                        price: parseFloat(dish.price) || 0,
+                        image: dish.image,
+                        items: [dish]
+                    };
+                } else {
+                    dishGroups[dish.name].count += 1;
+                    dishGroups[dish.name].price += parseFloat(dish.price) || 0;
+                    dishGroups[dish.name].items.push(dish);
+                }
                 totalPrice += parseFloat(dish.price) || 0;
             });
 
             // Display dishes in order list
-            for (const dishName in dishCounts) {
+            for (const dishName in dishGroups) {
+                const group = dishGroups[dishName];
                 const listItem = document.createElement('li');
                 listItem.className = 'order-item';
                 
-                const dishInfo = document.createElement('span');
-                dishInfo.textContent = `${dishName} (${dishCounts[dishName]})`;
+                const itemInfo = document.createElement('div');
+                itemInfo.className = 'item-info';
                 
+                // Add product image
+                const itemImage = document.createElement('img');
+                itemImage.className = 'item-image';
+                itemImage.src = group.image;
+                itemImage.alt = dishName;
+                
+                const itemDetails = document.createElement('div');
+                itemDetails.className = 'item-details';
+                itemDetails.textContent = dishName;
+                
+                // Quantity controls
+                const quantityControls = document.createElement('div');
+                quantityControls.className = 'quantity-controls';
+                
+                const decreaseBtn = document.createElement('button');
+                decreaseBtn.className = 'quantity-btn';
+                decreaseBtn.innerHTML = '-';
+                decreaseBtn.onclick = function() {
+                    updateQuantity(dishName, -1);
+                };
+                
+                const quantityValue = document.createElement('span');
+                quantityValue.className = 'quantity-value';
+                quantityValue.textContent = group.count;
+                
+                const increaseBtn = document.createElement('button');
+                increaseBtn.className = 'quantity-btn';
+                increaseBtn.innerHTML = '+';
+                increaseBtn.onclick = function() {
+                    updateQuantity(dishName, 1);
+                };
+                
+                quantityControls.appendChild(decreaseBtn);
+                quantityControls.appendChild(quantityValue);
+                quantityControls.appendChild(increaseBtn);
+                
+                // Item price
+                const itemPrice = document.createElement('span');
+                itemPrice.className = 'item-price';
+                itemPrice.textContent = group.price.toFixed(2) + ' جنيه';
+                
+                // Delete button
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-button';
-                deleteBtn.textContent = 'حذف';
+                deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
                 deleteBtn.onclick = function() {
                     removeItemFromCart(dishName);
                 };
                 
-                listItem.appendChild(dishInfo);
+                itemInfo.appendChild(itemImage);
+                itemInfo.appendChild(itemDetails);
+                listItem.appendChild(itemInfo);
+                listItem.appendChild(quantityControls);
+                listItem.appendChild(itemPrice);
                 listItem.appendChild(deleteBtn);
                 orderList.appendChild(listItem);
             }
@@ -341,20 +477,43 @@
         }
     });
 
-    // Remove item from cart
+    // Update item quantity
+    function updateQuantity(itemName, change) {
+        const storedData = localStorage.getItem("cartItems");
+        if (!storedData) return;
+        
+        let dishes = JSON.parse(storedData);
+        const itemIndex = dishes.findIndex(dish => dish.name === itemName);
+        
+        if (change === 1) {
+            // Add one more of the same item
+            if (itemIndex !== -1) {
+                const newItem = {...dishes[itemIndex]};
+                dishes.push(newItem);
+                localStorage.setItem("cartItems", JSON.stringify(dishes));
+                location.reload();
+            }
+        } else if (change === -1) {
+            // Remove one item
+            if (itemIndex !== -1) {
+                dishes.splice(itemIndex, 1);
+                localStorage.setItem("cartItems", JSON.stringify(dishes));
+                location.reload();
+            }
+        }
+    }
+
+    // Remove all items of this type from cart
     function removeItemFromCart(itemName) {
         const storedData = localStorage.getItem("cartItems");
         if (storedData) {
             let dishes = JSON.parse(storedData);
-            const index = dishes.findIndex(dish => dish.name === itemName);
+            dishes = dishes.filter(dish => dish.name !== itemName);
             
-            if (index !== -1) {
-                dishes.splice(index, 1);
-                localStorage.setItem("cartItems", JSON.stringify(dishes));
-                Swal.fire('تم الحذف', 'تم حذف العنصر من السلة', 'success').then(() => {
-                    location.reload();
-                });
-            }
+            localStorage.setItem("cartItems", JSON.stringify(dishes));
+            Swal.fire('تم الحذف', 'تم حذف العنصر من السلة', 'success').then(() => {
+                location.reload();
+            });
         }
     }
 
@@ -406,17 +565,28 @@
         try {
             // 1. Send to Google Form
             const dishes = JSON.parse(storedData);
-            const dishCounts = {};
+            const dishGroups = {};
             let totalPrice = 0;
             let orderDetails = '';
             
+            // Group items and calculate totals
             dishes.forEach(dish => {
-                dishCounts[dish.name] = (dishCounts[dish.name] || 0) + 1;
+                if (!dishGroups[dish.name]) {
+                    dishGroups[dish.name] = {
+                        count: 1,
+                        price: parseFloat(dish.price) || 0
+                    };
+                } else {
+                    dishGroups[dish.name].count += 1;
+                    dishGroups[dish.name].price += parseFloat(dish.price) || 0;
+                }
                 totalPrice += parseFloat(dish.price) || 0;
             });
 
-            for (const dishName in dishCounts) {
-                orderDetails += `- ${dishName} (${dishCounts[dishName]})\n`;
+            // Prepare order details
+            for (const dishName in dishGroups) {
+                const group = dishGroups[dishName];
+                orderDetails += `- ${dishName} (${group.count}) - ${group.price.toFixed(2)} جنيه\n`;
             }
 
             const formData = new FormData();

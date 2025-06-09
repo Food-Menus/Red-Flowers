@@ -254,30 +254,30 @@ function loadComponents() {
 /*####################################################################################################*/
 /*###################################  load Data Products  ###########################################*/
 
-    function loadDataProducts() {
-        const sheetID = '1CK5wjrpnDTkriEfs8XRo5Sgnq07HHKsyO1pGU_tQguU';
-        const baseURL = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json`;
+function loadDataProducts() {
+    const sheetID = '1CK5wjrpnDTkriEfs8XRo5Sgnq07HHKsyO1pGU_tQguU';
+    const baseURL = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json`;
 
-        async function fetchProducts() {
-            const response = await fetch(baseURL);
-            const data = await response.text();
-            const jsonData = JSON.parse(data.substr(47).slice(0, -2));
+    async function fetchProducts() {
+        const response = await fetch(baseURL);
+        const data = await response.text();
+        const jsonData = JSON.parse(data.substr(47).slice(0, -2));
 
-            return jsonData.table.rows.map(row => {
-                return {
-                    id: row.c[0].v,
-                    name: row.c[1].v,
-                    details: row.c[2].v,
-                    price: row.c[3].v,
-                    type: row.c[4].v,
-                    image1: row.c[5].v,
-                    image2: row.c[6].v
-                };
-            });
-        }
+        return jsonData.table.rows.map(row => {
+            return {
+                id: row.c[0].v,
+                name: row.c[1].v,
+                details: row.c[2].v,
+                price: row.c[3].v,
+                type: row.c[4].v,
+                image1: row.c[5].v,
+                image2: row.c[6].v
+            };
+        });
+    }
 
-        // دالة تحديث عداد السلة
-    window.addToCart = function(productName, productPrice) {
+    // دالة تحديث عداد السلة
+    window.addToCart = function(productName, productPrice, productImage) {
         // تشغيل صوت الإشعار
         playNotificationSound();
         
@@ -285,7 +285,8 @@ function loadComponents() {
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
         cartItems.push({ 
             name: productName, 
-            price: productPrice 
+            price: productPrice,
+            image: productImage
         });
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
         
@@ -341,65 +342,65 @@ function loadComponents() {
         }
     }
 
-        async function displayProducts() {
-            const products = await fetchProducts();
-            const productGrid = document.getElementById("productGrid");
+    async function displayProducts() {
+        const products = await fetchProducts();
+        const productGrid = document.getElementById("productGrid");
+        productGrid.innerHTML = "";
+
+        const categoryFilter = document.getElementById("category-filter");
+        const searchBar = document.getElementById("search-bar");
+
+        function filterProducts() {
+            const searchTerm = searchBar.value.toLowerCase();
+            const selectedCategory = categoryFilter.value;
+
+            const filteredProducts = products.filter(product => {
+                const matchesCategory = selectedCategory === "all" || product.type === selectedCategory;
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
+                                    product.details.toLowerCase().includes(searchTerm);
+                return matchesCategory && matchesSearch;
+            });
+
             productGrid.innerHTML = "";
+            filteredProducts.forEach(product => {
+                const card = document.createElement("div");
+                card.className = "product-item";
+                card.setAttribute("data-category", product.type);
 
-            const categoryFilter = document.getElementById("category-filter");
-            const searchBar = document.getElementById("search-bar");
-
-            function filterProducts() {
-                const searchTerm = searchBar.value.toLowerCase();
-                const selectedCategory = categoryFilter.value;
-
-                const filteredProducts = products.filter(product => {
-                    const matchesCategory = selectedCategory === "all" || product.type === selectedCategory;
-                    const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
-                                        product.details.toLowerCase().includes(searchTerm);
-                    return matchesCategory && matchesSearch;
-                });
-
-                productGrid.innerHTML = "";
-                filteredProducts.forEach(product => {
-                    const card = document.createElement("div");
-                    card.className = "product-item";
-                    card.setAttribute("data-category", product.type);
-
-                    card.innerHTML = `
-                        <a href="product-details.html?id=${product.id}">
-                            <div class="product-image-container">
-                                <img class="main-image" src="${product.image1}" alt="${product.name}">
-                                <img class="hover-image" src="${product.image2}" alt="${product.name}">
-                            </div>
-                            <h3>${product.name}</h3>
-                            <p>${product.details}</p>
-                            <span>${product.price} جنية</span>
-                        </a>
-                        <button class="add-to-cart-btn" onclick="addToCart('${product.name.replace(/'/g, "\\'")}', '${product.price}')">
-                            أضف إلى السلة
-                        </button>
-                    `;
-                    productGrid.appendChild(card);
-                });
-            }
-
-            // تحديث العداد عند تحميل الصفحة
-            updateCartCounter();
-
-            filterProducts();
-            categoryFilter.addEventListener("change", filterProducts);
-            searchBar.addEventListener("input", filterProducts);
+                card.innerHTML = `
+                    <a href="product-details.html?id=${product.id}">
+                        <div class="product-image-container">
+                            <img class="main-image" src="${product.image1}" alt="${product.name}">
+                            <img class="hover-image" src="${product.image2}" alt="${product.name}">
+                        </div>
+                        <h3>${product.name}</h3>
+                        <p>${product.details}</p>
+                        <span>${product.price} جنية</span>
+                    </a>
+                    <button class="add-to-cart-btn" onclick="addToCart('${product.name.replace(/'/g, "\\'")}', '${product.price}', '${product.image1}')">
+                        أضف إلى السلة
+                    </button>
+                `;
+                productGrid.appendChild(card);
+            });
         }
 
-        displayProducts();
-    }
-    document.addEventListener('DOMContentLoaded', function() {
-        const ioniconsScript = document.createElement('script');
-        ioniconsScript.src = 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js';
-        document.head.appendChild(ioniconsScript);
-    });
+        // تحديث العداد عند تحميل الصفحة
+        updateCartCounter();
 
+        filterProducts();
+        categoryFilter.addEventListener("change", filterProducts);
+        searchBar.addEventListener("input", filterProducts);
+    }
+
+    displayProducts();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const ioniconsScript = document.createElement('script');
+    ioniconsScript.src = 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js';
+    document.head.appendChild(ioniconsScript);
+});
 /*####################################################################################################*/
 /*####################################################################################################*/
 
