@@ -326,7 +326,7 @@
 
 <!-- Loading Overlay -->
 <div class="loading-overlay" id="loadingScreen">
-    <img src="./../../Static/images/اساسيات/logoooo.png" class="loader-img" alt="Loading...">
+    <img src="./../../static/images/logo.png" class="loader-img" alt="Loading...">
 </div>
 
 <!-- Main Content -->
@@ -597,7 +597,7 @@
             formData.append('amount', totalPrice.toFixed(2));
             formData.append('order', orderDetails);
 
-            const response = await fetch("https://script.google.com/macros/s/AKfycbxKXrFe4KJ0h6BAzkquiJgFtggS3726MVz0iCYzvPe2a7Yp8Q7skECt-jCMkMhbJDuq/exec", {
+            const response = await fetch("https://script.google.com/macros/s/AKfycbzvUvprAvsR_Yi-wRLk_TrRLtOcbT-4TC0GyVot32WSiV1Cv4-xjXd4B6-TwWMEveM/exec", {
                 method: "POST",
                 body: formData
             });

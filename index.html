@@ -33,6 +33,65 @@
             direction: rtl;
             overflow-x: hidden;
         }
+
+
+                .qr-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .qr-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .qr-content img {
+            max-width: 300px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        
+        .close-qr {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 15px;
+        }
+        
+        .qr-btn {
+            background-color: #17a2b8;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .qr-btn i {
+            font-size: 18px;
+        }
+
 /* Floating Cart with Advanced Effects */
 .floating-cart {
     position: fixed;
@@ -761,7 +820,7 @@ HeaderPath4="./clint/UserPages/order.html" ></div>
 SidebarPath1="./clint/UserPages/order.html" 
 SidebarPath2="./clint/UserPages/location.html" 
 SidebarPath3="./clint/AdminPages/Auth.html"
-SidebarPath4="#"></div> 
+SidebarPath4="./clint/UserPages/feedback.html"></div> 
 <!--##########################################################################-->
 
     <main class="main-content">
@@ -795,6 +854,14 @@ SidebarPath4="#"></div>
     </audio>
 </a>
 
+<div id="qrModal" class="qr-modal">
+    <div class="qr-content">
+        <h2>أمسح الكود</h2>
+        <img src="./static/images/BarcodeFlowers.png" alt="QR Code">
+        <p>يمكنك مسح الكود لمشاركة الموقع</p>
+        <button class="close-qr" onclick="closeQRModal()">إغلاق</button>
+    </div>
+</div>
 <!--#############################  Footer  ###################################-->
 <div id="Footer"></div> 
 <!--##########################################################################-->
@@ -804,6 +871,14 @@ SidebarPath4="#"></div>
 
 <!--##########################################################################-->
 <!--#############################  script  ###################################-->
+<script>    function showQRModal() {
+        document.getElementById('qrModal').style.display = 'flex';
+    }
+    
+    // دالة لإغلاق نافذة الـ QR Code
+    function closeQRModal() {
+        document.getElementById('qrModal').style.display = 'none';
+    }</script>
     <script src="./server/Componsnts.js" ></script>
 <!--##########################################################################-->
 <!--##########################################################################-->
