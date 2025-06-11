@@ -46,6 +46,7 @@ function loadComponents() {
         const SidebarPath2 = SidebarElement.getAttribute('SidebarPath2') || '#';
         const SidebarPath3 = SidebarElement.getAttribute('SidebarPath3') || '#';
         const SidebarPath4 = SidebarElement.getAttribute('SidebarPath4') || '#';
+        const SidebarPath5 = SidebarElement.getAttribute('SidebarPath5') || '#';
         
         SidebarElement.innerHTML = `
             <aside class="sidebar">
@@ -58,6 +59,9 @@ function loadComponents() {
                     <button class="qr-btn" onclick="showQRModal()">
                         <i class="fas fa-qrcode"></i> مسح الكود للتواصل
                     </button>
+                    <a href="${SidebarPath5}" download="Red Flowers.apk" class="download-apk-btn">
+                        <i class="fas fa-mobile-alt"></i>  تحميل التطبيق للاندرويد 
+                    </a>
                 </li>
                 </ul>
 

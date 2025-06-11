@@ -35,6 +35,107 @@
             font-size: 23px;
             /* تم تعديل الخط الأساسي ليتماشى مع الأكواد السابقة */
         }
+         .download-apk-btn {
+            display: inline-flex; /* لجعل الأيقونة والنص في سطر واحد */
+            align-items: center; /* لمحاذاة العناصر عموديًا */
+            justify-content: center; /* لتوسيط المحتوى */
+            background-color: #4CAF50; /* لون أخضر جذاب */
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none; /* إزالة خط تحت النص */
+            font-size: 20px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+            border: none; /* إزالة أي حدود افتراضية */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* إضافة ظل بسيط */
+        }
+
+        .download-apk-btn:hover {
+            background-color: #45a049; /* لون أغمق عند التحويم */
+            transform: translateY(-2px); /* تأثير رفع بسيط */
+        }
+
+        .download-apk-btn i {
+            margin-left: 10px; /* مسافة بين الأيقونة والنص */
+            font-size: 20px; /* حجم الأيقونة */
+        }
+
+        /* استجابة للهواتف الصغيرة */
+        @media (max-width: 480px) {
+            .download-apk-btn {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+            .download-apk-btn i {
+                font-size: 18px;
+                margin-left: 8px;
+            }
+        }
+
+                /* --- QR Modal --- */
+        .qr-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .qr-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .qr-content img {
+            max-width: 300px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .close-qr {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            /* تم تكبير حجم الزر */
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 25px;
+            /* تم تكبير الخط (20+5) */
+            margin-top: 15px;
+        }
+
+        .qr-btn {
+            background-color: #17a2b8;
+            color: white;
+            border: none;
+            padding: 14px 21px;
+            /* تم تكبير حجم الزر */
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            /* تم تكبير الخط (18+5) */
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .qr-btn i {
+            font-size: 25px;
+            /* تم تكبير الأيقونة (20+5) */
+        }
 
         /* Floating Cart with Advanced Effects */
         .floating-cart {
@@ -1248,7 +1349,7 @@
 
         <!--#########################  Header  Sidebar  ##############################-->
         <div id="Header" HeaderPath0="./../../static/images/logo.png" HeaderPath1="./../../index.html" HeaderPath2="./products.html" HeaderPath3="./about.html" HeaderPath4="./order.html"></div>
-        <div id="Sidebar" SidebarPath1="./order.html" SidebarPath2="./location.html" SidebarPath3="./../AdminPages/Auth.html" SidebarPath4="./feedback"></div>
+        <div id="Sidebar" SidebarPath1="./order.html" SidebarPath2="./location.html" SidebarPath3="./../AdminPages/Auth.html" SidebarPath4="./feedback" HeaderPath5="./../../static/Red Flowers.apk"></div>
         <!--##########################################################################-->
 
                     <main class="main-content products-page">
@@ -1282,6 +1383,15 @@
                         </audio>
                     </a>
 
+                    <div id="qrModal" class="qr-modal">
+                        <div class="qr-content">
+                            <h2>أمسح الكود</h2>
+                            <img src="./../../static/images/BarcodeFlowers.png" alt="QR Code">
+                            <p>يمكنك مسح الكود لمشاركة الموقع</p>
+                            <button class="close-qr" onclick="closeQRModal()">إغلاق</button>
+                        </div>
+                    </div>
+
         <!--#############################  Footer  ###################################-->
         <div id="Footer"></div>
         <!--##########################################################################-->
@@ -1294,6 +1404,16 @@
 
 <!--#############################  script  ###################################-->
     <script src="./../../server/Componsnts.js"></script>
+    <script>
+        function showQRModal() {
+            document.getElementById('qrModal').style.display = 'flex';
+        }
+
+        // دالة لإغلاق نافذة الـ QR Code
+        function closeQRModal() {
+            document.getElementById('qrModal').style.display = 'none';
+        }
+    </script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <!--##########################################################################-->

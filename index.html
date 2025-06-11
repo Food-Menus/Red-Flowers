@@ -36,6 +36,44 @@
             font-size: 23px;
             /* تم تكبير الخط الأساسي بمقدار 5 بكسل (18+5) */
         }
+         .download-apk-btn {
+            display: inline-flex; /* لجعل الأيقونة والنص في سطر واحد */
+            align-items: center; /* لمحاذاة العناصر عموديًا */
+            justify-content: center; /* لتوسيط المحتوى */
+            background-color: #4CAF50; /* لون أخضر جذاب */
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none; /* إزالة خط تحت النص */
+            font-size: 20px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+            border: none; /* إزالة أي حدود افتراضية */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* إضافة ظل بسيط */
+        }
+
+        .download-apk-btn:hover {
+            background-color: #45a049; /* لون أغمق عند التحويم */
+            transform: translateY(-2px); /* تأثير رفع بسيط */
+        }
+
+        .download-apk-btn i {
+            margin-left: 10px; /* مسافة بين الأيقونة والنص */
+            font-size: 20px; /* حجم الأيقونة */
+        }
+
+        /* استجابة للهواتف الصغيرة */
+        @media (max-width: 480px) {
+            .download-apk-btn {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+            .download-apk-btn i {
+                font-size: 18px;
+                margin-left: 8px;
+            }
+        }
 
         /* --- QR Modal --- */
         .qr-modal {
@@ -1212,7 +1250,7 @@
 <div class="full-width-container"><!-------------------------------------------->
 
         <!--##########################  Header Sidebar ###############################-->
-        <div id="Header" HeaderPath0="./static/images/logo.png" HeaderPath1="./clint/UserPages/index.html" HeaderPath2="./clint/UserPages/products.html" HeaderPath3="./clint/UserPages/about.html"  HeaderPath4="./clint/UserPages/order.html"></div>
+        <div id="Header" HeaderPath0="./static/images/logo.png" HeaderPath1="./clint/UserPages/index.html" HeaderPath2="./clint/UserPages/products.html" HeaderPath3="./clint/UserPages/about.html"  HeaderPath4="./clint/UserPages/order.html" HeaderPath5="./static/Red Flowers.apk"></div>
         <div id="Sidebar" SidebarPath1="./clint/UserPages/order.html" SidebarPath2="./clint/UserPages/location.html" SidebarPath3="./clint/AdminPages/Auth.html" SidebarPath4="./clint/UserPages/feedback.html"></div>
         <!--##########################################################################-->
 

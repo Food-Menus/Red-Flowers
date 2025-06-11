@@ -33,6 +33,107 @@
             direction: rtl;
             overflow-x: hidden;
         }
+         .download-apk-btn {
+            display: inline-flex; /* لجعل الأيقونة والنص في سطر واحد */
+            align-items: center; /* لمحاذاة العناصر عموديًا */
+            justify-content: center; /* لتوسيط المحتوى */
+            background-color: #4CAF50; /* لون أخضر جذاب */
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none; /* إزالة خط تحت النص */
+            font-size: 20px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+            border: none; /* إزالة أي حدود افتراضية */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* إضافة ظل بسيط */
+        }
+
+        .download-apk-btn:hover {
+            background-color: #45a049; /* لون أغمق عند التحويم */
+            transform: translateY(-2px); /* تأثير رفع بسيط */
+        }
+
+        .download-apk-btn i {
+            margin-left: 10px; /* مسافة بين الأيقونة والنص */
+            font-size: 20px; /* حجم الأيقونة */
+        }
+
+        /* استجابة للهواتف الصغيرة */
+        @media (max-width: 480px) {
+            .download-apk-btn {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+            .download-apk-btn i {
+                font-size: 18px;
+                margin-left: 8px;
+            }
+        }
+
+                /* --- QR Modal --- */
+        .qr-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .qr-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .qr-content img {
+            max-width: 300px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .close-qr {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            /* تم تكبير حجم الزر */
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 25px;
+            /* تم تكبير الخط (20+5) */
+            margin-top: 15px;
+        }
+
+        .qr-btn {
+            background-color: #17a2b8;
+            color: white;
+            border: none;
+            padding: 14px 21px;
+            /* تم تكبير حجم الزر */
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            /* تم تكبير الخط (18+5) */
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .qr-btn i {
+            font-size: 25px;
+            /* تم تكبير الأيقونة (20+5) */
+        }
 
         /* Preloader Styles */
         .preloader {
@@ -501,7 +602,7 @@
 
 <body>
 
-    <!--############################  loading  ###################################-->
+<!--############################  loading  ###################################-->
     <div class="preloader">
         <div class="preloader-content">
             <img src="./../../static/images/logo.png" alt="Red Flowers Logo" class="preloader-logo">
@@ -509,45 +610,66 @@
             <p>جاري التحميل...</p>
         </div>
     </div>
-    <!--##########################################################################-->
+<!--##########################################################################-->
 
 
 
 
-    <!------------------------------------------------------------------------------>
-    <div class="full-width-container"><!-------------------------------------------->
+<!------------------------------------------------------------------------------>
+<div class="full-width-container"><!-------------------------------------------->
 
-        <!--#############################  Header  ###################################-->
-        <div id="Header" HeaderPath0="./../../static/images/logo.png" HeaderPath1="./../../index.html"
-            HeaderPath2="./products.html" HeaderPath3="./about.html"></div>
+        <!--#########################  Header  Sidebar  ##############################-->
+        <div id="Header" HeaderPath0="./../../static/images/logo.png" HeaderPath1="./../../index.html" HeaderPath2="./products.html" HeaderPath3="./about.html" HeaderPath4="./order.html"></div>
+        <div id="Sidebar" SidebarPath1="./order.html" SidebarPath2="./location.html" SidebarPath3="./../AdminPages/Auth.html" SidebarPath4="./feedback" HeaderPath5="./../../static/Red Flowers.apk"></div>
+        <!--##########################################################################-->
 
-        <main class="main-content about-page">
-            <section class="about-us">
-                <h2>عن Red Flowers</h2>
-                <div class="about-content">
-                    <p>في "Red Flowers"، نؤمن بأن كل وردة تحكي قصة. منذ تأسيسنا، ونحن نلتزم بتقديم أجود أنواع الزهور
-                        وأكثرها نضارة، لنساعدك على التعبير عن مشاعرك في كل مناسبة.</p>
-                    <p>نحن فخورون بتقديم مجموعة متنوعة من الباقات المصممة بعناية، من الكلاسيكية إلى العصرية، بالإضافة
-                        إلى تشكيلة فريدة من نباتات الزينة والهدايا المنسقة. هدفنا هو إضفاء البهجة والجمال على حياتك
-                        وحياة أحبائك.</p>
-                    <p>دع "Red Flowers" تكون وجهتك الأولى لكل ما يتعلق بالزهور، حيث الجودة تلتقي بالإبداع لتقديم تجربة
-                        لا تُنسى.</p>
+                <main class="main-content about-page">
+                    <section class="about-us">
+                        <h2>عن Red Flowers</h2>
+                        <div class="about-content">
+                            <p>في "Red Flowers"، نؤمن بأن كل وردة تحكي قصة. منذ تأسيسنا، ونحن نلتزم بتقديم أجود أنواع الزهور
+                                وأكثرها نضارة، لنساعدك على التعبير عن مشاعرك في كل مناسبة.</p>
+                            <p>نحن فخورون بتقديم مجموعة متنوعة من الباقات المصممة بعناية، من الكلاسيكية إلى العصرية، بالإضافة
+                                إلى تشكيلة فريدة من نباتات الزينة والهدايا المنسقة. هدفنا هو إضفاء البهجة والجمال على حياتك
+                                وحياة أحبائك.</p>
+                            <p>دع "Red Flowers" تكون وجهتك الأولى لكل ما يتعلق بالزهور، حيث الجودة تلتقي بالإبداع لتقديم تجربة
+                                لا تُنسى.</p>
+                        </div>
+                    </section>
+                </main>
+
+                <div id="qrModal" class="qr-modal">
+                    <div class="qr-content">
+                        <h2>أمسح الكود</h2>
+                            <img src="./../../static/images/BarcodeFlowers.png" alt="QR Code">
+                        <p>يمكنك مسح الكود لمشاركة الموقع</p>
+                        <button class="close-qr" onclick="closeQRModal()">إغلاق</button>
+                    </div>
                 </div>
-            </section>
-        </main>
 
         <!--#############################  Footer  ###################################-->
         <div id="Footer"></div>
+        <!--##########################################################################-->
 
-    </div><!------------------------------------------------------------------------>
-    <!------------------------------------------------------------------------------>
+</div><!------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------>
 
 
 
 
-    <!--#############################  script  ###################################-->
+<!--#############################  script  ###################################-->
     <script src="./../../server/Componsnts.js"></script>
-    <!--##########################################################################-->
+    <script>
+        function showQRModal() {
+            document.getElementById('qrModal').style.display = 'flex';
+        }
+
+        // دالة لإغلاق نافذة الـ QR Code
+        function closeQRModal() {
+            document.getElementById('qrModal').style.display = 'none';
+        }
+    </script>
+<!--##########################################################################-->
 
 </body>
 
