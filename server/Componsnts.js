@@ -58,7 +58,7 @@ function loadComponents() {
                     <li><a href="${SidebarPath3}">   تسجيل مدير المتجر </a></li>
                     <button class="qr-btn" onclick="showQRModal()">
                         <i class="fas fa-qrcode"></i> مسح الكود للتواصل
-                    </button>
+                    </button><br>
                     <a href="${SidebarPath5}" download="Red Flowers.apk" class="download-apk-btn">
                         <i class="fas fa-mobile-alt"></i>  تحميل التطبيق للاندرويد 
                     </a>

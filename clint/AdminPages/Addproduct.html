@@ -102,8 +102,16 @@
             <label for="productPrice">سعر المنتج :</label>
             <input type="number" id="productPrice" name="product_prise" step="0.01" required>
 
-            <label for="productType">نوع المنتج :</label>
-            <input type="text" id="productType" name="product_type" required>
+            <label for="productType" >نوع المنتج :</label>
+                <select  style="font-size: 25px; padding: 5px;" id="productType" name="product_type" required>
+                    <option value="all">جميع الباقات</option>
+                    <option value="باقات الورد الطبيعي">باقات الورد الطبيعي</option>
+                    <option value="ورود المناسبات الخاصة">ورود المناسبات الخاصة</option>
+                    <option value="نباتات الزينة">نباتات الزينة</option>
+                    <option value="هدايا مع الورد">هدايا مع الورد</option>
+                    <option value="شراء وردة واحدة">شراء وردة واحدة</option>
+                    <option value="صناديق الورد الفاخرة">صناديق الورد الفاخرة</option>
+                </select>
 
             <label for="productImage1">صورة المنتج الاساسية :</label>
             <input type="file" id="productImage1" accept="image/*">
