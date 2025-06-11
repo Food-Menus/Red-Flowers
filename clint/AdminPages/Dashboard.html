@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
-    <title>Red Flowers - لوحة التحكم والإحصائيات</title>
-    <link rel="icon" href="./static/images/logo1.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>    
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+    <title>Red Flowers - للورود والهدايا الفاخرة</title>
+    <link rel="icon" href="./../../static/images/logo1.png" type="image/x-icon">
     <style>
         :root {
             --primary-color: #a9072a;
@@ -181,6 +182,43 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
+        /* Feedback Styles */
+        .feedback-list {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .feedback-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s;
+        }
+
+        .feedback-item:hover {
+            background-color: var(--light-bg);
+            transform: translateX(-5px);
+        }
+
+        .feedback-name {
+            color: var(--primary-color);
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .feedback-text {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .feedback-rating {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .stats-grid {
@@ -267,6 +305,7 @@
 </head>
 
 <body>
+
 <!--############################  loading  ###################################-->
     <div class="preloader">
         <div class="preloader-content">
@@ -277,34 +316,14 @@
     </div>
 <!--##########################################################################-->
 
+
 <!------------------------------------------------------------------------------>
 <div class="full-width-container"><!-------------------------------------------->
-
-<!--#############################  Header  ###################################-->
-<div id="Header" 
-HeaderPath0="./static/images/logo.png" 
-HeaderPath1="./clint/UserPages/index.html" 
-HeaderPath2="./clint/UserPages/products.html" 
-HeaderPath3="./clint/UserPages/about.html"
-HeaderPath4="./clint/UserPages/order.html" ></div> 
-<!--##########################################################################-->
-<!--#############################  Sidebar  ##################################-->
-<div id="Sidebar"
-SidebarPath1="./clint/UserPages/order.html" 
-SidebarPath2="./clint/UserPages/location.html" 
-SidebarPath3="./clint/AdminPages/Auth.html"
-SidebarPath4="#"></div> 
-<!--##########################################################################-->
 
     <main class="main-content">
         <div class="dashboard-container">
             <h1 class="section-header">لوحة التحكم والإحصائيات</h1>
-            
-            <div class="action-buttons">
-                <button id="refreshBtn" class="action-btn refresh-btn">
-                    <i class="fas fa-sync-alt"></i> تحديث البيانات
-                </button>
-            </div>
+
             
             <div class="stats-grid" id="statsContainer">
                 <!-- سيتم ملء هذا القسم بالإحصائيات -->
@@ -330,27 +349,25 @@ SidebarPath4="#"></div>
                     <canvas id="ordersChart"></canvas>
                 </div>
             </div>
+
+            <div class="chart-container" id="customerFeedbackContainer">
+                <h2 class="chart-header">أحدث آراء العملاء</h2>
+                <div class="feedback-list" id="feedbackList">
+                    <!-- سيتم ملء هذا القسم بآراء العملاء -->
+                </div>
+            </div>
         </div>
     </main>
-
-<a href="./clint/UserPages/order.html" class="floating-cart">
-    <ion-icon name="cart-outline"></ion-icon>
-    <span class="cart-count">0</span>
-</a>
-
-<!--#############################  Footer  ###################################-->
-<div id="Footer"></div> 
-<!--##########################################################################-->
 
 </div><!------------------------------------------------------------------------>
 <!------------------------------------------------------------------------------>
 
-<!--##########################################################################-->
+
+
 <!--#############################  script  ###################################-->
     <script src="./server/Componsnts.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script> 
     <script>
         // إخفاء شاشة التحميل
         window.addEventListener('load', function() {
@@ -363,7 +380,7 @@ SidebarPath4="#"></div>
             fetchAllData();
         });
 
-        // روابط جداول البيانات  https://docs.google.com/spreadsheets/d/1wkkWLVx_WbW_QmDjWE5H-3wc8WMRS_boGU37wDQSrgQ/edit?usp=sharing
+        // روابط جداول البيانات
         const ordersSheetID = '17Dbj2EDuybESq6DlE3eeyPmF03wxyU5fdX9AS4vFZzI';
         const feedbackSheetID = '1wkkWLVx_WbW_QmDjWE5H-3wc8WMRS_boGU37wDQSrgQ';
         const productsSheetID = '1CK5wjrpnDTkriEfs8XRo5Sgnq07HHKsyO1pGU_tQguU';
@@ -375,6 +392,7 @@ SidebarPath4="#"></div>
         // العناصر
         const statsContainer = document.getElementById('statsContainer');
         const refreshBtn = document.getElementById('refreshBtn');
+        const feedbackList = document.getElementById('feedbackList');
         
         // المتغيرات العالمية للبيانات
         let ordersData = [];
@@ -384,6 +402,7 @@ SidebarPath4="#"></div>
         // جلب جميع البيانات
         function fetchAllData() {
             statsContainer.innerHTML = '<p style="text-align:center; font-size:22px;">جاري تحميل البيانات...</p>';
+            feedbackList.innerHTML = '<p style="text-align:center; font-size:18px;">جاري تحميل آراء العملاء...</p>';
             
             Promise.all([
                 fetchData(ordersURL),
@@ -397,6 +416,7 @@ SidebarPath4="#"></div>
                 
                 updateStatistics();
                 renderCharts();
+                displayCustomerFeedback();
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -405,17 +425,42 @@ SidebarPath4="#"></div>
                         حدث خطأ في جلب البيانات. يرجى المحاولة لاحقاً.
                     </p>
                 `;
+                feedbackList.innerHTML = `
+                    <p style="text-align:center; font-size:18px; color:var(--primary-color);">
+                        حدث خطأ في جلب آراء العملاء.
+                    </p>
+                `;
+                
+                Swal.fire({
+                    icon: 'error',
+                    title: 'خطأ في جلب البيانات',
+                    text: 'حدث خطأ في جلب البيانات. يرجى التحقق من اتصال الإنترنت والمحاولة لاحقاً.',
+                    confirmButtonText: 'حسناً'
+                });
             });
         }
         
         // دالة مساعدة لجلب البيانات من Google Sheets
-        function fetchData(url) {
-            return fetch(url)
-                .then(response => response.text())
-                .then(data => {
-                    const json = JSON.parse(data.substring(47).slice(0, -2));
-                    return json.table.rows;
-                });
+        async function fetchData(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.text();
+                const json = JSON.parse(data.substring(47).slice(0, -2));
+                
+                // تحقق من وجود بيانات
+                if (!json.table || !json.table.rows) {
+                    console.warn('No rows found in the sheet data:', json);
+                    return [];
+                }
+                
+                return json.table.rows;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                return [];
+            }
         }
         
         // تحديث الإحصائيات
@@ -425,16 +470,19 @@ SidebarPath4="#"></div>
             const totalFeedback = feedbackData.length;
             const totalProducts = productsData.length;
             
-            // حساب متوسط التقييمات
+            // حساب متوسط التقييمات (تحويل الحالات إلى قيم رقمية)
             const ratings = feedbackData.map(row => {
                 const rating = row.c[3]?.v;
-                if (rating === 'ممتاز') return 5;
-                if (rating === 'جيد جداً') return 4;
-                if (rating === 'جيد') return 3;
-                if (rating === 'مقبول') return 2;
-                return 1;
+                if (rating === 'سعيد بالخدمة') return 5;
+                if (rating === 'راضي عن الخدمة') return 4;
+                if (rating === 'خدمة مقبولة') return 3;
+                if (rating === 'غير راض عن الخدمة') return 2;
+                return 3; // القيمة الافتراضية للحالات غير المعروفة
             });
-            const averageRating = (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1);
+
+            const averageRating = ratings.length > 0 
+                ? (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1)
+                : '0.0';
             
             // حساب الطلبات الجديدة (آخر 7 أيام)
             const recentOrders = ordersData.filter(row => {
@@ -548,19 +596,32 @@ SidebarPath4="#"></div>
             
             // تحليل بيانات التقييمات
             const ratingsCount = {
-                'ممتاز': 0,
-                'جيد جداً': 0,
-                'جيد': 0,
-                'مقبول': 0,
-                'سيء': 0
+                'سعيد بالخدمة': 0,
+                'راضي عن الخدمة': 0,
+                'خدمة مقبولة': 0,
+                'غير راض عن الخدمة': 0
             };
-            
+
             feedbackData.forEach(row => {
-                const rating = row.c[3]?.v;
-                if (rating && ratingsCount[rating] !== undefined) {
-                    ratingsCount[rating]++;
+                try {
+                    // افتراض أن حالة التقييم في العمود الرابع (index 3)
+                    const condition = row.c[3]?.v;
+                    
+                    if (condition) {
+                        if (ratingsCount[condition] !== undefined) {
+                            ratingsCount[condition]++;
+                        } else {
+                            // إذا وجدنا حالة غير متوقعة نضيفها تلقائياً
+                            ratingsCount[condition] = 1;
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error processing feedback row:', row, error);
                 }
             });
+
+            // تصفية الحالات التي لها عدد أكبر من الصفر
+            const validRatings = Object.entries(ratingsCount).filter(([_, count]) => count > 0);
             
             // رسم بياني للتقييمات
             const feedbackChart = new Chart(
@@ -568,22 +629,22 @@ SidebarPath4="#"></div>
                 {
                     type: 'pie',
                     data: {
-                        labels: Object.keys(ratingsCount),
+                        labels: validRatings.map(r => r[0]),
                         datasets: [{
-                            data: Object.values(ratingsCount),
+                            data: validRatings.map(r => r[1]),
                             backgroundColor: [
-                                'rgba(76, 175, 80, 0.7)',   // ممتاز - أخضر
-                                'rgba(139, 195, 74, 0.7)',   // جيد جداً - أخضر فاتح
-                                'rgba(255, 235, 59, 0.7)',   // جيد - أصفر
-                                'rgba(255, 152, 0, 0.7)',    // مقبول - برتقالي
-                                'rgba(244, 67, 54, 0.7)'     // سيء - أحمر
+                                'rgba(76, 175, 80, 0.7)',   // سعيد بالخدمة - أخضر
+                                'rgba(139, 195, 74, 0.7)',  // راضي عن الخدمة - أخضر فاتح
+                                'rgba(255, 235, 59, 0.7)',  // خدمة مقبولة - أصفر
+                                'rgba(244, 67, 54, 0.7)',    // غير راض عن الخدمة - أحمر
+                                'rgba(255, 152, 0, 0.7)'     // أي حالات أخرى - برتقالي
                             ],
                             borderColor: [
                                 'rgba(76, 175, 80, 1)',
                                 'rgba(139, 195, 74, 1)',
                                 'rgba(255, 235, 59, 1)',
-                                'rgba(255, 152, 0, 1)',
-                                'rgba(244, 67, 54, 1)'
+                                'rgba(244, 67, 54, 1)',
+                                'rgba(255, 152, 0, 1)'
                             ],
                             borderWidth: 1
                         }]
@@ -595,6 +656,17 @@ SidebarPath4="#"></div>
                             legend: {
                                 position: 'right',
                                 rtl: true
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const label = context.label || '';
+                                        const value = context.raw || 0;
+                                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                        const percentage = Math.round((value / total) * 100);
+                                        return `${label}: ${value} (${percentage}%)`;
+                                    }
+                                }
                             }
                         }
                     }
@@ -668,6 +740,38 @@ SidebarPath4="#"></div>
             );
         }
         
+        // عرض آراء العملاء كنصوص
+        function displayCustomerFeedback() {
+            if (!feedbackData || feedbackData.length === 0) {
+                feedbackList.innerHTML = '<p style="text-align:center; font-size:18px; color:var(--primary-color);">لا توجد آراء عملاء متاحة</p>';
+                return;
+            }
+
+            // عرض آخر 10 تقييمات
+            const latestFeedback = feedbackData.slice(0, 10);
+            
+            feedbackList.innerHTML = latestFeedback.map(row => `
+                <div class="feedback-item">
+                    <h3 class="feedback-name">${row.c[0]?.v || 'عميل'}</h3>
+                    <p class="feedback-text">${row.c[1]?.v || 'لا يوجد تعليق'}</p>
+                    <div class="feedback-rating" style="color: ${getRatingColor(row.c[3]?.v)};">
+                        ${row.c[3]?.v || 'لا يوجد تقييم'}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // دالة مساعدة للحصول على لون التقييم
+        function getRatingColor(rating) {
+            switch(rating) {
+                case 'سعيد بالخدمة': return '#4CAF50';
+                case 'راضي عن الخدمة': return '#8BC34A';
+                case 'خدمة مقبولة': return '#FFC107';
+                case 'غير راض عن الخدمة': return '#F44336';
+                default: return '#9E9E9E';
+            }
+        }
+        
         // أحداث الأزرار
         refreshBtn.addEventListener('click', fetchAllData);
 
@@ -679,8 +783,18 @@ SidebarPath4="#"></div>
             }
         });
     </script>
-<!--##########################################################################-->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        const username = localStorage.getItem('username');
+        if (!username) {
+            window.location.href = './Auth.html';
+        } else {
+            document.getElementById('username').textContent = username;
+        }
+        });
+    </script>
 <!--##########################################################################-->
 
 </body>
+
 </html>

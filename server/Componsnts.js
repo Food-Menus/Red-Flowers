@@ -13,6 +13,8 @@ function loadComponents() {
         
         HeaderElement.innerHTML = `
             <header class="header">
+                <br>
+
                 <div class="navbar-top">
                     <button class="sidebar-toggle" aria-label="Toggle sidebar">
                         <i class="fas fa-bars"></i>
@@ -47,15 +49,12 @@ function loadComponents() {
         
         SidebarElement.innerHTML = `
             <aside class="sidebar">
-                <h2>أقسام الزهور</h2>
+                <h2>Red Flowers</h2>
                 <ul>
                     <li><a href="${SidebarPath1}">   متابعة الطلب  </a></li>
                     <li><a href="${SidebarPath2}">   موقع المتجر  </a></li>
-                    <li><a href="${SidebarPath3}">   تسجيل مدير المتجر </a></li>
                     <li><a href="${SidebarPath4}">   شاركنا رأيك </a></li>
-                    <li><div class="promo-box">
-                    <a href="${SidebarPath3}">  تسجيل دخول الادمن  </a></div></li> 
-                                <li>
+                    <li><a href="${SidebarPath3}">   تسجيل مدير المتجر </a></li>
                     <button class="qr-btn" onclick="showQRModal()">
                         <i class="fas fa-qrcode"></i> مسح الكود للتواصل
                     </button>

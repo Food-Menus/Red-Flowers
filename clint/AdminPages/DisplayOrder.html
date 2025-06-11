@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
-    <title>Red Flowers - طلبات العملاء</title>
-    <link rel="icon" href="./static/images/logo1.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Red Flowers - للورود والهدايا الفاخرة</title>
+    <link rel="icon" href="./../../static/images/logo1.png" type="image/x-icon">
     <style>
         :root {
             --primary-color: #a9072a;
@@ -349,6 +350,7 @@
 </head>
 
 <body>
+
 <!--############################  loading  ###################################-->
     <div class="preloader">
         <div class="preloader-content">
@@ -359,64 +361,41 @@
     </div>
 <!--##########################################################################-->
 
+
+
 <!------------------------------------------------------------------------------>
 <div class="full-width-container"><!-------------------------------------------->
 
-<!--#############################  Header  ###################################-->
-<div id="Header" 
-HeaderPath0="./../../static/images/logo.png" 
-HeaderPath1="./clint/UserPages/index.html" 
-HeaderPath2="./clint/UserPages/products.html" 
-HeaderPath3="./clint/UserPages/about.html"
-HeaderPath4="./clint/UserPages/order.html" ></div> 
-<!--##########################################################################-->
-<!--#############################  Sidebar  ##################################-->
-<div id="Sidebar"
-SidebarPath1="./clint/UserPages/order.html" 
-SidebarPath2="./clint/UserPages/location.html" 
-SidebarPath3="./clint/AdminPages/Auth.html"
-SidebarPath4="#"></div> 
-<!--##########################################################################-->
-
-    <main class="main-content">
-        <div class="orders-container">
-            <h1 class="section-header">طلبات العملاء</h1>
-            <p class="section-subheader">أحرص على سرية بيانات العملاء</p>
-            
-            <div class="action-buttons">
-                <button id="refreshBtn" class="action-btn sheet-btn">
-                    <i class="fas fa-sync-alt"></i> تحديث الطلبات
-                </button>
-                <button id="scrollBtn" class="action-btn scroll-btn">
-                    <i class="fas fa-arrow-down"></i> أحدث الطلبات
-                </button>
-            </div>
-            
-            <div class="orders-grid" id="ordersContainer">
-                <!-- سيتم ملء هذا القسم بالبيانات من Google Sheets -->
-                <p style="text-align:center; font-size:22px;">جاري تحميل بيانات الطلبات...</p>
-            </div>
-        </div>
-    </main>
-
-<a href="./clint/UserPages/order.html" class="floating-cart">
-    <ion-icon name="cart-outline"></ion-icon>
-    <span class="cart-count">0</span>
-</a>
-
-<!--#############################  Footer  ###################################-->
-<div id="Footer"></div> 
-<!--##########################################################################-->
+            <main class="main-content">
+                <div class="orders-container">
+                    <h1 class="section-header">طلبات العملاء</h1>
+                    <p class="section-subheader">أحرص على سرية بيانات العملاء</p>
+                    
+                    <div class="action-buttons">
+                        <button id="refreshBtn" class="action-btn sheet-btn">
+                            <i class="fas fa-sync-alt"></i> تحديث الطلبات
+                        </button>
+                        <button id="scrollBtn" class="action-btn scroll-btn">
+                            <i class="fas fa-arrow-down"></i> أحدث الطلبات
+                        </button>
+                    </div>
+                    
+                    <div class="orders-grid" id="ordersContainer">
+                        <!-- سيتم ملء هذا القسم بالبيانات من Google Sheets -->
+                        <p style="text-align:center; font-size:22px;">جاري تحميل بيانات الطلبات...</p>
+                    </div>
+                </div>
+            </main>
 
 </div><!------------------------------------------------------------------------>
 <!------------------------------------------------------------------------------>
 
-<!--##########################################################################-->
+
+
 <!--#############################  script  ###################################-->
     <script src="./server/Componsnts.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    
     <script>
         // إخفاء شاشة التحميل
         window.addEventListener('load', function() {
@@ -601,8 +580,18 @@ SidebarPath4="#"></div>
             }
         });
     </script>
-<!--##########################################################################-->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        const username = localStorage.getItem('username');
+        if (!username) {
+            window.location.href = './Auth.html';
+        } else {
+            document.getElementById('username').textContent = username;
+        }
+        });
+    </script>
 <!--##########################################################################-->
 
 </body>
+
 </html>

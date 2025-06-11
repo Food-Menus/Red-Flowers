@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Red Flowers - للورود والهدايا الفاخرة</title>
-    <link rel="icon" href="./images/logo1.png" type="image/x-icon">
+    <link rel="icon" href="./../../static/images/logo1.png" type="image/x-icon">
     <style>
         /* General Styling */
         :root {
@@ -74,13 +76,26 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         @keyframes pulse {
-            0% { transform: scale(0.95); opacity: 0.8; }
-            50% { transform: scale(1.05); opacity: 1; }
-            100% { transform: scale(0.95); opacity: 0.8; }
+            0% {
+                transform: scale(0.95);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0.95);
+                opacity: 0.8;
+            }
         }
 
         .full-width-container {
@@ -127,7 +142,8 @@
             padding-bottom: 10px;
             position: relative;
             z-index: 10;
-            height: 220px; /* زيادة ارتفاع الهيدر */
+            height: 220px;
+            /* زيادة ارتفاع الهيدر */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -150,7 +166,8 @@
             cursor: pointer;
             padding: 5px;
             transition: color 0.3s ease;
-            align-self: flex-start; /* محاذاة زر القائمة الجانبية لأعلى */
+            align-self: flex-start;
+            /* محاذاة زر القائمة الجانبية لأعلى */
             margin-top: 15px;
         }
 
@@ -166,27 +183,33 @@
             top: 50%;
             transform: translate(-50%, -50%);
             z-index: 1;
-            height: 100%; /* لجعل اللوجو يأخذ الارتفاع كاملًا */
-        } 
+            height: 100%;
+            /* لجعل اللوجو يأخذ الارتفاع كاملًا */
+        }
 
         .logo-img {
-            width: auto; /* تغيير من عرض ثابت إلى تلقائي */
-            height: 160px; /* زيادة ارتفاع الصورة */
-            object-fit: contain; /* للحفاظ على نسب الصورة */
+            width: auto;
+            /* تغيير من عرض ثابت إلى تلقائي */
+            height: 160px;
+            /* زيادة ارتفاع الصورة */
+            object-fit: contain;
+            /* للحفاظ على نسب الصورة */
         }
 
         .logo h1 {
             font-size: 28px;
             color: var(--primary-color);
             margin: 0;
-            padding-left: 15px; /* مسافة بين الصورة والنص */
+            padding-left: 15px;
+            /* مسافة بين الصورة والنص */
         }
 
         .main-nav {
             text-align: center;
             padding: 0 5%;
             position: relative;
-            margin-top: auto; /* لدفع القائمة لأسفل */
+            margin-top: auto;
+            /* لدفع القائمة لأسفل */
         }
 
         .main-nav .menu-toggle {
@@ -323,7 +346,7 @@
             transition: margin-right 0.5s ease-in-out;
         }
 
-        .sidebar.open + .about-us {
+        .sidebar.open+.about-us {
             margin-right: 250px;
         }
 
@@ -400,16 +423,20 @@
         }
 
         .social-links a:hover:nth-child(1) {
-            color: #1877f2; /* لون فيسبوك */
+            color: #1877f2;
+            /* لون فيسبوك */
         }
 
         .social-links a:hover:nth-child(2) {
-            color: #e4405f; /* لون انستجرام */
+            color: #e4405f;
+            /* لون انستجرام */
         }
 
         .social-links a:hover:nth-child(3) {
-            color: #1da1f2; /* لون تويتر */
+            color: #1da1f2;
+            /* لون تويتر */
         }
+
         .main-nav ul.nav-links li a {
             font-weight: bold;
             font-size: 28px;
@@ -425,7 +452,7 @@
                 right: -260px;
             }
 
-            .sidebar.open + .about-us {
+            .sidebar.open+.about-us {
                 margin-right: 220px;
             }
 
@@ -465,60 +492,63 @@
                 right: -260px;
             }
 
-            .sidebar.open + .about-us {
+            .sidebar.open+.about-us {
                 margin-right: 180px;
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
 
-<!--############################  loading  ###################################-->
+    <!--############################  loading  ###################################-->
     <div class="preloader">
         <div class="preloader-content">
-            <img src="./../../static/images/logo.png"  alt="Red Flowers Logo" class="preloader-logo">
+            <img src="./../../static/images/logo.png" alt="Red Flowers Logo" class="preloader-logo">
             <div class="preloader-spinner"></div>
             <p>جاري التحميل...</p>
         </div>
     </div>
-<!--##########################################################################-->
+    <!--##########################################################################-->
 
-<!------------------------------------------------------------------------------>
-<div class="full-width-container"><!-------------------------------------------->
 
-<!--#############################  Header  ###################################-->
-<div id="Header" 
-HeaderPath0="./../../static/images/logo.png" 
-HeaderPath1="./../../index.html" 
-HeaderPath2="./products.html" 
-HeaderPath3="./about.html"
-HeaderPath4="./order.html" ></div> 
-<!--##########################################################################-->
 
-    <main class="main-content about-page">
+
+    <!------------------------------------------------------------------------------>
+    <div class="full-width-container"><!-------------------------------------------->
+
+        <!--#############################  Header  ###################################-->
+        <div id="Header" HeaderPath0="./../../static/images/logo.png" HeaderPath1="./../../index.html"
+            HeaderPath2="./products.html" HeaderPath3="./about.html"></div>
+
+        <main class="main-content about-page">
             <section class="about-us">
                 <h2>عن Red Flowers</h2>
                 <div class="about-content">
-                    <p>في "Red Flowers"، نؤمن بأن كل وردة تحكي قصة. منذ تأسيسنا، ونحن نلتزم بتقديم أجود أنواع الزهور وأكثرها نضارة، لنساعدك على التعبير عن مشاعرك في كل مناسبة.</p>
-                    <p>نحن فخورون بتقديم مجموعة متنوعة من الباقات المصممة بعناية، من الكلاسيكية إلى العصرية، بالإضافة إلى تشكيلة فريدة من نباتات الزينة والهدايا المنسقة. هدفنا هو إضفاء البهجة والجمال على حياتك وحياة أحبائك.</p>
-                    <p>دع "Red Flowers" تكون وجهتك الأولى لكل ما يتعلق بالزهور، حيث الجودة تلتقي بالإبداع لتقديم تجربة لا تُنسى.</p>
+                    <p>في "Red Flowers"، نؤمن بأن كل وردة تحكي قصة. منذ تأسيسنا، ونحن نلتزم بتقديم أجود أنواع الزهور
+                        وأكثرها نضارة، لنساعدك على التعبير عن مشاعرك في كل مناسبة.</p>
+                    <p>نحن فخورون بتقديم مجموعة متنوعة من الباقات المصممة بعناية، من الكلاسيكية إلى العصرية، بالإضافة
+                        إلى تشكيلة فريدة من نباتات الزينة والهدايا المنسقة. هدفنا هو إضفاء البهجة والجمال على حياتك
+                        وحياة أحبائك.</p>
+                    <p>دع "Red Flowers" تكون وجهتك الأولى لكل ما يتعلق بالزهور، حيث الجودة تلتقي بالإبداع لتقديم تجربة
+                        لا تُنسى.</p>
                 </div>
             </section>
-    </main>
+        </main>
 
-<!--#############################  Footer  ###################################-->
-<div id="Footer"></div> 
-<!--##########################################################################-->
+        <!--#############################  Footer  ###################################-->
+        <div id="Footer"></div>
 
-</div><!------------------------------------------------------------------------>
-<!------------------------------------------------------------------------------>
+    </div><!------------------------------------------------------------------------>
+    <!------------------------------------------------------------------------------>
 
-<!--##########################################################################-->
-<!--#############################  script  ###################################-->
-    <script src="./../../server/Componsnts.js" ></script>
-<!--##########################################################################-->
-<!--##########################################################################-->
+
+
+
+    <!--#############################  script  ###################################-->
+    <script src="./../../server/Componsnts.js"></script>
+    <!--##########################################################################-->
 
 </body>
+
 </html>

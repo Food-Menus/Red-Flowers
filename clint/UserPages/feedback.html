@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
-    <title>Red Flowers - رأيك يهمنا</title>
-    <link rel="icon" href="./static/images/logo1.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Red Flowers - للورود والهدايا الفاخرة</title>
+    <link rel="icon" href="./../../static/images/logo1.png" type="image/x-icon">
     <style>
         /* General Styling */
         :root {
@@ -34,6 +35,44 @@
             direction: rtl;
             overflow-x: hidden;
         }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loader-img {
+            width: 150px;
+            height: 150px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0.95);
+                opacity: 0.8;
+            }
+        }
+
 
         .feedback-container {
             max-width: 800px;
@@ -109,7 +148,9 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .success-message {
@@ -170,16 +211,16 @@
                 margin: 20px;
                 padding: 20px;
             }
-            
+
             .feedback-title {
                 font-size: 28px;
             }
-            
+
             .form-control {
                 font-size: 20px;
                 padding: 12px;
             }
-            
+
             .submit-btn {
                 font-size: 22px;
                 padding: 12px;
@@ -189,133 +230,118 @@
 </head>
 
 <body>
-<!-- Loading Screen -->
-    <div class="preloader">
-        <div class="preloader-content">
-            <img src="./../../static/images/logo.png" alt="Red Flowers Logo" class="preloader-logo">
-            <div class="preloader-spinner"></div>
-            <p>جاري التحميل...</p>
-        </div>
+
+<!--############################  loading  ###################################-->
+    <div class="loading-overlay" id="loadingScreen">
+        <img src="./../../static/images/logo.png" class="loader-img" alt="Loading...">
+    </div>
+<!--##########################################################################-->
+
+
+    <div class="full-width-container">
+
+
+        <main class="main-content">
+            <div class="feedback-container">
+                <h1 class="feedback-title">شاركنا رأيك</h1>
+
+                <form id="submit-to-google-sheet">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="name" id="name" placeholder="ادخل اسمك"
+                            required />
+                    </div>
+
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="feedback" id="feedback"
+                            placeholder="ادخل رأيك في الخدمة" required />
+                    </div>
+
+                    <div class="form-group">
+                        <input class="form-control" type="tel" name="number" id="number" placeholder="ادخل رقم هاتفك"
+                            required pattern="[0-9]{10,15}" title="يجب أن يحتوي على أرقام فقط (10-15 رقم)" />
+                    </div>
+
+                    <div class="form-group">
+                        <select class="form-control" name="condition" id="condition" required>
+                            <option value="" disabled selected>اختر تقييمك للخدمة</option>
+                            <option value="سعيد بالخدمة">سعيد بالخدمة</option>
+                            <option value="راضي عن الخدمة">راضي عن الخدمة</option>
+                            <option value="خدمة مقبولة">خدمة مقبولة</option>
+                            <option value="خدمة غير جيدة">خدمة غير جيدة</option>
+                            <option value="خدمة سيئة">خدمة سيئة</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submit-btn">
+                        <span id="btn-text">إرسال الرأي</span>
+                        <div class="loading-spinner" id="loading-spinner"></div>
+                    </button>
+
+                    <div class="success-message" id="success-message">تم إرسال الفيدباك بنجاح!</div>
+                </form>
+            </div>
+        </main>
+
     </div>
 
-<div class="full-width-container">
-    <main class="main-content">
-        <div class="feedback-container">
-            <h1 class="feedback-title">شاركنا رأيك</h1>
-            
-            <form id="submit-to-google-sheet">
-                <div class="form-group">
-                    <input
-                        class="form-control"
-                        type="text"
-                        name="name"
-                        id="name"
-                        placeholder="ادخل اسمك"
-                        required
-                    />
-                </div>
-            
-                <div class="form-group">
-                    <input
-                        class="form-control"
-                        type="text"
-                        name="feedback"
-                        id="feedback"
-                        placeholder="ادخل رأيك في الخدمة"
-                        required
-                    />
-                </div>
-            
-                <div class="form-group">
-                    <input
-                        class="form-control"
-                        type="tel"
-                        name="number"
-                        id="number"
-                        placeholder="ادخل رقم هاتفك"
-                        required
-                        pattern="[0-9]{10,15}"
-                        title="يجب أن يحتوي على أرقام فقط (10-15 رقم)"
-                    />
-                </div>
-            
-                <div class="form-group">
-                    <select class="form-control" name="condition" id="condition" required>
-                        <option value="" disabled selected>اختر تقييمك للخدمة</option>
-                        <option value="سعيد بالخدمة">سعيد بالخدمة</option>
-                        <option value="راضي عن الخدمة">راضي عن الخدمة</option>
-                        <option value="خدمة مقبولة">خدمة مقبولة</option>
-                        <option value="خدمة غير جيدة">خدمة غير جيدة</option>
-                        <option value="خدمة سيئة">خدمة سيئة</option>
-                    </select>
-                </div>
-            
-                <button type="submit" class="submit-btn" id="submit-btn">
-                    <span id="btn-text">إرسال الرأي</span>
-                    <div class="loading-spinner" id="loading-spinner"></div>
-                </button>
-                
-                <div class="success-message" id="success-message">تم إرسال الفيدباك بنجاح!</div>
-            </form>
-        </div>
-    </main>
 
-    <a href="./clint/UserPages/order.html" class="floating-cart">
-        <ion-icon name="cart-outline"></ion-icon>
-        <span class="cart-count">0</span>
-    </a>
+<!--#############################  script  ###################################-->
+    <script src="./../../server/Componsnts.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script>
 
-    <div id="Footer"></div> 
-</div>
-
-<script src="./server/Componsnts.js"></script>
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
-<script>
-    const form = document.getElementById('submit-to-google-sheet');
-    const submitBtn = document.getElementById('submit-btn');
-    const btnText = document.getElementById('btn-text');
-    const loadingSpinner = document.getElementById('loading-spinner');
-    const successMessage = document.getElementById('success-message');
-
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // تعطيل الزر وإظهار رسالة التحميل
-        submitBtn.disabled = true;
-        btnText.style.display = 'none';
-        loadingSpinner.style.display = 'block';
-        
-        const formData = new FormData(form);
-        
-        fetch('https://script.google.com/macros/s/AKfycbyjGVDfSBwfQYqmVy2paeQpKP97SoPLfbeImguz4pk7meD9JBiUyqvDSZSSR3r6QY0-/exec', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if(response.ok) {
-                form.reset();
-                successMessage.style.display = 'block'; // إظهار رسالة النجاح
-                setTimeout(() => { successMessage.style.display = 'none'; }, 3000); // إخفاء الرسالة بعد 3 ثواني
-            } else {
-                throw new Error('فشل في الإرسال');
-            }
-        })
-        .catch(error => {
-            Swal.fire("Error", "حدث خطأ يرجى المحاولة مرة اخرى", "error");
-        })
-        .finally(() => {
-            submitBtn.disabled = false;
-            btnText.style.display = 'block';
-            loadingSpinner.style.display = 'none';
+        // Hide loading screen when page is loaded
+        window.addEventListener('load', function () {
+            document.getElementById('loadingScreen').style.display = 'none';
         });
-    });
 
-    // إخفاء شاشة التحميل بعد تحميل الصفحة
-    window.addEventListener('load', function() {
-        document.querySelector('.preloader').style.display = 'none';
-    });
-</script>
+        const form = document.getElementById('submit-to-google-sheet');
+        const submitBtn = document.getElementById('submit-btn');
+        const btnText = document.getElementById('btn-text');
+        const loadingSpinner = document.getElementById('loading-spinner');
+        const successMessage = document.getElementById('success-message');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // تعطيل الزر وإظهار رسالة التحميل
+            submitBtn.disabled = true;
+            btnText.style.display = 'none';
+            loadingSpinner.style.display = 'block';
+
+            const formData = new FormData(form);
+
+            fetch('https://script.google.com/macros/s/AKfycbyjGVDfSBwfQYqmVy2paeQpKP97SoPLfbeImguz4pk7meD9JBiUyqvDSZSSR3r6QY0-/exec', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (response.ok) {
+                        form.reset();
+                        successMessage.style.display = 'block'; // إظهار رسالة النجاح
+                        setTimeout(() => { successMessage.style.display = 'none'; }, 3000); // إخفاء الرسالة بعد 3 ثواني
+                    } else {
+                        throw new Error('فشل في الإرسال');
+                    }
+                })
+                .catch(error => {
+                    Swal.fire("Error", "حدث خطأ يرجى المحاولة مرة اخرى", "error");
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    btnText.style.display = 'block';
+                    loadingSpinner.style.display = 'none';
+                });
+        });
+
+        // إخفاء شاشة التحميل بعد تحميل الصفحة
+        window.addEventListener('load', function () {
+            document.querySelector('.preloader').style.display = 'none';
+        });
+    </script>
+<!--##########################################################################-->
+
 </body>
+
 </html>
