@@ -59,10 +59,14 @@ function loadComponents() {
                     <button class="qr-btn" onclick="showQRModal()">
                         <i class="fas fa-qrcode"></i> مسح الكود للتواصل
                     </button><br>
-                    <a href="${SidebarPath5}" download="Red Flowers.apk" class="download-apk-btn">
+
+                    <a href="${SidebarPath5}" download class="download-apk-btn">
                         <i class="fas fa-mobile-alt"></i>  تحميل التطبيق للاندرويد 
                     </a>
                 </li>
+                    <a id="download-button" class="download-apk-btn" href="${SidebarPath5}" download >
+                        <i class="fas fa-mobile-alt"></i> تنزيل التطبيق
+                    </a>
                 </ul>
 
             </aside>
