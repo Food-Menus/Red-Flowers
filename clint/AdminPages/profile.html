@@ -35,6 +35,7 @@
             min-height: 100vh;
             color: #fff;
         }
+        
 
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
@@ -547,61 +548,64 @@
             </header>
         <!--##########################################################################-->
 
-                    <main class="main-content">
-                        <section class="admin-profile">
-                            <h2>لوحة تحكم الأدمن</h2>
+                <main class="main-content">
+                    <section class="admin-profile">
+                        <h2>لوحة تحكم الأدمن</h2>
+                        
+                        <div class="dashboard-grid">
+                            <a href="./Addproduct.html" class="dashboard-item">
+                                <div class="dashboard-icon">
+                                    <i class="fas fa-plus-circle"></i>
+                                </div>
+                                <h3 class="dashboard-title">إضافة منتج جديد</h3>
+                                <p class="dashboard-desc">إضافة منتجات جديدة إلى المتجر</p>
+                            </a>
                             
-                            <div class="dashboard-grid">
-                                <a href="./Addproduct.html" class="dashboard-item">
-                                    <div class="dashboard-icon">
-                                        <i class="fas fa-plus-circle"></i>
-                                    </div>
-                                    <h3 class="dashboard-title">إضافة منتج جديد</h3>
-                                    <p class="dashboard-desc">إضافة منتجات جديدة إلى المتجر</p>
-                                </a>
-                                
-                                <a href="./EditProduct.html" class="dashboard-item">
-                                    <div class="dashboard-icon">
-                                        <i class="fas fa-edit"></i>
-                                    </div>
-                                    <h3 class="dashboard-title">تعديل المنتجات</h3>
-                                    <p class="dashboard-desc">تعديل أو حذف المنتجات الحالية</p>
-                                </a>
-                                
-                                <a href="./DisplayOrder.html" class="dashboard-item">
-                                    <div class="dashboard-icon">
-                                        <i class="fas fa-shopping-cart"></i>
-                                    </div>
-                                    <h3 class="dashboard-title">إدارة الطلبات</h3>
-                                    <p class="dashboard-desc">عرض وتحديث طلبات العملاء</p>
-                                </a>
-                                
-                                <a href="./DisplayFeedback.html" class="dashboard-item">
-                                    <div class="dashboard-icon">
-                                        <i class="fas fa-users"></i>
-                                    </div>
-                                    <h3 class="dashboard-title">اراء المستخدمين</h3>
-                                    <p class="dashboard-desc">عرض و تحديث فيدباك العملاء</p>
-                                </a>
-                                
-                                <a href="./Dashboard.html" class="dashboard-item">
-                                    <div class="dashboard-icon">
-                                        <i class="fas fa-chart-bar"></i>
-                                    </div>
-                                    <h3 class="dashboard-title">التقارير</h3>
-                                    <p class="dashboard-desc">عرض تقارير وتحصائيات الموصع</p>
-                                </a>
-                                
-                                <a href="https://docs.google.com/spreadsheets/d/1TAtjWXk-RrSU-omvv4N-a8dgmcsy7-SD7UvJwp5M9O8/edit?usp=drive_link" class="dashboard-item">
-                                    <div class="dashboard-icon">
-                                        <i class="fas fa-table"></i>
-                                    </div>
-                                    <h3 class="dashboard-title">بيانات تسجيل الدخول</h3>
-                                    <p class="dashboard-desc">تعديل باسورد ويوزر نيم المديرين </p>
-                                </a>
-                            </div>
-                        </section>
-                    </main>
+                            <a href="./EditProduct.html" class="dashboard-item">
+                                <div class="dashboard-icon">
+                                    <i class="fas fa-edit"></i>
+                                </div>
+                                <h3 class="dashboard-title">تعديل المنتجات</h3>
+                                <p class="dashboard-desc">تعديل أو حذف المنتجات الحالية</p>
+                            </a>
+                            
+                            <a href="./DisplayOrder.html" class="dashboard-item">
+                                <div class="dashboard-icon">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                                <h3 class="dashboard-title">إدارة الطلبات</h3>
+                                <p class="dashboard-desc">عرض وتحديث طلبات العملاء</p>
+                            </a>
+                            
+                            <a href="./DisplayFeedback.html" class="dashboard-item">
+                                <div class="dashboard-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <h3 class="dashboard-title">اراء المستخدمين</h3>
+                                <p class="dashboard-desc">عرض و تحديث فيدباك العملاء</p>
+                            </a>
+                            
+                            <a href="./Dashboard.html" class="dashboard-item">
+                                <div class="dashboard-icon">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                                <h3 class="dashboard-title">التقارير</h3>
+                                <p class="dashboard-desc">عرض تقارير وتحصائيات الموصع</p>
+                            </a>
+                            
+                            <a href="https://docs.google.com/spreadsheets/d/1TAtjWXk-RrSU-omvv4N-a8dgmcsy7-SD7UvJwp5M9O8/edit?usp=drive_link" class="dashboard-item">
+                                <div class="dashboard-icon">
+                                    <i class="fas fa-table"></i>
+                                </div>
+                                <h3 class="dashboard-title">بيانات تسجيل الدخول</h3>
+                                <p class="dashboard-desc">تعديل باسورد ويوزر نيم المديرين </p>
+                            </a>
+                        </div>     
+                                    <button id="logoutButton" class="delete-btn"  style="margin-top: 10px;">  تسجيل الخروج  </button><br>
+
+                    </section>
+
+                </main>
 
         <!--#############################  Footer  ###################################-->
         <div id="Footer"></div> 
@@ -626,11 +630,14 @@
         });
         
         // تسجيل الخروج
-        document.getElementById('logoutBtn').addEventListener('click', function() {
-            if(confirm('هل أنت متأكد من تسجيل الخروج؟')) {
-                // هنا يمكنك إضافة أي تنظيف للجلسة أو localStorage إذا لزم الأمر
-                window.location.href = './clint/UserPages/index.html';
-            }
+        const logoutButton = document.getElementById('logoutButton');
+        logoutButton.addEventListener('click', () => {
+
+            localStorage.removeItem('username');
+            localStorage.removeItem('password');
+            window.location.href = './../../index.html';
+            swal("تم تسجيل الخروج", "تم تسجيل الخروج بنجاح.", "success");
+
         });
         
         // يمكنك إضافة المزيد من الوظائف هنا حسب الحاجة
