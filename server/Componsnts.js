@@ -64,10 +64,6 @@ function loadComponents() {
                         <i class="fas fa-mobile-alt"></i>  تحميل التطبيق للاندرويد 
                     </a>
                 </li>
-                    <a id="download-button" class="download-apk-btn" href="${SidebarPath5}" download >
-                        <i class="fas fa-mobile-alt"></i> تنزيل التطبيق
-                    </a>
-                </ul>
 
             </aside>
         `;
