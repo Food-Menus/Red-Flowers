@@ -419,16 +419,16 @@
             background-color: var(--secondary-color);
         }
 
-        /* Header */
+         /* Header */
         .header {
             background-color: var(--white);
             border-bottom: 1px solid var(--border-color);
             box-shadow: 0 2px 5px var(--shadow-light);
-            padding-bottom: 20px;
-            /* تم تعديل المسافة */
+            padding-bottom: 10px;
             position: relative;
             z-index: 10;
             height: 220px;
+            /* زيادة ارتفاع الهيدر */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -438,8 +438,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 6%;
-            /* تم تعديل البادينج */
+            padding: 15px 5%;
             position: relative;
             flex-grow: 1;
         }
@@ -448,15 +447,13 @@
             background: none;
             border: none;
             color: var(--primary-color);
-            font-size: 37px;
-            /* تم تكبير الأيقونة ليتماشى */
+            font-size: 28px;
             cursor: pointer;
-            padding: 10px;
-            /* تم تعديل البادينج */
+            padding: 5px;
             transition: color 0.3s ease;
             align-self: flex-start;
-            margin-top: 20px;
-            /* تم تعديل المسافة */
+            /* محاذاة زر القائمة الجانبية لأعلى */
+            margin-top: 15px;
         }
 
         .sidebar-toggle:hover {
@@ -472,29 +469,33 @@
             transform: translate(-50%, -50%);
             z-index: 1;
             height: 100%;
+            /* لجعل اللوجو يأخذ الارتفاع كاملًا */
         }
 
         .logo-img {
             width: auto;
-            height: 170px;
-            /* تم تعديل الحجم ليتماشى */
+            /* تغيير من عرض ثابت إلى تلقائي */
+            height: 160px;
+            /* زيادة ارتفاع الصورة */
             object-fit: contain;
+            /* للحفاظ على نسب الصورة */
         }
 
         .logo h1 {
-            font-size: 1.6rem;
-            /* تم تعديل الخط ليتماشى */
+            font-size: 28px;
             color: var(--primary-color);
             margin: 0;
             padding-left: 15px;
+            /* مسافة بين الصورة والنص */
         }
 
         .main-nav {
             text-align: center;
-            padding: 0 6%;
-            /* تم تعديل البادينج */
+            padding: 0 5%;
             position: relative;
             margin-top: auto;
+            z-index: 3;
+            /* لدفع القائمة لأسفل */
         }
 
         .main-nav .menu-toggle {
@@ -502,14 +503,12 @@
             background: none;
             border: none;
             color: var(--primary-color);
-            font-size: 33px;
-            /* تم تكبير الأيقونة ليتماشى */
+            font-size: 28px;
             cursor: pointer;
-            padding: 15px;
-            /* تم تعديل البادينج */
+            padding: 10px;
             position: absolute;
-            top: 10px;
-            left: 6%;
+            top: 5px;
+            left: 5%;
             z-index: 100;
         }
 
@@ -520,16 +519,13 @@
         }
 
         .main-nav ul.nav-links li {
-            margin: 0 18px;
-            /* تم تعديل المسافة */
+            margin: 0 20px;
         }
 
         .main-nav ul.nav-links li a {
             font-weight: bold;
-            font-size: 1.4rem;
-            /* تم تعديل الخط ليتماشى */
-            padding: 12px 0;
-            /* تم تعديل البادينج */
+            font-size: 28px;
+            padding: 8px 0;
             position: relative;
             display: block;
         }
@@ -538,8 +534,7 @@
             content: '';
             position: absolute;
             width: 0;
-            height: 4px;
-            /* تم تعديل السمك ليتماشى */
+            height: 2px;
             background-color: var(--secondary-color);
             bottom: 0;
             left: 0;
