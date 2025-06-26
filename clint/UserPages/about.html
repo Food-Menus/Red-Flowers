@@ -597,6 +597,173 @@
                 margin-right: 180px;
             }
         }
+                /* Media query for even smaller screens (e.g., iPhone 5/SE) to ensure readability */
+        @media (max-width: 480px) {
+            body {
+                font-size: 17px;
+            }
+
+            .floating-cart {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .floating-cart ion-icon {
+                font-size: 26px;
+            }
+
+            .cart-count {
+                width: 22px;
+                height: 22px;
+                font-size: 15px;
+            }
+
+            .notification-text {
+                font-size: 16px;
+            }
+
+            .floating-cart.expanded {
+                width: 170px;
+            }
+
+            .floating-cart.expanded ion-icon {
+                transform: translateX(-50px);
+            }
+
+            @keyframes expand {
+                0% {
+                    width: 50px;
+                }
+
+                100% {
+                    width: 170px;
+                }
+            }
+
+            @keyframes bounce {
+
+                0%,
+                100% {
+                    transform: translateX(-50px) scale(1);
+                }
+
+                50% {
+                    transform: translateX(-50px) scale(1.2);
+                }
+            }
+
+            .add-to-cart-btn {
+                font-size: 1.15rem;
+                padding: 10px 15px;
+            }
+
+            .header {
+                height: 160px;
+            }
+
+            .sidebar-toggle {
+                font-size: 28px;
+            }
+
+            .logo-img {
+                height: 120px;
+            }
+
+            .logo h1 {
+                font-size: 1.15rem;
+            }
+
+            .main-nav ul.nav-links li {
+                margin: 0 10px;
+            }
+
+            .main-nav ul.nav-links li a {
+                font-size: 1.1rem;
+            }
+
+            .sidebar {
+                width: 280px;
+                right: -280px;
+                padding-top: 80px;
+            }
+
+            .sidebar h2 {
+                font-size: 1.5rem;
+            }
+
+            .sidebar ul li a {
+                font-size: 1.1rem;
+                padding: 10px 12px;
+            }
+
+            .promo-box {
+                padding: 15px;
+            }
+
+            .promo-box a {
+                font-size: 1.3rem;
+            }
+
+            .promo-box button {
+                font-size: 1rem;
+                padding: 10px 15px;
+            }
+
+            .hero-section {
+                height: 300px;
+            }
+
+            .slider-text h2 {
+                font-size: 1.25rem;
+            }
+
+            .slider-text p {
+                font-size: 0.95rem;
+            }
+
+            .product-suggestions h2 {
+                font-size: 1.5rem;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .product-item img {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 10 / 10.5;
+            }
+
+            .product-item h3 {
+                font-size: 1.1rem;
+                min-height: 2.2em;
+            }
+
+            .product-item p {
+                font-size: 0.9rem;
+                min-height: 1.6em;
+            }
+
+            .product-item span {
+                font-size: 1.1rem;
+            }
+
+            .footer {
+                padding: 20px 0;
+            }
+
+            .footer p {
+                font-size: 0.95rem;
+            }
+
+            .social-links a {
+                font-size: 24px;
+            }
+        }
     </style>
 </head>
 

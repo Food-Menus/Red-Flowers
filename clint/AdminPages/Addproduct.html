@@ -90,9 +90,11 @@
     <div class="container">
         <h1>إضافة منتج جديد</h1>
         <form id="addProductForm">
+            
+            <!-- تم إزالة حقل معرف المنتج (productID) هنا، سيتم إنشاؤه تلقائيًا -->
 
             <label for="productName">اسم المنتج :</label>
-            <input type="text" id="productName" name="product_Name" required>
+            <input type="text" id="productName" name="product_Name" pattern="^[\u0600-\u06FF\s]+$"  title="يُسمح فقط بإدخال الحروف العربية" required>
 
             <label for="productDetails">تفاصيل المنتج :</label>
             <textarea id="productDetails" name="product_Details" required></textarea>
@@ -148,6 +150,10 @@
             // إضافة حقل 'action' لتحديد نوع العملية (add)
             formData.append('action', 'add');
 
+            // **** التعديل هنا: توليد productID تلقائيًا كأرقام فقط ****
+            const productID = Date.now(); // توليد معرف فريد باستخدام timestamp (أرقام فقط)
+            formData.append('product_ID', productID); // إضافة الـ ID للـ formData
+
             const toBase64 = file => new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
@@ -193,7 +199,9 @@
         if (!username) {
             window.location.href = './Auth.html';
         } else {
-            document.getElementById('username').textContent = username;
+            // لا يوجد عنصر 'username' هنا، لذلك هذا السطر قد يسبب خطأ إذا لم يكن موجودًا
+            // document.getElementById('username').textContent = username; 
+            // إذا كان هناك عنصر لعرض اسم المستخدم، تأكد من وجوده في الـ HTML
         }
         });
     </script>
